@@ -1,15 +1,13 @@
 import axios from 'axios';
 
-export const axiosInstance = () =>{
-	const axiosInstance = axios.create({
-		baseURL: 'https://localhost:3000/graphql',
-	});
+const axiosInstanceOhneHeader = axios.create({
+	baseURL: 'https://localhost:3000/graphql',
+});
 
-	const headers = {
-		'Content-Type': 'application/json',
-		'Accept': '*/*'
-	};
-
-	axiosInstance.defaults.headers.common = headers;
-	return axiosInstance;
+const headers = {
+	'Content-Type': 'application/json',
+	Accept: '*/*',
 };
+
+axiosInstanceOhneHeader.defaults.headers.common = headers;
+export const axiosInstance = axiosInstanceOhneHeader;

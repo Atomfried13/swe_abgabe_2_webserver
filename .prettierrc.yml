@@ -2,7 +2,7 @@ singleQuote: true
 tabWidth: 2
 trailingComma: all
 overrides:
-  - files: ['*.ts', '*.tsx', '*.js', '*.jsx', '*.css']
+  - files: ['*.ts', '*.tsx', '*.js', '*.jsx']
     options:
       tabWidth: 4
       useTabs: true
