@@ -18,6 +18,7 @@ export function App() {
 		try {
 			const headers = {     // noch schauen was man braucht für header 
 	  'Content-Type': 'application/json',
+	  'Accept': '*/*'
 	  };
 	  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 	  const axiosInstance = axios.create({
