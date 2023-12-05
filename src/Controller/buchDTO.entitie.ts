@@ -1,3 +1,1 @@
-export class BuchDTOohneref{
-    
-}
+export class BuchDTOohneref {}
