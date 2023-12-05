@@ -33,7 +33,7 @@ export const mutation = async (buchohneref: BuchDTOohneref) => {
   		}
 		}`,
 	});
-	if (response.error !== null || response.error !== undefined) {
+	if (response === null || response === undefined) {
 		return 'Fehler';
 	}
 	return 'Neues Buch angelegt.';
