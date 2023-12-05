@@ -10,15 +10,15 @@ export const mutation = async (buchohneref: BuchDTOohneref) => {
 		mutation: `   
 		create(
 			input: {
-				isbn: "978-0-321-19368-1",
-      			rating: 1,
-      			art: KINDLE,
-      			preis: 99.99,
-      			rabatt: 0.123,
-      			lieferbar: true,
-      			datum: "2022-01-31",
-      			homepage: "https://create.mutation",
-      			schlagwoerter: ["JAVASCRIPT", "TYPESCRIPT"],
+				isbn: ${buchohneref.isbn},
+      			rating: ${buchohneref.isbn},
+      			art: ${buchohneref.isbn},
+      			preis: ${buchohneref.isbn},
+      			rabatt: ${buchohneref.isbn},
+      			lieferbar: ${buchohneref.isbn},
+      			datum: ${buchohneref.isbn},
+      			homepage: ${buchohneref.isbn},
+      			schlagwoerter: ${buchohneref.isbn},
       			titel: {
        				 titel: "Titelcreatemutation",
         			untertitel: "untertitelcreatemutation"
