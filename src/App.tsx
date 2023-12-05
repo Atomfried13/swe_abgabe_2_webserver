@@ -1,21 +1,11 @@
-import { React } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+//Da muss man nochmal draufschauen, macht beim ganzen HTML nen Fehler.
+/* eslint-disable react/react-in-jsx-scope */
 import './App.css';
 
 function App() {
-	const [count, setCount] = React(0);
 
 	return (
 		<body>
-			<div>
-				<a href="https://vitejs.dev" target="_blank">
-					<img src={viteLogo} className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://react.dev" target="_blank">
-					<img src={reactLogo} className="logo react" alt="React logo" />
-				</a>
-			</div>
 			<h1>Vite + React  Gruppe 4 beste Gruppe</h1>
 			<p>Hier könnte Ihre Werbung stehen!</p>
 			<div className="card">
@@ -24,7 +14,7 @@ function App() {
 				</p>
 			</div>
 			<p className="read-the-docs">
-		Click on the Vite and React logos to learn more
+				Click on the Vite and React logos to learn more
 			</p>
 		</body>
 	);
