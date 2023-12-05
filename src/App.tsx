@@ -8,6 +8,7 @@ function App() {
   const [count, setCount] = useState(0);
   const [error] = useState(null);
   const [data, set] = useState(null);
+  const [id, setId] = useState("1");
 
   const fetch = async () => {
     try {
@@ -19,10 +20,13 @@ function App() {
       });
 
       axiosInstance.defaults.headers.common = headers;
+
+
   
       const response = await axiosInstance.post('baseURL/query', {
+        variables: { id }, //a??
         query: `
-        query ($id: ID! = "1") {
+        query ($id: ID!) {
           buch(id: $id) {
             isbn
             version
@@ -57,6 +61,12 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
+        <h1> Gib ne Id an !!!!!!!!????????</h1>
+          <input
+            type="text"
+             value={id}
+            onChange={(ereignis) => setId(ereignis.target.value)}
+          />
         <div>
           <h2>GraphQL-Daten:</h2>
           {data ? (
