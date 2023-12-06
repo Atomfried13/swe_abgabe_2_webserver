@@ -8,26 +8,29 @@ export const mutation = async (buch: BuchDTO) => {
 			create(
 				input: {
 					isbn: ${buch.isbn},
-					rating: ${buch.rating},
-					art: ${buch.art},
+					${buch.rating? 'rating: ' +  buch.rating + ',' : ''}
+					${buch.art? 'art: ' +  buch.art + ',' : ''}
 					preis: ${buch.preis},
-					rabatt: ${buch.rabatt},
-					lieferbar: ${buch.lieferbar},
-					datum: ${buch.datum?.toString()},
-					homepage: ${buch.homepage},
-					schlagwoerter: ${buch.schlagwoerter?.toString()},
+					${buch.rabatt? 'rabatt: ' +  buch.rabatt + ',' : ''}
+					${buch.lieferbar? 'lieferbar: ' +  buch.lieferbar + ',' : ''}
+					${buch.datum? 'datum:' + buch.datum.toString() + ',': ''}
+					${buch.homepage? 'homepage: ' +  buch.homepage + ',' : ''}
+					${buch.schlagwoerter? 'schlagwoerter: ' +  buch.schlagwoerter.toString() + ',' : ''}
 					titel: {
 						titel: ${buch.titel.titel},
-						untertitel: ${buch.titel.untertitel}
+						${buch.titel.untertitel? 'untertitel: ' +  buch.titel.untertitel + ',' : ''}
 					},
-					${buch.abbildungen === undefined ? '' : 'abbildungen: {[' +
-	//			`"${buch.abbildungen.forEach(abbildung => 'beschriftung:' + abbildung.beschriftung)}"` + ',' +
-	//		`"${buch.abbildungen.forEach(abbildung => 'contentType:' + abbildung.contentType)}"` +
-						']},'},
+					${buch.abbildungen? 'abbildungen: [' +
+						buch.abbildungen.forEach(abbildung => {
+							'{' +
+								'datum:' + abbildung.beschriftung + ',' +
+								'datum:' + abbildung.contentType +
+							'}';
+						}) +
+						'],' : ''},
 				}
 			) {
 				id
-			}
 			}`,
 		});
 	} catch (err: unknown) {
