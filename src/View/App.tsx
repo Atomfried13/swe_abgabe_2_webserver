@@ -7,8 +7,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { useState } from 'react';
 import React from 'react';
-import './App.css';
-import { axiosInstance } from './Controller/getAxiosInstance';
+import './CSS/App.css';
+import { axiosInstance } from '../Controller/getAxiosInstance';
 
 export function App() {
 	const [error] = useState(null);
@@ -50,7 +50,7 @@ export function App() {
 			<input
            		type="number"
            		value={id}
-           	 	onChange={(ereignis) => setId(ereignis.target.value)}
+           	 		onChange={(ereignis) => setId(ereignis.target.value)}
 			/>
 			<div>
 		  		<h2>GraphQL-Daten:</h2>
