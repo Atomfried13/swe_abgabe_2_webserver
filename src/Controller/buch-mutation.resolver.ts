@@ -1,29 +1,29 @@
-import { BuchDTOohneref } from './buchDTO.entitie';
+import { BuchDTO } from '../Model/buchDTO.entitie';
 import { axiosInstance } from './getAxiosInstance';
 
-export const mutation = async (buchohneref: BuchDTOohneref) => {
+export const mutation = async (buch: BuchDTO) => {
 	try{
 		await axiosInstance.post('baseURL/graphql', {
 			mutation: `   
 			create(
 				input: {
-					isbn: ${buchohneref.isbn},
-					rating: ${buchohneref.isbn},
-					art: ${buchohneref.isbn},
-					preis: ${buchohneref.isbn},
-					rabatt: ${buchohneref.isbn},
-					lieferbar: ${buchohneref.isbn},
-					datum: ${buchohneref.isbn},
-					homepage: ${buchohneref.isbn},
-					schlagwoerter: ${buchohneref.isbn},
+					isbn: ${buch.isbn},
+					rating: ${buch.rating},
+					art: ${buch.art},
+					preis: ${buch.preis},
+					rabatt: ${buch.rabatt},
+					lieferbar: ${buch.lieferbar},
+					datum: ${buch.datum?.toString()},
+					homepage: ${buch.homepage},
+					schlagwoerter: ${buch.schlagwoerter?.toString()},
 					titel: {
-						titel: "Titelcreatemutation",
-						untertitel: "untertitelcreatemutation"
+						titel: ${buch.titel.titel},
+						untertitel: ${buch.titel.untertitel}
 					},
-					abbildungen: [{
-					beschriftung: "Abb. 1",
-					contentType: "img/png"
-					}]
+					${buch.abbildungen === undefined ? '' : 'abbildungen: {[' +
+	//			`"${buch.abbildungen.forEach(abbildung => 'beschriftung:' + abbildung.beschriftung)}"` + ',' +
+	//		`"${buch.abbildungen.forEach(abbildung => 'contentType:' + abbildung.contentType)}"` +
+						']},'},
 				}
 			) {
 				id
