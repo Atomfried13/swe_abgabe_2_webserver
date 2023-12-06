@@ -1,39 +1,40 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { BuchDTOohneref } from './buchDTO.entitie';
-import axios from 'axios';
+import { axiosInstance } from './getAxiosInstance';
 
-export class WriteController {
-	
-	const axiosInstance = axios.create({
-		baseURL: 'https://localhost:3000/graphql',
+export const mutation = async (buchohneref: BuchDTOohneref) => {
+	const response = await axiosInstance.post('baseURL/graphql', {
+		mutation: `   
+		create(
+			input: {
+				isbn: ${buchohneref.isbn},
+      			rating: ${buchohneref.isbn},
+      			art: ${buchohneref.isbn},
+      			preis: ${buchohneref.isbn},
+      			rabatt: ${buchohneref.isbn},
+      			lieferbar: ${buchohneref.isbn},
+      			datum: ${buchohneref.isbn},
+      			homepage: ${buchohneref.isbn},
+      			schlagwoerter: ${buchohneref.isbn},
+      			titel: {
+       				 titel: "Titelcreatemutation",
+        			untertitel: "untertitelcreatemutation"
+      			},
+      			abbildungen: [{
+        		beschriftung: "Abb. 1",
+        		contentType: "img/png"
+     			}]
+    		}
+  		) {
+      		id
+  		}
+		}`,
 	});
-
-	const headers = {
-		'Content-Type': 'application/json',
-		'Content-Length': 'calculated when request is sent',
-		'Host': 'calculated when request is sent',
-		'Accept': '*/*',
-		'Accept-Encoding': 'gzip, deflate, br',
-		'Connection': 'keep-alive',
-	};
-
-	construktor(){
-
+	if (response === null || response === undefined) {
+		return 'Fehler';
 	}
-	
-	async post(buchohneref: BuchDTOohneref){
-		axiosInstance.defaults.headers.common = headers;
-		const response = await axiosInstance.post('baseURL/graphql', {
-		   mutation: `
-			  query GetBookData {
-				book {
-				  isbn
-				}
-			  }
-			`,
-		})
-		if(response.error !== null || response.error !== undefined) {
-		  return response.error.message;
-		}
-		return "Neues Buch angelegt.";
-	}
-}
+	return 'Neues Buch angelegt.';
+};

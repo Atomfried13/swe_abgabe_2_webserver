@@ -1,10 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable react/react-in-jsx-scope */
+import react from 'react';
+import reactDOM from 'react-dom/client';
+import { App } from './App.tsx';
 import './index.css';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>,
+reactDOM.createRoot(document.getElementById('root')!).render(
+	<react.StrictMode>
+		<App/>
+	</react.StrictMode>,
 );
