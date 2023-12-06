@@ -13,6 +13,7 @@ import './App.css';
 export function App() {
 	const [error] = useState(null);
 	const [data, set] = useState(null);
+	const [id, setId] = useState("1");
 
 	const fetch = async () => {
 		try {
@@ -28,20 +29,21 @@ export function App() {
 	  axiosInstance.defaults.headers.common = headers;
   
 	  const response = await axiosInstance.post('baseURL/query', {
-				query: `
-		query ($id: ID! = "1") {
-		  buch(id: $id) {
-			isbn
-			version
-			art
-			rabatt(short: true)
-			titel {
-			  titel
-			}
-		  }
-		}
-		`,
-	  });
+        variables: { id }, //a??
+        query: `
+        query ($id: ID!) {
+          buch(id: $id) {
+            isbn
+            version
+            art
+            rabatt(short: true)
+            titel {
+              titel
+            }
+          }
+        }
+        `,
+      });
   
 	  set(response.data);
 		} catch (err: unknown) {
@@ -56,11 +58,21 @@ export function App() {
 		<><div>
 			<h1>Vite + React Gruppe 4 beste Gruppe</h1>
 			<h2>GraphQL-Daten:</h2>
-			{data ? (
-				<pre>{JSON.stringify(data, null, 1)}</pre>
-			) : (
-				<p>Error: {error}</p>
-			)}
+			<h1> Gib ne Id an !!!!!!!!????????</h1>
+          <input
+            type="text"
+             value={id}
+            onChange={(ereignis) => setId(ereignis.target.value)}
+          />
+        <div>
+          <h2>GraphQL-Daten:</h2>
+          {data ? (
+            <pre>{JSON.stringify(data, null, 1)}</pre>
+          ) : (
+            <p>Error: {error}</p>
+          )}
+        </div>
+
 	  		<p>Edit <code>src/App.js</code> and save to test HMR</p>
 		</div></>
 	);
