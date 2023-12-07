@@ -5,8 +5,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { useState } from 'react';
-import React from 'react';
+import React, { useState } from 'react';
 import './CSS/App.css';
 import { axiosInstance } from '../Controller/getAxiosInstance';
 
