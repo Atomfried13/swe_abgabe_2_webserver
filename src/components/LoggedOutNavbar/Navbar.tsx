@@ -1,11 +1,11 @@
-import Container from 'react-bootstrap/Container';
 import React from 'react';
+import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import './navbar.css';
 import Button from 'react-bootstrap/Button';
 
-function BasicExample() {
+const LoggedOutNavbar = () => {
 	return (
 		<Navbar expand="lg">
 			<Container>
@@ -13,8 +13,8 @@ function BasicExample() {
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="me-auto">
-						<Nav.Link href="#Home">HOME</Nav.Link>
-						<Nav.Link href="#Suche">Buch Suchen</Nav.Link>
+						<Nav.Link href="#Home">Home</Nav.Link>
+						<Nav.Link href="#BuchSuchen">Buch Suchen</Nav.Link>
 					</Nav>
 					<Nav>
 						<Button className="login-btn">Login</Button>
@@ -23,6 +23,6 @@ function BasicExample() {
 			</Container>
 		</Navbar>
 	);
-}
+};
 
-export default BasicExample;
+export default LoggedOutNavbar;
