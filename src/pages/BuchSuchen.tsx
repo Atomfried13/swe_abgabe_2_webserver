@@ -8,6 +8,7 @@ import { axiosInstance } from '../Controller/getAxiosInstance';
 const BuchSuchen = () => {
 	const [data, set] = useState(null);
 	const [titel, setTitel] = useState('');
+	const [showTable, setShowTable] = useState(false);
 	
 	const fetchTitel = async () => {
 		try {
@@ -29,6 +30,7 @@ const BuchSuchen = () => {
 		`,
 			});
 			set(response.data);
+			setShowTable(true);
 			console.log(response.data);
 		} catch (err: unknown) {
 			console.log('Fehler, genauere Fehlermeldung noch nicht vorhanden, schaue in die Konsole des Browsers');
@@ -53,6 +55,7 @@ const BuchSuchen = () => {
 			</Form>
 			<Button onClick={handleSearchClick_Titel} className="suchen-btn">Suchen</Button>
 		</div>
+		{showTable && data &&
 		<Table striped bordered hover>
 			<thead>
 				<tr>
@@ -74,7 +77,7 @@ const BuchSuchen = () => {
 					</tr>
 				))}
 			</tbody>
-		</Table></>
+		</Table>}</>
 	);
 };
 
