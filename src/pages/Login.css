@@ -1,0 +1,32 @@
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.eingabe-benutzername-form {
+    width: 300px;
+}
+
+.eingabe-passwort-form {
+    width: 300px;
+    margin-top: 30px; 
+}
+
+.eingabe-benutzername-form label,
+.eingabe-passwort-form label {
+  font-weight: bold;
+}
+
+.anmelden-btn {
+    background-color: black;
+    border: none;
+}
+
+.anmelden-btn:hover {
+    background-color: #00c27b;
+}
+
+.button-container {
+    margin-top: 30px; 
+  }
