@@ -1,8 +1,11 @@
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { Form, Button, InputGroup } from 'react-bootstrap';
 import './Login.css';
+import {useState} from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 const Login = () => {
+	const [showPassword, setShowPassword] = useState(false);
 	return (
 		<div className="form-container">
 			<Form>
@@ -12,7 +15,12 @@ const Login = () => {
 				</Form.Group>
 				<Form.Group className = "eingabe-passwort-form">
 					<Form.Label htmlFor="EingabePasswort">Passwort</Form.Label>
-					<Form.Control type="passwort" id="EingabePasswort"/>
+					<InputGroup>
+						<Form.Control type= {showPassword ? 'text' : 'password'} id="EingabePasswort"/>
+						<Button onClick={() => setShowPassword(!showPassword)}>
+							{showPassword ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
+						</Button>
+					</InputGroup>
 				</Form.Group>
 				<div className="button-container">
 					<Button className="anmelden-btn">Anmelden</Button>
