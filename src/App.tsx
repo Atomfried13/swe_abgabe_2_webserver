@@ -2,8 +2,10 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoggedOutNavbar from './components/LoggedOutNavbar/Navbar';
-import BuchSuchen from './pages/BuchSuchen';
-import Login from './pages/Login';
+import LoggedInNavbar from './components/LoggedInNavbar/Navbar';
+import BuchSuchen from './pages/BuchSuchen/BuchSuchen';
+import Login from './pages/Login/Login';
+import NeuesBuch from './pages/NeuesBuch/NeuesBuch';
 import Einloggen from './pages/auth.service';
 
 function App() {
@@ -27,12 +29,8 @@ function App() {
 
 	return (
 		<div>
-			<BuchSuchen />
-			<LoggedOutNavbar onLoginClick={openLoginModal} />
-			{isLoginModalOpen && <Login onLogin={Einloggenclick} onClose={closeLoginModal} />}
-			<div className="login-status">
-				{isLoggedIn ? 'Erfolgreich eingeloggt!' : 'Fehler beim Einloggen.'}
-			</div>
+			<LoggedInNavbar/>
+			<NeuesBuch/>
 		</div>
 	);
 }
