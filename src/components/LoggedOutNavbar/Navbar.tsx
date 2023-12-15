@@ -1,3 +1,4 @@
+//navbar
 import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -5,7 +6,11 @@ import Navbar from 'react-bootstrap/Navbar';
 import './navbar.css';
 import Button from 'react-bootstrap/Button';
 
-const LoggedOutNavbar = () => {
+interface LoggedOutNavbarClick {
+	onLoginClick: () => void;
+  }
+
+const LoggedOutNavbar= ({ onLoginClick }: LoggedOutNavbarClick) => {
 	return (
 		<Navbar expand="lg">
 			<Container>
@@ -17,7 +22,7 @@ const LoggedOutNavbar = () => {
 						<Nav.Link href="#BuchSuchen">Buch Suchen</Nav.Link>
 					</Nav>
 					<Nav>
-						<Button className="login-btn">Login</Button>
+						<Button className="login-btn"onClick={onLoginClick}>Login</Button>
 					</Nav>
 				</Navbar.Collapse>
 			</Container>
