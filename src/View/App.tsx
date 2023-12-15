@@ -19,10 +19,10 @@ export function App() {
 	const [id, setId] = useState('');
 	const [titel, setTitel] = useState('');
 
-	// eslint-disable-next-line @typescript-eslint/no-floating-promises
 	const handleSearchClickId = async () => {
 		set(await fetchId(id));
 	};
+
 	const handleSearchClickTitel = async () => {
 		set(await fetchTitel(titel));
 	};
@@ -61,6 +61,4 @@ export function App() {
 			</div>
 		</>
 	);
-
-	// https://reactiongifs.me/cdn-cgi/imagedelivery/S36QsAbHn6yI9seDZ7V8aA/873351b1-6da2-40c8-3615-6cb882440a00/w=386
 }
