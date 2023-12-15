@@ -5,7 +5,11 @@ import Navbar from 'react-bootstrap/Navbar';
 import './navbar.css';
 import Button from 'react-bootstrap/Button';
 
-const LoggedOutNavbar = () => {
+interface Props {
+	handleLogin: () => void;
+  }
+
+const LoggedOutNavbar = ( { handleLogin }: Props) => {
 	return (
 		<Navbar expand="lg">
 			<Container>
@@ -17,7 +21,7 @@ const LoggedOutNavbar = () => {
 						<Nav.Link href="#BuchSuchen">Buch Suchen</Nav.Link>
 					</Nav>
 					<Nav>
-						<Button className="login-btn">Login</Button>
+						<Button onClick={handleLogin} className="login-btn">Login</Button>
 					</Nav>
 				</Navbar.Collapse>
 			</Container>
