@@ -1,0 +1,17 @@
+.infos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 300px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.suchen-btn {
+    background-color: black;
+    border: none;
+}
+
+.suchen-btn:hover {
+    background-color: black;
+}
