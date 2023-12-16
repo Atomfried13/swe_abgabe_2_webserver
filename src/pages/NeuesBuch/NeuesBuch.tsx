@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { Form, Button } from 'react-bootstrap';
 import './NeuesBuch.css';
 
-const NeuesBuch = () => {
+export function NeuesBuch(){
 	const [isbn, setISBN] = useState('');
 	const [titel, setTitel] = useState('');
 	const [preis, setPreis] = useState('');
@@ -63,5 +62,4 @@ const NeuesBuch = () => {
 			</Form>
 		</div>
 	);
-};
-export default NeuesBuch;
+}

@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { axiosInstance } from '../Controller/getAxiosInstance';
 
-const Einloggen = async (username: string, password: string): Promise<boolean> => {
+export async function Einloggen(username: string, password: string): Promise<boolean> {
 	const loginGraphQL = async (): Promise<string> => {
 		
 		try {
@@ -34,5 +34,4 @@ const Einloggen = async (username: string, password: string): Promise<boolean> =
 		console.error('Fehler beim Einloggen:', error);
 		return false;
 	}
-};
-export default Einloggen;
+}

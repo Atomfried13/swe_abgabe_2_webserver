@@ -10,7 +10,7 @@ interface LoginProps {
 	onClose: () => void;
   }
   
-const Login = ({ onLogin, onClose }: LoginProps) => {
+export function Login({ onLogin, onClose }: LoginProps) {
 	const [showPassword, setShowPassword] = useState(false);
   
 	const handleLogin = async () => {
@@ -49,5 +49,4 @@ const Login = ({ onLogin, onClose }: LoginProps) => {
 		</div>
 	);
 
-};
-export default Login;
+}

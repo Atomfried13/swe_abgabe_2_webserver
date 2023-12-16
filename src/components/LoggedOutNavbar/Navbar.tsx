@@ -1,5 +1,4 @@
 //navbar
-import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -10,7 +9,7 @@ interface LoggedOutNavbarClick {
 	onLoginClick: () => void;
   }
 
-const LoggedOutNavbar= ({ onLoginClick }: LoggedOutNavbarClick) => {
+export function LoggedOutNavbar({ onLoginClick }: LoggedOutNavbarClick) {
 	return (
 		<Navbar expand="lg">
 			<Container>
@@ -28,6 +27,4 @@ const LoggedOutNavbar= ({ onLoginClick }: LoggedOutNavbarClick) => {
 			</Container>
 		</Navbar>
 	);
-};
-
-export default LoggedOutNavbar;
+}

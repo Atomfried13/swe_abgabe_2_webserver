@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
+import { useState } from 'react';
+import { Form, Button, Table } from 'react-bootstrap';
 import './BuchSuchen.css';
 import { axiosInstance } from '../../Controller/getAxiosInstance';
 
-const BuchSuchen = () => {
+export function BuchSuchen(){
 	const [data, set] = useState(null);
 	const [titel, setTitel] = useState('');
 	const [showTable, setShowTable] = useState(false);
@@ -79,6 +77,4 @@ const BuchSuchen = () => {
 			</tbody>
 		</Table>}</>
 	);
-};
-
-export default BuchSuchen;
+}

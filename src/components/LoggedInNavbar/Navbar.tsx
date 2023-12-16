@@ -1,4 +1,3 @@
-import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -9,7 +8,7 @@ interface Props {
 	handleLogout: () => void;
   }
 
-const LoggedInNavbar = ({ handleLogout }: Props) => {
+export function LoggedInNavbar ({ handleLogout }: Props) {
 	return (
 		<Navbar expand="lg">
 			<Container>
@@ -28,6 +27,4 @@ const LoggedInNavbar = ({ handleLogout }: Props) => {
 			</Container>
 		</Navbar>
 	);
-};
-
-export default LoggedInNavbar;
+}

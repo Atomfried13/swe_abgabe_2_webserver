@@ -1,14 +1,14 @@
 //app
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import LoggedOutNavbar from './components/LoggedOutNavbar/Navbar';
-import LoggedInNavbar from './components/LoggedInNavbar/Navbar';
-import BuchSuchen from './pages/BuchSuchen/BuchSuchen';
-import Login from './pages/Login/Login';
-import NeuesBuch from './pages/NeuesBuch/NeuesBuch';
-import Einloggen from './pages/auth.service';
+import { LoggedOutNavbar } from './components/LoggedOutNavbar/Navbar';
+import { LoggedInNavbar } from './components/LoggedInNavbar/Navbar';
+import { BuchSuchen } from './pages/BuchSuchen/BuchSuchen';
+import { Login } from './pages/Login/Login';
+import { NeuesBuch } from './pages/NeuesBuch/NeuesBuch';
+import { Einloggen } from './pages/auth.service';
 
-function App() {
+export function App() {
 	const [isLoginModalOpen, setLoginModalOpen] = useState(false);
 
 	const openLoginModal = () => {
@@ -34,5 +34,3 @@ function App() {
 		</div>
 	);
 }
-
-export default App;
