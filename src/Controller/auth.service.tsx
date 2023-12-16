@@ -3,14 +3,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { AxiosResponse } from 'axios';
-import { axiosInstance } from '../Controller/getAxiosInstance';
+import { axiosInstance } from './getAxiosInstance';
 
 export let token: string;
 
-export async function Einloggen(
-	username: string,
-	password: string,
-): Promise<boolean> {
+export async function Einloggen(username: string, password: string) {
 	const loginGraphQL = async (): Promise<string> => {
 		try {
 			const response: AxiosResponse = await axiosInstance.post(
@@ -30,7 +27,7 @@ export async function Einloggen(
 				},
 			);
 			const data = response.data.data!;
-			const token = data.login.token;
+			token = data.login.token;
 			return token;
 		} catch (error: unknown) {
 			throw new Error('Fehler beim GraphQL-Login');
@@ -38,7 +35,7 @@ export async function Einloggen(
 	};
 
 	try {
-		token = await loginGraphQL();
+		await loginGraphQL();
 		console.log('Erfolgreich eingeloggt! Token:', token);
 		return true;
 	} catch (error) {
