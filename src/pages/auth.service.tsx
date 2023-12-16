@@ -1,33 +1,44 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { AxiosResponse } from 'axios';
 import { axiosInstance } from '../Controller/getAxiosInstance';
 
-export async function Einloggen(username: string, password: string): Promise<boolean> {
+export let token: string;
+
+export async function Einloggen(
+	username: string,
+	password: string,
+): Promise<boolean> {
 	const loginGraphQL = async (): Promise<string> => {
-		
 		try {
-			const response: AxiosResponse = await axiosInstance.post('baseURL/', {
-				variables: { username, password }, 
-				query: `
-			mutation {
-			  login(
-				username: "${username}",
-				password: "${password}"
-			  ) {
-				token
-			  }
-			}
-		  `,
-			});
+			const response: AxiosResponse = await axiosInstance.post(
+				'baseURL/',
+				{
+					variables: { username, password },
+					query: `
+						mutation {
+							login(
+								username: "${username}",
+								password: "${password}"
+							) {
+								token
+							}
+						}
+					`,
+				},
+			);
 			const data = response.data.data!;
 			const token = data.login.token;
 			return token;
-		} catch (error) {
-			throw new Error('Fehler beim GraphQL-Login: ' + error.message);
+		} catch (error: unknown) {
+			throw new Error('Fehler beim GraphQL-Login');
 		}
 	};
 
 	try {
-		const token = await loginGraphQL();
+		token = await loginGraphQL();
 		console.log('Erfolgreich eingeloggt! Token:', token);
 		return true;
 	} catch (error) {

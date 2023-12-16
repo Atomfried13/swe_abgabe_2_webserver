@@ -6,14 +6,14 @@ import Button from 'react-bootstrap/Button';
 
 interface Props {
 	handleLogout: () => void;
-  }
+}
 
-export function LoggedInNavbar ({ handleLogout }: Props) {
+export function LoggedInNavbar({ handleLogout }: Props) {
 	return (
 		<Navbar expand="lg">
 			<Container>
 				<Navbar.Brand href="#Home">Buch360</Navbar.Brand>
-				<Navbar.Toggle aria-controls="basic-navbar-nav"/>
+				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="me-auto">
 						<Nav.Link href="#Home">Home</Nav.Link>
@@ -21,7 +21,9 @@ export function LoggedInNavbar ({ handleLogout }: Props) {
 						<Nav.Link href="#NeuesBuch">Neues Buch</Nav.Link>
 					</Nav>
 					<Nav>
-						<Button onClick={handleLogout} className="logout-btn">Logout</Button>
+						<Button onClick={handleLogout} className="logout-btn">
+							Logout
+						</Button>
 					</Nav>
 				</Navbar.Collapse>
 			</Container>

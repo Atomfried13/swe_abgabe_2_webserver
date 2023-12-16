@@ -5,10 +5,10 @@ export type BuchArt = 'DRUCKAUSGABE' | 'KINDLE';
 
 export class BuchDTO {
 	readonly isbn!: string;
-	readonly rating: number | undefined;
+	readonly rating: string | undefined;
 	readonly art: BuchArt | undefined;
-	readonly preis!: number;
-	readonly rabatt: number | undefined;
+	readonly preis!: string;
+	readonly rabatt: string | undefined;
 	readonly lieferbar: boolean | undefined;
 	readonly datum: Date | string | undefined;
 	readonly homepage: string | undefined;

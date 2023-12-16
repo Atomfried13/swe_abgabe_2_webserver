@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 
 interface LoggedOutNavbarClick {
 	onLoginClick: () => void;
-  }
+}
 
 export function LoggedOutNavbar({ onLoginClick }: LoggedOutNavbarClick) {
 	return (
@@ -21,7 +21,9 @@ export function LoggedOutNavbar({ onLoginClick }: LoggedOutNavbarClick) {
 						<Nav.Link href="#BuchSuchen">Buch Suchen</Nav.Link>
 					</Nav>
 					<Nav>
-						<Button className="login-btn"onClick={onLoginClick}>Login</Button>
+						<Button className="login-btn" onClick={onLoginClick}>
+							Login
+						</Button>
 					</Nav>
 				</Navbar.Collapse>
 			</Container>

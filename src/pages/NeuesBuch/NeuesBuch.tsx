@@ -1,6 +1,10 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable eslint-comments/no-duplicate-disable */
 /* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable eslint-comments/no-duplicate-disable */
+/* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable eslint-comments/no-duplicate-disable */
@@ -11,15 +15,41 @@
 import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import './NeuesBuch.css';
+import { mutation } from '../../Controller/buch-mutation';
+import { token } from '../auth.service';
 
 export function NeuesBuch() {
 	const [isbn, setISBN] = useState('');
 	const [titel, setTitel] = useState('');
-	const [preis, setPreis] = useState('');
 	const [rabatt, setRabatt] = useState('');
+	const [rating, setRating] = useState(undefined);
+	const [art, setArt] = useState(undefined);
+	const [preis, setPreis] = useState('');
+	const [lieferbar, setLieferbar] = useState(false);
+	const [datum, setDatum] = useState(undefined);
+	const [homepage, setHomepage] = useState('');
+	const [schlagwoerter, setSchlagwoerter] = useState(undefined);
 
-	const handleCreateClick = () => {
-		//Methode aufrufen mit der ein HTTP Request an die GraphQL Schnittstelle zum Neuanlegen gemacht wird
+	const handleCreateClick = async () => {
+		await mutation(
+			{
+				isbn: isbn,
+				rating: rating,
+				art: art,
+				preis: preis,
+				rabatt: rabatt,
+				lieferbar: lieferbar,
+				datum: datum,
+				homepage: homepage,
+				schlagwoerter: schlagwoerter,
+				titel: {
+					titel: titel,
+					untertitel: undefined,
+				},
+				abbildungen: undefined,
+			},
+			token,
+		);
 	};
 
 	return (
