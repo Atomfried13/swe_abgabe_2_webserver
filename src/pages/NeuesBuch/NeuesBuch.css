@@ -1,0 +1,34 @@
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+form label {
+    font-weight: bold;
+}
+  
+form > * {
+    margin-bottom: 15px; 
+    width: 500px;
+}
+
+.neuanlegen-btn {
+    background-color: black;
+    border: none;
+}
+
+.neuanlegen-btn:hover {
+    background-color: #00c27b;
+}
+
+.infos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

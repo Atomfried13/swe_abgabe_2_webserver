@@ -109,5 +109,6 @@ module.exports = {
 		'max-statements': ['error', {
 			max: 25
 		}],
+		'react/react-in-jsx-scope': 'off'
 	}
 };

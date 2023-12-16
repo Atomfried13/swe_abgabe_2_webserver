@@ -1,0 +1,32 @@
+.navbar {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+.navbar-brand {
+    font-size: 20px;
+    font-weight: bold;
+}
+.navbar-nav {
+    margin-left: 20px;
+    font-weight: bold;
+    font-size: 16px;
+}
+  
+.nav-link {
+    padding: 8px 15px;
+    margin-right: 30px;
+    border: none;
+    border-radius: 4px;
+    color: black; 
+}
+
+.login-btn {
+    background-color: black;
+    padding: 10px 30px;
+    border: none;
+}
+
+.login-btn:hover {
+    background-color: #00c27b;
+}
+
+ 
