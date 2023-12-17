@@ -10,12 +10,12 @@
 import { Key, useState } from 'react';
 import { Form, Button, Table } from 'react-bootstrap';
 import './BuchSuchen.css';
-import { BuchDTO } from '../../Model/buchDTO.entitie';
 import { fetchTitel } from '../../Controller/buch-query';
 
 export function BuchSuchen() {
 	const [data, set] = useState(null);
 	const [titel, setTitel] = useState('');
+	const [id, setId] = useState('');
 	const [showTable, setShowTable] = useState(false);
 
 	const handleSearchClickTitel = async () => {
@@ -33,15 +33,24 @@ export function BuchSuchen() {
 					>
 						<Form.Control
 							type="suchkriterien"
+							placeholder="Suche anhand der ID..."
+							value={id}
+							onChange={(event) => setId(event.target.value)}
+						/>
+						<Form.Control
+							type="suchkriterien"
 							placeholder="Suche anhand des Titels..."
 							value={titel}
 							onChange={(event) => setTitel(event.target.value)}
 						/>
 					</Form.Group>
+					<Button
+						onClick={handleSearchClickTitel}
+						className="suchen-btn"
+					>
+						Suchen
+					</Button>
 				</Form>
-				<Button onClick={handleSearchClickTitel} className="suchen-btn">
-					Suchen
-				</Button>
 			</div>
 			{showTable && data && (
 				<Table striped bordered hover>
@@ -55,7 +64,7 @@ export function BuchSuchen() {
 						</tr>
 					</thead>
 					<tbody>
-						{data?.data.buecher.map((buch: BuchDTO, index: Key) => (
+						{data?.data.buecher.map((buch, index?: Key) => (
 							<tr key={index}>
 								<td>{index + 1}</td>
 								<td>{buch.titel?.titel}</td>

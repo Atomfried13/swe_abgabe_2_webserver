@@ -16,7 +16,7 @@ import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import './NeuesBuch.css';
 import { mutation } from '../../Controller/buch-mutation';
-import { token } from '../auth.service';
+import { token } from '../../Controller/auth.service';
 
 export function NeuesBuch() {
 	const [isbn, setISBN] = useState('');

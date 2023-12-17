@@ -1,19 +1,14 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-//import React, { useState } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import './Login.css';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { Einloggen } from '../../Controller/auth.service';
 
-interface LoginProps {
-	onLogin: (username: string, password: string) => Promise<void>;
-	onClose: () => void;
-}
-
-export function Login({ onLogin, onClose }: LoginProps) {
+export function Login() {
 	const [showPassword, setShowPassword] = useState(false);
+	const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
 
 	const handleLogin = async () => {
 		const usernameInput = document.getElementById(
@@ -22,11 +17,11 @@ export function Login({ onLogin, onClose }: LoginProps) {
 		const passwordInput = document.getElementById(
 			'EingabePasswort',
 		) as HTMLInputElement;
-		const username = usernameInput.value; // lieber mit react hooks machen, noch ändern!!!
-		const password = passwordInput.value;
+		setUsername(usernameInput.value);
+		setPassword(passwordInput.value);
 
 		try {
-			await onLogin(username, password);
+			await Einloggen(username, password);
 		} catch (error) {
 			console.error('Fehler beim Einloggen:', error);
 		}
@@ -63,7 +58,6 @@ export function Login({ onLogin, onClose }: LoginProps) {
 					<Button className="anmelden-btn" onClick={handleLogin}>
 						Anmelden
 					</Button>
-					<Button onClick={onClose}>Abbrechen</Button>
 				</div>
 			</Form>
 		</div>
