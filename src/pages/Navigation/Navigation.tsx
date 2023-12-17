@@ -4,7 +4,7 @@ import { LoggedOutNavbar } from './LoggedOutNavbar/Navbar';
 import { token } from '../../Controller/auth.service';
 
 export function Nav() {
-	if (token !== undefined) {
+	if (token === undefined) {
 		return (
 			<>
 				<LoggedOutNavbar

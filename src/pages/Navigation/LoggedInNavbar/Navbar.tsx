@@ -30,9 +30,14 @@ export function LoggedInNavbar({ handleLogout }: Props) {
 						</LinkContainer>
 					</Nav>
 					<Nav>
-						<Button onClick={handleLogout} className="logout-btn">
-							Logout
-						</Button>
+						<LinkContainer to="/NeuesBuch">
+							<Button
+								onClick={handleLogout}
+								className="logout-btn"
+							>
+								Logout
+							</Button>
+						</LinkContainer>
 					</Nav>
 				</Navbar.Collapse>
 			</Container>
