@@ -1,12 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import './navbar.css';
 import Button from 'react-bootstrap/Button';
-import LinkContainer from 'react-router-bootstrap';
-import { NavLink } from 'react-router-dom';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 
 interface Props {
 	handleLogout: () => void;
@@ -16,7 +13,9 @@ export function LoggedInNavbar({ handleLogout }: Props) {
 	return (
 		<Navbar expand="lg">
 			<Container>
-				<Navbar.Brand href="#Home">Buch360</Navbar.Brand>
+				<LinkContainer to="/">
+					<Navbar.Brand>Buch360</Navbar.Brand>
+				</LinkContainer>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="me-auto">
@@ -27,9 +26,7 @@ export function LoggedInNavbar({ handleLogout }: Props) {
 							<Nav.Link>Buch Suchen</Nav.Link>
 						</LinkContainer>
 						<LinkContainer to="/NeuesBuch">
-							<Nav.Link to="/NeuesBuch" as={NavLink}>
-								Neues Buch
-							</Nav.Link>
+							<Nav.Link>Neues Buch</Nav.Link>
 						</LinkContainer>
 					</Nav>
 					<Nav>
