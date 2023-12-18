@@ -11,6 +11,7 @@ export function Login() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [loginSuccess, setLoginSuccess] = useState<boolean | null>(null);
+	const [formVisible, setFormVisible] = useState(true);
 
 	const handleLogin = async () => {
 		const usernameInput = document.getElementById(
@@ -23,16 +24,18 @@ export function Login() {
 		setPassword(passwordInput.value);
 
 		try {
-			await Einloggen(username, password);
-			setLoginSuccess(true);
+			const erfolg = await Einloggen(username, password);
+			setLoginSuccess(erfolg);
+			if (erfolg) {
+				setFormVisible(false);
+			}
 		} catch (error) {
 			console.error('Fehler beim Einloggen:', error);
-			setLoginSuccess(false);
 		}
 	};
 	return (
 		<div className="form-container">
-			<Form>
+			<Form className={formVisible ? '' : 'hidden'}>
 				<Form.Group className="eingabe-benutzername-form">
 					<Form.Label htmlFor="EingabeBenutzername">
 						Benutzername
@@ -63,18 +66,18 @@ export function Login() {
 						Anmelden
 					</Button>
 				</div>
-				{loginSuccess !== null && (
-					<div
-						className={
-							loginSuccess ? 'success-message' : 'error-message'
-						}
-					>
-						{loginSuccess
-							? 'Erfolgreich eingeloggt!'
-							: 'Fehler beim Einloggen'}
-					</div>
-				)}
 			</Form>
+			{loginSuccess !== null && (
+				<div
+					className={
+						loginSuccess ? 'success-message' : 'error-message'
+					}
+				>
+					{loginSuccess
+						? 'Erfolgreich eingeloggt!'
+						: 'Fehler beim Einloggen'}
+				</div>
+			)}
 		</div>
 	);
 }
