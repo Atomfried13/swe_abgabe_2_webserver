@@ -5,10 +5,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Einloggen } from '../../Controller/auth.service';
 
+// eslint-disable-next-line max-lines-per-function
 export function Login() {
 	const [showPassword, setShowPassword] = useState(false);
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const [loginSuccess, setLoginSuccess] = useState<boolean | null>(null);
 
 	const handleLogin = async () => {
 		const usernameInput = document.getElementById(
@@ -22,8 +24,10 @@ export function Login() {
 
 		try {
 			await Einloggen(username, password);
+			setLoginSuccess(true);
 		} catch (error) {
 			console.error('Fehler beim Einloggen:', error);
+			setLoginSuccess(false);
 		}
 	};
 	return (
@@ -59,6 +63,17 @@ export function Login() {
 						Anmelden
 					</Button>
 				</div>
+				{loginSuccess !== null && (
+					<div
+						className={
+							loginSuccess ? 'success-message' : 'error-message'
+						}
+					>
+						{loginSuccess
+							? 'Erfolgreich eingeloggt!'
+							: 'Fehler beim Einloggen'}
+					</div>
+				)}
 			</Form>
 		</div>
 	);
