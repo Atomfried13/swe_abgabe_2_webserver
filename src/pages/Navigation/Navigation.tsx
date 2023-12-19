@@ -23,7 +23,7 @@ export function Nav() {
 				<LoggedInNavbar handleLogout={handleLogout} />
 			) : (
 				<LoggedOutNavbar
-					onLoginClick={() => <Login onSuccess={handleLogin} />}
+					onLoginClick={() => <Login onSuccess={handleLogin} />} // muss anders gemacht werden!!!!
 				/>
 			)}
 		</>
