@@ -7,20 +7,25 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable max-lines-per-function */
-import { Key, useState } from 'react';
+import { useState } from 'react'; // Warum ist da key!!!, habe es weggemacht.
 import { Form, Button, Table } from 'react-bootstrap';
 import './BuchSuchen.css';
-import { fetchTitel } from '../../Controller/buch-query';
+import { fetchTitel, fetchId } from '../../Controller/buch-query';
 
 export function BuchSuchen() {
 	const [data, set] = useState(null);
 	const [titel, setTitel] = useState('');
 	const [id, setId] = useState('');
-	const [showTable, setShowTable] = useState(false);
+	const [showTableTitel, setShowTableTitel] = useState(false);
+	const [showTableId, setShowTableId] = useState(false);
 
 	const handleSearchClickTitel = async () => {
 		set(await fetchTitel(titel));
-		setShowTable(true);
+		setShowTableTitel(true);
+	};
+	const handleSearchClickId = async () => {
+		set(await fetchId(id));
+		setShowTableId(true);
 	};
 
 	return (
@@ -44,15 +49,15 @@ export function BuchSuchen() {
 							onChange={(event) => setTitel(event.target.value)}
 						/>
 					</Form.Group>
-					<Button
-						onClick={handleSearchClickTitel}
-						className="suchen-btn"
-					>
-						Suchen
-					</Button>
 				</Form>
+				<Button onClick={handleSearchClickId} className="suchen-btn">
+					Suchen
+				</Button>
+				<Button onClick={handleSearchClickTitel} className="suchen-btn">
+					Suchen
+				</Button>
 			</div>
-			{showTable && data && (
+			{showTableTitel && data && (
 				<Table striped bordered hover>
 					<thead>
 						<tr>
@@ -64,7 +69,7 @@ export function BuchSuchen() {
 						</tr>
 					</thead>
 					<tbody>
-						{data?.data.buecher.map((buch, index?: Key) => (
+						{data?.data.buecher.map((buch, index) => (
 							<tr key={index}>
 								<td>{index + 1}</td>
 								<td>{buch.titel?.titel}</td>
@@ -73,6 +78,28 @@ export function BuchSuchen() {
 								<td>{buch.rating}</td>
 							</tr>
 						))}
+					</tbody>
+				</Table>
+			)}
+			{showTableId && data && (
+				<Table striped bordered hover>
+					<thead>
+						<tr>
+							<th>Nr.</th>
+							<th>Titel</th>
+							<th>Preis</th>
+							<th>Art</th>
+							<th>Bewertung</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>{data.buch?.titel?.titel}</td>
+							<td>{data.buch?.preis}</td>
+							<td>{data.buch?.art}</td>
+							<td>{data.buch?.rating}</td>
+						</tr>
 					</tbody>
 				</Table>
 			)}

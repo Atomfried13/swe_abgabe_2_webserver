@@ -11,11 +11,12 @@ export const fetchId = async (id: string) => {
 				query ($id: ID!) {
 					buch(id: $id) {
 						isbn
-						version
 						art
-						rabatt(short: true)
+						preis
+						schlagwoerter
+						rating
 						titel {
-							titel
+			  				titel
 						}
 					}
 				}
@@ -39,11 +40,12 @@ export const fetchTitel = async (titel: string) => {
 				query ($titel: String) {
 					buecher(titel: $titel) {
 						isbn
-						version
 						art
-						rabatt(short: true)
+						preis
+						schlagwoerter
+						rating
 						titel {
-							titel
+			  				titel
 						}
 	  				}
 				}
