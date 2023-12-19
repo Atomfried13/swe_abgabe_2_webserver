@@ -1,12 +1,17 @@
+import React, { useState } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import './Login.css';
-import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Einloggen } from '../../Controller/auth.service';
 
 // eslint-disable-next-line max-lines-per-function
-export function Login() {
+
+interface LoggedSuccess {
+	onSuccess: () => void;
+}
+// eslint-disable-next-line max-lines-per-function
+export function Login({ onSuccess }: LoggedSuccess) {
 	const [showPassword, setShowPassword] = useState(false);
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
@@ -28,14 +33,16 @@ export function Login() {
 			setLoginSuccess(erfolg);
 			if (erfolg) {
 				setFormVisible(false);
+				onSuccess(); // Hier wird onSuccess aufgerufen
 			}
 		} catch (error) {
 			console.error('Fehler beim Einloggen:', error);
 		}
 	};
+
 	return (
 		<div className="form-container">
-			<Form className={formVisible ? '' : 'hidden'}>
+			<Form>
 				<Form.Group className="eingabe-benutzername-form">
 					<Form.Label htmlFor="EingabeBenutzername">
 						Benutzername

@@ -8,7 +8,7 @@ import { axiosInstance } from './getAxiosInstance';
 export let token: string;
 
 export async function Einloggen(username: string, password: string) {
-	const loginGraphQL = async (): Promise<string> => {
+	const loginGraphQL = async (): Promise<void> => {
 		try {
 			const response: AxiosResponse = await axiosInstance.post(
 				'baseURL/',
@@ -28,7 +28,6 @@ export async function Einloggen(username: string, password: string) {
 			);
 			const data = response.data.data!;
 			token = data.login.token;
-			return token;
 		} catch (error: unknown) {
 			throw new Error('Fehler beim GraphQL-Login');
 		}
