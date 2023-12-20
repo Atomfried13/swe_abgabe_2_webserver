@@ -2,59 +2,45 @@
 /* eslint-disable indent */
 import { BuchDTO } from '../Model/buchDTO.entitie';
 import { axiosInstance } from './getAxiosInstance';
+import { token } from './auth.service';
 
-export const mutation = async (buch: BuchDTO, token: string) => {
+export const mutation = async (buch: BuchDTO) => {
+	console.log(token);
 	const authorization = { Authorization: `Bearer ${token}` };
 	try {
 		await axiosInstance.post(
-			'baseURL/graphql',
+			'baseURL/mutation',
 			{
-				mutation: `
-				create(
-					input: {
-						isbn: ${buch.isbn},
-						${buch.rating ? 'rating: ' + buch.rating + ',' : ''}
-						${buch.art ? 'art: ' + buch.art + ',' : ''}
-						preis: ${buch.preis},
-						${buch.rabatt ? 'rabatt: ' + buch.rabatt + ',' : ''}
-						${buch.lieferbar ? 'lieferbar: ' + buch.lieferbar + ',' : ''}
-						${buch.datum ? 'datum:' + buch.datum.toString() + ',' : ''}
-						${buch.homepage ? 'homepage: ' + buch.homepage + ',' : ''}
-						${
-							buch.schlagwoerter
-								? 'schlagwoerter: ' +
-								  buch.schlagwoerter.toString() +
-								  ','
-								: ''
-						}
-						titel: {
-							titel: ${buch.titel.titel},
-							${buch.titel.untertitel ? 'untertitel: ' + buch.titel.untertitel + ',' : ''}
-						},
-						${
-							buch.abbildungen
-								? 'abbildungen: [' +
-								  buch.abbildungen.forEach((abbildung) => {
-										'{' +
-											'datum:' +
-											abbildung.beschriftung +
-											',' +
-											'datum:' +
-											abbildung.contentType +
-											'}';
-								  }) +
-								  '],'
-								: ''
-						},
-					}
+				variables: { buch },
+				mutation: `{
+				mutation(
+					  isbn: "978-0-321-19368-1",
+					  rating: 1,
+					  art: KINDLE,
+					  preis: 99.99,
+					  rabatt: 0.123,
+					  lieferbar: true,
+					  datum: "2022-01-31",
+					  homepage: "https://create.mutation",
+					  schlagwoerter: ["JAVASCRIPT", "TYPESCRIPT"],
+					  titel: {
+						titel: "Titelcreatemutation",
+						untertitel: "untertitelcreatemutation"
+					  },
+					  abbildungen: [{
+						beschriftung: "Abb. 1",
+						contentType: "img/png"
+					  }]
 				) {
 					id
-				}`,
+				}}`,
 			},
 			{ headers: authorization },
 		);
 	} catch (err: unknown) {
-		return 'Fehler beim Schreiben';
+		console.log('Fehler, Schreiben hat nicht geklappt');
+		throw new Error();
 	}
+	console.log('er ist am ende ohne fehler angekommen');
 	return 'Neues Buch angelegt.';
 };

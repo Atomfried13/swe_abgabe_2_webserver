@@ -1,26 +1,11 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable eslint-comments/no-duplicate-disable */
-/* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable eslint-comments/no-duplicate-disable */
-/* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable eslint-comments/no-duplicate-disable */
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable eslint-comments/no-duplicate-disable */
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable max-lines-per-function */
 import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import './NeuesBuch.css';
 import { mutation } from '../../Controller/buch-mutation';
-import { token } from '../../Controller/auth.service';
 
 export function NeuesBuch() {
 	const [isbn, setISBN] = useState('');
@@ -35,8 +20,8 @@ export function NeuesBuch() {
 	const [schlagwoerter, setSchlagwoerter] = useState(undefined);
 
 	const handleCreateClick = async () => {
-		await mutation(
-			{
+		console.log(
+			await mutation({
 				isbn: isbn,
 				rating: rating,
 				art: art,
@@ -51,8 +36,7 @@ export function NeuesBuch() {
 					untertitel: undefined,
 				},
 				abbildungen: undefined,
-			},
-			token,
+			}),
 		);
 	};
 
@@ -61,8 +45,11 @@ export function NeuesBuch() {
 			<div className="infos">
 				<h2>Neuanlegen eines Buches</h2>
 			</div>
-			<Form onSubmit={handleCreateClick}>
-				<Form.Group controlId="validationISBN">
+			<Form>
+				<Form.Group
+					controlId="buch-anlegen"
+					className="buch-anlegen-form"
+				>
 					<Form.Label>ISBN</Form.Label>
 					<Form.Control
 						required
@@ -71,8 +58,6 @@ export function NeuesBuch() {
 						value={isbn}
 						onChange={(event) => setISBN(event.target.value)}
 					/>
-				</Form.Group>
-				<Form.Group controlId="validationISBN">
 					<Form.Label>Titel</Form.Label>
 					<Form.Control
 						required
@@ -81,8 +66,6 @@ export function NeuesBuch() {
 						value={titel}
 						onChange={(event) => setTitel(event.target.value)}
 					/>
-				</Form.Group>
-				<Form.Group controlId="validationISBN">
 					<Form.Label>Preis</Form.Label>
 					<Form.Control
 						required
@@ -91,8 +74,6 @@ export function NeuesBuch() {
 						value={preis}
 						onChange={(event) => setPreis(event.target.value)}
 					/>
-				</Form.Group>
-				<Form.Group controlId="validationISBN">
 					<Form.Label>Rabatt (in Prozent)</Form.Label>
 					<Form.Control
 						required
@@ -102,7 +83,11 @@ export function NeuesBuch() {
 						onChange={(event) => setRabatt(event.target.value)}
 					/>
 				</Form.Group>
-				<Button type="submit" className="neuanlegen-btn">
+				<Button
+					onClick={handleCreateClick}
+					type="submit"
+					className="buch-schreiben-form"
+				>
 					Neues Buch anlegen
 				</Button>
 			</Form>
