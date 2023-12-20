@@ -13,18 +13,18 @@ import './BuchSuchen.css';
 import { fetchTitel, fetchId } from '../../Controller/buch-query';
 
 export function BuchSuchen() {
-	const [data, set] = useState(null);
+	const [data, setData] = useState(null);
 	const [titel, setTitel] = useState('');
 	const [id, setId] = useState('');
 	const [showTableTitel, setShowTableTitel] = useState(false);
 	const [showTableId, setShowTableId] = useState(false);
 
 	const handleSearchClickTitel = async () => {
-		set(await fetchTitel(titel));
+		setData(await fetchTitel(titel));
 		setShowTableTitel(true);
 	};
 	const handleSearchClickId = async () => {
-		set(await fetchId(id));
+		setData(await fetchId(id));
 		setShowTableId(true);
 	};
 
@@ -85,7 +85,7 @@ export function BuchSuchen() {
 				<Table striped bordered hover>
 					<thead>
 						<tr>
-							<th>Nr.</th>
+							<th>ID</th>
 							<th>Titel</th>
 							<th>Preis</th>
 							<th>Art</th>
@@ -93,15 +93,13 @@ export function BuchSuchen() {
 						</tr>
 					</thead>
 					<tbody>
-						{data?.data.buch.map((buch, index) => (
-							<tr key={index}>
-								<td>{index + 1}</td>
-								<td>{buch.titel?.titel}</td>
-								<td>{buch.preis}</td>
-								<td>{buch.art}</td>
-								<td>{buch.rating}</td>
-							</tr>
-						))}
+						<tr key={id}>
+							<td>{id}</td>
+							<td>{data.data.buch.titel?.titel}</td>
+							<td>{data.data.buch.preis}</td>
+							<td>{data.data.buch.art}</td>
+							<td>{data.data.buch.rating}</td>
+						</tr>
 					</tbody>
 				</Table>
 			)}

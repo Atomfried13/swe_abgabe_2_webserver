@@ -6,7 +6,7 @@ export const fetchId = async (id: string) => {
 	let response;
 	try {
 		response = await axiosInstance.post('baseURL/query', {
-			variables: { id }, //a??
+			variables: { id },
 			query: `
 				query ($id: ID!) {
 					buch(id: $id) {
