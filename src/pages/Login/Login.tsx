@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable @typescript-eslint/no-misused-promises */
+import { useState } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import './Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,31 +16,37 @@ export function Login() {
 	const [password, setPassword] = useState('');
 	const [loginSuccess, setLoginSuccess] = useState<boolean | null>(null);
 	const [formVisible, setFormVisible] = useState(true);
+	const [loading, setLoading] = useState(false);
 
 	const handleLogin = async () => {
-		const usernameInput = document.getElementById(
-			'EingabeBenutzername',
-		) as HTMLInputElement;
-		const passwordInput = document.getElementById(
-			'EingabePasswort',
-		) as HTMLInputElement;
-		setUsername(usernameInput.value);
-		setPassword(passwordInput.value);
+		setLoading(true);
 
 		try {
+			const usernameInput = document.getElementById(
+				'EingabeBenutzername',
+			) as HTMLInputElement;
+			const passwordInput = document.getElementById(
+				'EingabePasswort',
+			) as HTMLInputElement;
+			setUsername(usernameInput.value);
+			setPassword(passwordInput.value);
+
 			const erfolg = await Einloggen(username, password);
 			setLoginSuccess(erfolg);
+
 			if (erfolg) {
 				setFormVisible(false);
 			}
 		} catch (error) {
 			console.error('Fehler beim Einloggen:', error);
+		} finally {
+			setLoading(false);
 		}
 	};
 
 	return (
 		<div className="form-container">
-			<Form>
+			<Form className={formVisible ? '' : 'hidden'}>
 				<Form.Group className="eingabe-benutzername-form">
 					<Form.Label htmlFor="EingabeBenutzername">
 						Benutzername
@@ -66,7 +74,7 @@ export function Login() {
 				</Form.Group>
 				<div className="button-container">
 					<Button className="anmelden-btn" onClick={handleLogin}>
-						Anmelden
+						{loading ? 'Lädt...' : 'Anmelden'}
 					</Button>
 				</div>
 			</Form>

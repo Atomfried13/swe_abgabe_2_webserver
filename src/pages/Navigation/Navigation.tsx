@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { LoggedInNavbar } from './LoggedInNavbar/Navbar';
 import { LoggedOutNavbar } from './LoggedOutNavbar/Navbar';
 import { token } from '../../Controller/auth.service';
-import { Login } from '../Login/Login';
 
 export function Nav() {
 	const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(
@@ -22,9 +21,7 @@ export function Nav() {
 			{isLoggedIn ? (
 				<LoggedInNavbar handleLogout={handleLogout} />
 			) : (
-				<LoggedOutNavbar
-					onLoginClick={() => <Login onSuccess={handleLogin} />} // muss anders gemacht werden!!!!
-				/>
+				<LoggedOutNavbar handleLogin={handleLogin} />
 			)}
 		</>
 	);

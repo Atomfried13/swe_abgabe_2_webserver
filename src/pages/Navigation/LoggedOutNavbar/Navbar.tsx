@@ -6,10 +6,10 @@ import Button from 'react-bootstrap/Button';
 import { LinkContainer } from 'react-router-bootstrap';
 
 interface LoggedOutNavbarClick {
-	onLoginClick: () => void;
+	handleLogin: () => void;
 }
 
-export function LoggedOutNavbar({ onLoginClick }: LoggedOutNavbarClick) {
+export function LoggedOutNavbar({ handleLogin }: LoggedOutNavbarClick) {
 	return (
 		<Navbar expand="lg">
 			<Container>
@@ -26,10 +26,7 @@ export function LoggedOutNavbar({ onLoginClick }: LoggedOutNavbarClick) {
 					</Nav>
 					<Nav>
 						<LinkContainer to="/Login">
-							<Button
-								className="login-btn"
-								onClick={onLoginClick}
-							>
+							<Button className="login-btn" onClick={handleLogin}>
 								Login
 							</Button>
 						</LinkContainer>
