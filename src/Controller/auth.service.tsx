@@ -1,14 +1,10 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { AxiosResponse } from 'axios';
 import { axiosInstance } from './getAxiosInstance';
 
 export let token: string;
 
 export async function Einloggen(username: string, password: string) {
-	const loginGraphQL = async (): Promise<string> => {
+	const loginGraphQL = async () => {
 		try {
 			const response: AxiosResponse = await axiosInstance.post(
 				'baseURL/',
@@ -27,8 +23,7 @@ export async function Einloggen(username: string, password: string) {
 				},
 			);
 			const data = response.data.data!;
-			token = data.login.token;
-			return token;
+			token = data?.login.token ? data.login.token : 'hat nicht geklappt';
 		} catch (error: unknown) {
 			throw new Error('Fehler beim GraphQL-Login');
 		}
