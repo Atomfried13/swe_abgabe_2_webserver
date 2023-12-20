@@ -2,12 +2,9 @@
 /* eslint-disable indent */
 import { BuchDTO } from '../Model/buchDTO.entitie';
 import { axiosInstance } from './getAxiosInstance';
-import { useContext } from 'react';
-import { AuthContext } from './AuthContext.tsx';
 
-export const mutation = async (buch: BuchDTO) => {
-	const { token } = useContext(AuthContext);
-	const authorization = { Authorization: `${token}` };
+export const mutation = async (buch: BuchDTO, token: string | null) => {
+	const authorization = { Authorization: token ? `${token}` : '' };
 	try {
 		await axiosInstance.post(
 			'baseURL/mutation',

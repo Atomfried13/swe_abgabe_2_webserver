@@ -13,15 +13,15 @@ import { Login } from './pages/Login/Login.tsx';
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
 		<AuthProvider>
-		<Router>
-			<Nav />
-			<Routes>
-				<Route path="/" Component={Home}></Route>
-				<Route path="/BuchSuchen" Component={BuchSuchen}></Route>
-				<Route path="/NeuesBuch" Component={NeuesBuch}></Route>
-				<Route path="/Login" Component={Login}></Route>
-			</Routes>
-		</Router>
+			<Router>
+				<Nav />
+				<Routes>
+					<Route path="/" Component={Home}></Route>
+					<Route path="/BuchSuchen" Component={BuchSuchen}></Route>
+					<Route path="/NeuesBuch" Component={NeuesBuch}></Route>
+					<Route path="/Login" Component={Login}></Route>
+				</Routes>
+			</Router>
 		</AuthProvider>
 	</React.StrictMode>,
 );

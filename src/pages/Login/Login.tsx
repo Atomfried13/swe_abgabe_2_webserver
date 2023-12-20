@@ -19,6 +19,7 @@ export function Login() {
 	const [formVisible, setFormVisible] = useState(true);
 	const [loading, setLoading] = useState(false);
 	const { setAuthToken } = useContext(AuthContext);
+	const { token } = useContext(AuthContext);
 
 	const handleLogin = async () => {
 		setLoading(true);
@@ -35,7 +36,7 @@ export function Login() {
 
 			const token = await Einloggen(username, password);
 			if (token) {
-				setAuthToken(token); // Setze den Token im AuthContext
+				setAuthToken(token);
 				setLoginSuccess(true);
 				setFormVisible(false);
 			} else {
@@ -88,9 +89,11 @@ export function Login() {
 						loginSuccess ? 'success-message' : 'error-message'
 					}
 				>
-					{loginSuccess
-						? 'Erfolgreich eingeloggt!'
-						: 'Fehler beim Einloggen'}
+					{loginSuccess ? (
+						<p>Erfolgreich eingeloggt! Token: {token}</p>
+					) : (
+						<p>Fehler beim Einloggen</p>
+					)}
 				</div>
 			)}
 		</div>
