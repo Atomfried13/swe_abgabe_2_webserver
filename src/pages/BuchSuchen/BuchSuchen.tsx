@@ -20,10 +20,9 @@ export function BuchSuchen() {
 
 	const handleSearchClick = async () => {
 		if (!searchTerm) {
-			return;
-		}
-
-		if (isNaN(Number(searchTerm))) {
+			setData(await fetchTitel(searchTerm));
+			setShowTableTitel(true);
+		} else if (isNaN(Number(searchTerm))) {
 			//setData(null);
 			setData(await fetchTitel(searchTerm));
 			setShowTableTitel(true);
