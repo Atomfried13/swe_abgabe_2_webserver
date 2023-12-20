@@ -8,7 +8,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable max-lines-per-function */
 import { useState } from 'react'; // Warum ist da key!!!, habe es weggemacht.
-import { Form, Button, Table } from 'react-bootstrap';
+import { Form, Button, Table, Alert } from 'react-bootstrap';
 import './BuchSuchen.css';
 import { fetchTitel, fetchId } from '../../Controller/buch-query';
 
@@ -85,6 +85,16 @@ export function BuchSuchen() {
 					Suchen
 				</Button>
 			</div>
+			{error && (
+				<Alert
+					variant="danger"
+					onClose={() => setError('')}
+					dismissible
+				>
+					<Alert.Heading>Fehler!</Alert.Heading>
+					<p>{error}</p>
+				</Alert>
+			)}
 			{showTableTitel && data && (
 				<Table striped bordered hover>
 					<thead>
@@ -109,7 +119,6 @@ export function BuchSuchen() {
 					</tbody>
 				</Table>
 			)}
-			{error && <div className="error-message">{error}</div>}
 			{showTableId && data && (
 				<Table striped bordered hover>
 					<thead>
