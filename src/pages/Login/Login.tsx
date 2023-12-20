@@ -18,7 +18,7 @@ export function Login() {
 	const [loginSuccess, setLoginSuccess] = useState<boolean | null>(null);
 	const [formVisible, setFormVisible] = useState(true);
 	const [loading, setLoading] = useState(false);
-	const { setAuthToken } = useContext(AuthContext);
+	const { updateToken } = useContext(AuthContext);
 	const { token } = useContext(AuthContext);
 
 	const handleLogin = async () => {
@@ -36,7 +36,7 @@ export function Login() {
 
 			const token = await Einloggen(username, password);
 			if (token) {
-				setAuthToken(token);
+				updateToken(token);
 				setLoginSuccess(true);
 				setFormVisible(false);
 			} else {

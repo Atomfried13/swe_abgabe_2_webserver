@@ -8,9 +8,9 @@ import { AuthContext } from '../../../Controller/AuthContext';
 import { useContext } from 'react';
 
 export function LoggedInNavbar() {
-	const { setToken } = useContext(AuthContext);
+	const { updateToken } = useContext(AuthContext);
 	const handleLogout = () => {
-		setToken(null);
+		updateToken(null);
 	};
 
 	return (
