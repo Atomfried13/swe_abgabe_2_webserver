@@ -1,11 +1,12 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import './Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Einloggen } from '../../Controller/auth.service';
+import { AuthContext } from '../../Controller/AuthContext';
 
 // eslint-disable-next-line max-lines-per-function
 
@@ -17,6 +18,7 @@ export function Login() {
 	const [loginSuccess, setLoginSuccess] = useState<boolean | null>(null);
 	const [formVisible, setFormVisible] = useState(true);
 	const [loading, setLoading] = useState(false);
+	const { setAuthToken } = useContext(AuthContext);
 
 	const handleLogin = async () => {
 		setLoading(true);
@@ -31,11 +33,13 @@ export function Login() {
 			setUsername(usernameInput.value);
 			setPassword(passwordInput.value);
 
-			const erfolg = await Einloggen(username, password);
-			setLoginSuccess(erfolg);
-
-			if (erfolg) {
+			const token = await Einloggen(username, password);
+			if (token) {
+				setAuthToken(token); // Setze den Token im AuthContext
+				setLoginSuccess(true);
 				setFormVisible(false);
+			} else {
+				setLoginSuccess(false);
 			}
 		} catch (error) {
 			console.error('Fehler beim Einloggen:', error);

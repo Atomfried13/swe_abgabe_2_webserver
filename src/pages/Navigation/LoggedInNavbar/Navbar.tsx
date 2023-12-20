@@ -4,12 +4,15 @@ import Navbar from 'react-bootstrap/Navbar';
 import './navbar.css';
 import Button from 'react-bootstrap/Button';
 import { LinkContainer } from 'react-router-bootstrap';
+import { AuthContext } from '../../../Controller/AuthContext';
+import { useContext } from 'react';
 
-interface Props {
-	handleLogout: () => void;
-}
+export function LoggedInNavbar() {
+	const { setToken } = useContext(AuthContext);
+	const handleLogout = () => {
+		setToken(null);
+	};
 
-export function LoggedInNavbar({ handleLogout }: Props) {
 	return (
 		<Navbar expand="lg">
 			<Container>

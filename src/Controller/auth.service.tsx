@@ -1,8 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { axiosInstance } from './getAxiosInstance';
 
-export let token: string;
-
 export async function Einloggen(username: string, password: string) {
 	const loginGraphQL = async () => {
 		try {
@@ -23,16 +21,19 @@ export async function Einloggen(username: string, password: string) {
 				},
 			);
 			const data = response.data.data!;
-			token = data?.login.token ? data.login.token : 'hat nicht geklappt';
+			const token = data?.login.token
+				? data.login.token
+				: 'hat nicht geklappt';
+			return token;
 		} catch (error: unknown) {
 			throw new Error('Fehler beim GraphQL-Login');
 		}
 	};
 
 	try {
-		await loginGraphQL();
+		const token = await loginGraphQL();
 		console.log('Erfolgreich eingeloggt! Token:', token);
-		return true;
+		return token !== null;
 	} catch (error) {
 		console.error('Fehler beim Einloggen:', error);
 		return false;

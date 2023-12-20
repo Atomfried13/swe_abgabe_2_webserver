@@ -1,4 +1,5 @@
 import React from 'react';
+import { AuthProvider } from './Controller/AuthContext.tsx';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { BuchSuchen } from './pages/BuchSuchen/BuchSuchen.tsx';
@@ -11,6 +12,7 @@ import { Login } from './pages/Login/Login.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
+		<AuthProvider>
 		<Router>
 			<Nav />
 			<Routes>
@@ -20,5 +22,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 				<Route path="/Login" Component={Login}></Route>
 			</Routes>
 		</Router>
+		</AuthProvider>
 	</React.StrictMode>,
 );
