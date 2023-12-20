@@ -29,6 +29,7 @@ export const fetchId = async (id: string) => {
 		);
 		throw new Error();
 	}
+	console.log('Ergebnis der API:', response);
 	return response.data;
 };
 

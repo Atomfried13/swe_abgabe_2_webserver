@@ -17,20 +17,44 @@ export function BuchSuchen() {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [showTableTitel, setShowTableTitel] = useState(false);
 	const [showTableId, setShowTableId] = useState(false);
+	const [error, setError] = useState('');
 
 	const handleSearchClick = async () => {
-		if (!searchTerm) {
-			setData(await fetchTitel(searchTerm));
-			setShowTableId(false);
-			setShowTableTitel(true);
-		} else if (isNaN(Number(searchTerm))) {
-			setData(await fetchTitel(searchTerm));
-			setShowTableId(false);
-			setShowTableTitel(true);
-		} else {
-			setData(await fetchId(searchTerm));
-			setShowTableTitel(false);
-			setShowTableId(true);
+		try {
+			if (!searchTerm) {
+				setData(await fetchTitel(searchTerm));
+				setError('');
+				setShowTableId(false);
+				setShowTableTitel(true);
+			} else if (isNaN(Number(searchTerm))) {
+				const result = await fetchTitel(searchTerm);
+				setShowTableId(false);
+
+				if (result.data.buecher !== null) {
+					setError('');
+					setData(result);
+					setShowTableTitel(true);
+				} else {
+					setError('Mach kein Scheiße, gib was Gescheites an');
+					setData(null);
+				}
+			} else {
+				const result = await fetchId(searchTerm);
+				setShowTableTitel(false);
+
+				if (result.data.buch !== null) {
+					setError('');
+					setData(result);
+					setShowTableId(true);
+				} else {
+					setError('Mach kein Scheiße, gib was Gescheites an');
+					setData(null);
+				}
+			}
+		} catch (error) {
+			console.error('Fehler beim Laden der Daten:', error);
+			setError('Fehler beim Laden der Daten');
+			setData(null);
 		}
 	};
 
@@ -85,6 +109,7 @@ export function BuchSuchen() {
 					</tbody>
 				</Table>
 			)}
+			{error && <div className="error-message">{error}</div>}
 			{showTableId && data && (
 				<Table striped bordered hover>
 					<thead>
