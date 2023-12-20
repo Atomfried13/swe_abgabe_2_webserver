@@ -14,18 +14,24 @@ import { fetchTitel, fetchId } from '../../Controller/buch-query';
 
 export function BuchSuchen() {
 	const [data, setData] = useState(null);
-	const [titel, setTitel] = useState('');
-	const [id, setId] = useState('');
+	const [searchTerm, setSearchTerm] = useState('');
 	const [showTableTitel, setShowTableTitel] = useState(false);
 	const [showTableId, setShowTableId] = useState(false);
 
-	const handleSearchClickTitel = async () => {
-		setData(await fetchTitel(titel));
-		setShowTableTitel(true);
-	};
-	const handleSearchClickId = async () => {
-		setData(await fetchId(id));
-		setShowTableId(true);
+	const handleSearchClick = async () => {
+		if (!searchTerm) {
+			return;
+		}
+
+		if (isNaN(Number(searchTerm))) {
+			//setData(null);
+			setData(await fetchTitel(searchTerm));
+			setShowTableTitel(true);
+		} else {
+			//setData(null);
+			setData(await fetchId(searchTerm));
+			setShowTableId(true);
+		}
 	};
 
 	return (
@@ -36,24 +42,22 @@ export function BuchSuchen() {
 						className="buch-suchen-form"
 						controlId="formGroupSuchen"
 					>
-						<Form.Control
-							type="suchkriterien"
-							placeholder="Suche anhand der ID..."
-							value={id}
-							onChange={(event) => setId(event.target.value)}
-						/>
-						<Form.Control
-							type="suchkriterien"
-							placeholder="Suche anhand des Titels..."
-							value={titel}
-							onChange={(event) => setTitel(event.target.value)}
-						/>
+						<Form.Group
+							className="buch-suchen-form"
+							controlId="formGroupSuchen"
+						>
+							<Form.Control
+								type="suchkriterien"
+								placeholder="Suche anhand der ID oder des Titels..."
+								value={searchTerm}
+								onChange={(event) =>
+									setSearchTerm(event.target.value)
+								}
+							/>
+						</Form.Group>
 					</Form.Group>
 				</Form>
-				<Button onClick={handleSearchClickId} className="suchen-btn">
-					Suchen
-				</Button>
-				<Button onClick={handleSearchClickTitel} className="suchen-btn">
+				<Button onClick={handleSearchClick} className="suchen-btn">
 					Suchen
 				</Button>
 			</div>
@@ -93,8 +97,8 @@ export function BuchSuchen() {
 						</tr>
 					</thead>
 					<tbody>
-						<tr key={id}>
-							<td>{id}</td>
+						<tr key={searchTerm}>
+							<td>{searchTerm}</td>
 							<td>{data.data.buch.titel?.titel}</td>
 							<td>{data.data.buch.preis}</td>
 							<td>{data.data.buch.art}</td>
