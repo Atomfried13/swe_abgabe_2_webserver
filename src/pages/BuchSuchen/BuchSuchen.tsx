@@ -97,8 +97,8 @@ export function BuchSuchen() {
 						</tr>
 					</thead>
 					<tbody>
-						<tr key={searchTerm}>
-							<td>{searchTerm}</td>
+						<tr key={data.data.buch.id}>
+							<td>{data.data.buch.id}</td>
 							<td>{data.data.buch.titel?.titel}</td>
 							<td>{data.data.buch.preis}</td>
 							<td>{data.data.buch.art}</td>

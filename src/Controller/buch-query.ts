@@ -10,6 +10,7 @@ export const fetchId = async (id: string) => {
 			query: `
 				query ($id: ID!) {
 					buch(id: $id) {
+						id
 						isbn
 						art
 						preis
