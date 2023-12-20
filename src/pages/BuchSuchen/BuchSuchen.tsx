@@ -93,13 +93,15 @@ export function BuchSuchen() {
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td>{data.buch?.titel?.titel}</td>
-							<td>{data.buch?.preis}</td>
-							<td>{data.buch?.art}</td>
-							<td>{data.buch?.rating}</td>
-						</tr>
+						{data?.data.buch.map((buch, index) => (
+							<tr key={index}>
+								<td>{index + 1}</td>
+								<td>{buch.titel?.titel}</td>
+								<td>{buch.preis}</td>
+								<td>{buch.art}</td>
+								<td>{buch.rating}</td>
+							</tr>
+						))}
 					</tbody>
 				</Table>
 			)}
