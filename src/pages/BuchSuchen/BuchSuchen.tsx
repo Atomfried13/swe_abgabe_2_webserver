@@ -21,14 +21,15 @@ export function BuchSuchen() {
 	const handleSearchClick = async () => {
 		if (!searchTerm) {
 			setData(await fetchTitel(searchTerm));
+			setShowTableId(false);
 			setShowTableTitel(true);
 		} else if (isNaN(Number(searchTerm))) {
-			//setData(null);
 			setData(await fetchTitel(searchTerm));
+			setShowTableId(false);
 			setShowTableTitel(true);
 		} else {
-			//setData(null);
 			setData(await fetchId(searchTerm));
+			setShowTableTitel(false);
 			setShowTableId(true);
 		}
 	};
