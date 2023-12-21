@@ -4,7 +4,7 @@ import { LoggedOutNavbar } from './LoggedOutNavbar/Navbar';
 import { AuthContext } from '../../Controller/AuthContext';
 
 export function Nav() {
-  const { token } = useContext(AuthContext);
+	const { token } = useContext(AuthContext);
 
-  return <>{token !== null ? <LoggedInNavbar /> : <LoggedOutNavbar />}</>;
+	return <>{token !== null ? <LoggedInNavbar /> : <LoggedOutNavbar />}</>;
 }
