@@ -1,5 +1,3 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable indent */
 import { BuchDTO } from '../Model/buchDTO.entitie';
 import { axiosInstance } from './getAxiosInstance';
 import { useContext } from 'react';
@@ -9,39 +7,45 @@ export const mutation = async (buch: BuchDTO) => {
 	const { token } = useContext(AuthContext);
 	const authorization = { Authorization: token ? `${token}` : '' };
 	try {
-		await axiosInstance.post(
-			'baseURL/mutation',
+		const response = await axiosInstance.post(
+			'baseURL/graphql',
 			{
-				variables: { buch },
-				mutation: `{
-				mutation(
-					  isbn: "978-0-321-19368-1",
-					  rating: 1,
-					  art: KINDLE,
-					  preis: 99.99,
-					  rabatt: 0.123,
-					  lieferbar: true,
-					  datum: "2022-01-31",
-					  homepage: "https://create.mutation",
-					  schlagwoerter: ["JAVASCRIPT", "TYPESCRIPT"],
-					  titel: {
-						titel: "Titelcreatemutation",
-						untertitel: "untertitelcreatemutation"
-					  },
-					  abbildungen: [{
-						beschriftung: "Abb. 1",
-						contentType: "img/png"
-					  }]
-				) {
-					id
-				}}`,
+				query: `
+					mutation CreateNewBook($input: BuchInput!) {
+						create(input: $input) {
+							id
+						}
+					}
+				`,
+				variables: {
+					input: {
+						isbn: buch.isbn,
+						rating: buch.rating,
+						art: buch.art,
+						preis: buch.preis,
+						rabatt: buch.rabatt,
+						lieferbar: buch.lieferbar,
+						datum: buch.datum,
+						homepage: buch.homepage,
+						schlagwoerter: buch.schlagwoerter,
+						titel: {
+							titel: buch.titel.titel,
+							untertitel: buch.titel.untertitel,
+						},
+						abbildungen: buch.abbildungen?.map((abbildung) => ({
+							beschriftung: abbildung.beschriftung,
+							contentType: abbildung.contentType,
+						})),
+					},
+				},
 			},
 			{ headers: authorization },
 		);
-	} catch (err: unknown) {
-		console.log('Fehler, Schreiben hat nicht geklappt');
-		throw new Error();
+
+		console.log('Antwort: ', response.data);
+		return 'Neues Buch angelegt.';
+	} catch (err) {
+		console.log('Fehler, Schreiben hat nicht geklappt:', err);
+		throw new Error('Fehler beim Anlegen des Buches.');
 	}
-	console.log('er ist am ende ohne fehler angekommen');
-	return 'Neues Buch angelegt.';
 };
