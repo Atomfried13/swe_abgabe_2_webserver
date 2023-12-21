@@ -23,10 +23,11 @@ export const fetchId = async (id: string) => {
 				}
 				`,
 		});
-	} catch (err: unknown) {
-		console.log(
-			'Fehler, genauere Fehlermeldung noch nicht vorhanden, schaue in die Konsole des Browsers',
-		);
+	} catch (error) {
+		console.error('Fehler beim Laden des Querys:', error);
+		//console.log(
+		//'Fehler, genauere Fehlermeldung noch nicht vorhanden, schaue in die Konsole des Browsers',
+		//);
 		throw new Error();
 	}
 	console.log('Ergebnis der API:', response);

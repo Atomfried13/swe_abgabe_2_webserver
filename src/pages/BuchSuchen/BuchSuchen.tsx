@@ -57,7 +57,12 @@ export function BuchSuchen() {
 			setData(null);
 		}
 	};
-
+	const handleRadioClick = async (letter) => {
+		setData(await fetchTitel(letter));
+		setError('');
+		setShowTableId(false);
+		setShowTableTitel(true);
+	};
 	return (
 		<>
 			<div className="d-flex align-items-center">
@@ -85,6 +90,16 @@ export function BuchSuchen() {
 					Suchen
 				</Button>
 			</div>
+			<Form.Group>
+				<Form.Check
+					inline
+					type="radio"
+					label="A"
+					name="searchLetter"
+					id="searchLetterA"
+					onChange={() => handleRadioClick('A')}
+				/>
+			</Form.Group>
 			{error && (
 				<Alert
 					variant="danger"
