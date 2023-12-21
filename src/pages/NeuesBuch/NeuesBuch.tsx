@@ -7,6 +7,8 @@ import { Form, Button } from 'react-bootstrap';
 import './NeuesBuch.css';
 import { mutation } from '../../Controller/buch-mutation';
 import { BuchArt } from '../../Model/buchDTO.entitie';
+import { useContext } from 'react';
+import { AuthContext } from '../../Controller/AuthContext';
 
 export function NeuesBuch() {
 	const [isbn, setISBN] = useState('');
@@ -43,28 +45,33 @@ export function NeuesBuch() {
 		setSchlagwoerter(selectedSchlagwoerter);
 	};
 
+	const { token } = useContext(AuthContext);
+
 	const handleCreateClick = async () => {
 		console.log(isbn);
 		console.log(titel);
 		console.log(preis);
 		console.log(rabatt);
 		console.log(
-			await mutation({
-				isbn: isbn,
-				rating: rating,
-				art: art,
-				preis: preis,
-				rabatt: rabatt,
-				lieferbar: lieferbar,
-				datum: datum,
-				homepage: homepage,
-				schlagwoerter: schlagwoerter,
-				titel: {
-					titel: titel,
-					untertitel: undefined,
+			await mutation(
+				{
+					isbn: isbn,
+					rating: rating,
+					art: art,
+					preis: preis,
+					rabatt: rabatt,
+					lieferbar: lieferbar,
+					datum: datum,
+					homepage: homepage,
+					schlagwoerter: schlagwoerter,
+					titel: {
+						titel: titel,
+						untertitel: undefined,
+					},
+					abbildungen: undefined,
 				},
-				abbildungen: undefined,
-			}),
+				token,
+			),
 		);
 	};
 
@@ -101,7 +108,7 @@ export function NeuesBuch() {
 						placeholder="z.B. 30"
 						value={preis}
 						onChange={(event) =>
-							setPreis(parseInt(event.target.value, 10))
+							setPreis(Number(event.target.value))
 						}
 					/>
 					<Form.Label>Rabatt (in Prozent)</Form.Label>
@@ -111,7 +118,7 @@ export function NeuesBuch() {
 						placeholder="z.B. 10"
 						value={rabatt}
 						onChange={(event) =>
-							setRabatt(parseInt(event.target.value, 10))
+							setRabatt(Number(event.target.value))
 						}
 					/>
 					<Form.Label>Rating (1 - 5 Sterne)</Form.Label>

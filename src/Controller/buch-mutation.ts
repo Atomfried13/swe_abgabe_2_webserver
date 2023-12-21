@@ -1,10 +1,8 @@
 import { BuchDTO } from '../Model/buchDTO.entitie';
 import { axiosInstance } from './getAxiosInstance';
-import { useContext } from 'react';
-import { AuthContext } from './AuthContext';
 
-export const mutation = async (buch: BuchDTO) => {
-	const { token } = useContext(AuthContext);
+export const mutation = async (buch: BuchDTO, token: string) => {
+	console.log(token);
 	const authorization = { Authorization: token ? `${token}` : '' };
 	try {
 		const response = await axiosInstance.post(

@@ -90,7 +90,7 @@ export function Login() {
 					}
 				>
 					{loginSuccess ? (
-						<p>Erfolgreich eingeloggt! Token: {token}</p>
+						<p>Erfolgreich eingeloggt!</p>
 					) : (
 						<p>Fehler beim Einloggen</p>
 					)}
