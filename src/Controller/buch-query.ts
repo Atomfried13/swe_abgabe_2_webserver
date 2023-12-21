@@ -1,9 +1,31 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { axiosInstance } from './getAxiosInstance';
+import { AxiosResponse } from 'axios';
+interface BuchData {
+	id: string;
+	isbn: string;
+	version: number;
+	preis: number;
+	rating: number;
+	art: string;
+	rabatt: string;
+	titel: {
+		titel: string;
+	};
+}
 
+interface QueryResultId {
+	data: {
+		buch: BuchData;
+	};
+}
+
+interface QueryResultTitel {
+	data: {
+		buecher: BuchData[];
+	};
+}
 export const fetchId = async (id: string) => {
-	let response;
+	let response: AxiosResponse<{ data: { buch: QueryResultId } }>;
 	try {
 		response = await axiosInstance.post('baseURL/query', {
 			variables: { id },
@@ -35,7 +57,7 @@ export const fetchId = async (id: string) => {
 };
 
 export const fetchTitel = async (titel: string) => {
-	let response;
+	let response: AxiosResponse<{ data: { buecher: QueryResultTitel } }>; // buecher
 	try {
 		response = await axiosInstance.post('baseURL/query', {
 			variables: { titel },

@@ -8,7 +8,7 @@ import { axiosInstance } from './getAxiosInstance';
 export let token: string;
 
 export async function Einloggen(username: string, password: string) {
-	const loginGraphQL = async (): Promise<string> => {
+	const loginGraphQL = async () => {
 		try {
 			const response: AxiosResponse = await axiosInstance.post(
 				'baseURL/',
