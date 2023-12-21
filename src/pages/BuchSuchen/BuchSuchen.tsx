@@ -1,12 +1,3 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable eslint-comments/no-duplicate-disable */
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable max-lines-per-function */
 import { useState } from 'react'; // Warum ist da key!!!, habe es weggemacht.
 import { Form, Button, Table, Alert } from 'react-bootstrap';
 import './BuchSuchen.css';
@@ -15,30 +6,32 @@ import { fetchTitel, fetchId } from '../../Controller/buch-query';
 interface BuchData {
 	id: string;
 	isbn: string;
-	version: number;
+	art: string;
 	preis: number;
 	rating: number;
-	art: string;
 	rabatt: string;
 	titel: {
 		titel: string;
 	};
 }
 
-interface QueryResultId {
+interface QueryIdAusgabe {
 	data: {
 		buch: BuchData;
 	};
 }
-interface QueryResultTitel {
+interface QueryTitelAusgabe {
 	data: {
 		buecher: BuchData[];
 	};
 }
 
+// eslint-disable-next-line max-lines-per-function
 export function BuchSuchen() {
-	const [datenTitel, setDatenTitel] = useState<QueryResultTitel | null>(null);
-	const [datenId, setDatenId] = useState<QueryResultId | null>(null);
+	const [datenTitel, setDatenTitel] = useState<QueryTitelAusgabe | null>(
+		null,
+	);
+	const [datenId, setDatenId] = useState<QueryIdAusgabe | null>(null);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [showTableTitel, setShowTableTitel] = useState(false);
 	const [showTableId, setShowTableId] = useState(false);
@@ -56,7 +49,11 @@ export function BuchSuchen() {
 				const result = await fetchTitel(searchTerm);
 				setShowTableId(false);
 
-				if (result.data.buecher !== null) {
+				if (
+					result.data.buecher.id !== null ||
+					result.data.buecher !== null ||
+					result.data.buecher !== undefined
+				) {
 					setError('');
 					setDatenTitel(result);
 					setShowTableTitel(true);
@@ -69,8 +66,8 @@ export function BuchSuchen() {
 				setShowTableTitel(false);
 
 				if (
-					result.data.buch !== null &&
-					result.data !== null &&
+					result.data.buch.id !== null ||
+					result.data !== null ||
 					result.data !== undefined
 				) {
 					setError('');

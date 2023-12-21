@@ -1,28 +1,39 @@
 import { axiosInstance } from './getAxiosInstance';
 import { AxiosResponse } from 'axios';
-interface BuchData {
+
+/*interface BuchData {
 	id: string;
 	isbn: string;
-	version: number;
+	art: string;
 	preis: number;
 	rating: number;
+	rabatt: string;
+	titel: {
+		titel: string;
+	};
+}*/
+interface QueryResultId {
+	id: string;
+	isbn: string;
 	art: string;
+	preis: number;
+	rating: number;
 	rabatt: string;
 	titel: {
 		titel: string;
 	};
 }
 
-interface QueryResultId {
-	data: {
-		buch: BuchData;
-	};
-}
-
 interface QueryResultTitel {
-	data: {
-		buecher: BuchData[];
-	};
+	id: string;
+	isbn: string;
+	art: string;
+	preis: number;
+	rating: number;
+	rabatt: string;
+	titel: {
+		titel: string;
+	}[];
 }
 export const fetchId = async (id: string) => {
 	let response: AxiosResponse<{ data: { buch: QueryResultId } }>;
@@ -36,8 +47,8 @@ export const fetchId = async (id: string) => {
 						isbn
 						art
 						preis
-						schlagwoerter
 						rating
+						rabatt
 						titel {
 			  				titel
 						}
@@ -64,11 +75,12 @@ export const fetchTitel = async (titel: string) => {
 			query: `
 				query ($titel: String) {
 					buecher(titel: $titel) {
+						id
 						isbn
 						art
 						preis
-						schlagwoerter
 						rating
+						rabatt
 						titel {
 			  				titel
 						}
