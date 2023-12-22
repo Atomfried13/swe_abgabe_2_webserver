@@ -4,6 +4,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import './navbar.css';
 import Button from 'react-bootstrap/Button';
 import { LinkContainer } from 'react-router-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBook } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
 	handleLogout: () => void;
@@ -14,7 +16,10 @@ export function LoggedInNavbar({ handleLogout }: Props) {
 		<Navbar expand="lg">
 			<Container>
 				<LinkContainer to="/">
-					<Navbar.Brand>Buch360</Navbar.Brand>
+					<Navbar.Brand>
+						<FontAwesomeIcon icon={faBook} className="icon" />
+						BuchWeb
+					</Navbar.Brand>
 				</LinkContainer>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">

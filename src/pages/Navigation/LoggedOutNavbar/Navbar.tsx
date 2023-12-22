@@ -4,6 +4,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import './navbar.css';
 import Button from 'react-bootstrap/Button';
 import { LinkContainer } from 'react-router-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBook } from '@fortawesome/free-solid-svg-icons';
 
 interface LoggedOutNavbarClick {
 	onLoginClick: () => void;
@@ -13,7 +15,12 @@ export function LoggedOutNavbar({ onLoginClick }: LoggedOutNavbarClick) {
 	return (
 		<Navbar expand="lg">
 			<Container>
-				<Navbar.Brand href="#home">Buch360</Navbar.Brand>
+				<LinkContainer to="/">
+					<Navbar.Brand>
+						<FontAwesomeIcon icon={faBook} className="icon" />
+						BuchWeb
+					</Navbar.Brand>
+				</LinkContainer>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="me-auto">
