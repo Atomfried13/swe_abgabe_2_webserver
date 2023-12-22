@@ -5,7 +5,7 @@ export type BuchArt = 'DRUCKAUSGABE' | 'KINDLE';
 
 export class BuchDTO {
 	readonly isbn!: string;
-	readonly rating: string | undefined;
+	readonly rating: number | undefined;
 	readonly art: BuchArt | undefined;
 	readonly preis!: number;
 	readonly rabatt: number | undefined;
