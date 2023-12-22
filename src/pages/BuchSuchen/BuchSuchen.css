@@ -1,13 +1,30 @@
 .buch-suchen-form {
+    display: flex;
     padding: 50px;
-    margin-right: auto;
 }
 
 .suchen-btn {
-    background-color: black;
-    border: none;
+    background-color: black !important;
+    border: none !important;
+    margin-left: 30px;
 }
 
 .suchen-btn:hover {
-    background-color: #00c27b;
+    background-color: #00c27b !important;
+}
+
+.table-container {
+    margin: 30px auto;
+    width: 95%; 
+}
+
+.info-modal .modal-content {
+    background-color: #272727;
+    color: white;
+    border-radius: 10px;
+}
+
+.info-modal .modal-dialog {
+    max-width: 700px;
+    margin: 100px auto; 
 }

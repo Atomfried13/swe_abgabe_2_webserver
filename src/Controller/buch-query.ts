@@ -19,6 +19,8 @@ interface QueryResultId {
 	preis: number;
 	rating: number;
 	rabatt: string;
+	schlagwoerter: string[];
+	lieferbar: boolean;
 	titel: {
 		titel: string;
 	};
@@ -31,6 +33,8 @@ interface QueryResultTitel {
 	preis: number;
 	rating: number;
 	rabatt: string;
+	schlagwoerter: string[];
+	lieferbar: boolean;
 	titel: {
 		titel: string;
 	}[];
@@ -49,6 +53,8 @@ export const fetchId = async (id: string) => {
 						preis
 						rating
 						rabatt
+						schlagwoerter
+						lieferbar
 						titel {
 			  				titel
 						}
@@ -81,6 +87,8 @@ export const fetchTitel = async (titel: string) => {
 						preis
 						rating
 						rabatt
+						schlagwoerter
+						lieferbar
 						titel {
 			  				titel
 						}
