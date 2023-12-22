@@ -1,5 +1,14 @@
 import { useState } from 'react'; // Warum ist da key!!!, habe es weggemacht.
-import { Form, Button, Table, Alert, Modal } from 'react-bootstrap';
+import {
+	Form,
+	Button,
+	Table,
+	Alert,
+	Modal,
+	Row,
+	Col,
+	Container,
+} from 'react-bootstrap';
 import './BuchSuchen.css';
 import { fetchTitel, fetchId } from '../../Controller/buch-query';
 
@@ -101,123 +110,136 @@ export function BuchSuchen() {
 	};
 
 	return (
-		<>
-			<div className="d-flex align-items-center">
-				<Form>
-					<Form.Group
-						className="buch-suchen-form"
-						controlId="formGroupSuchen"
-					>
-						<Form.Control
-							type="suchkriterien"
-							placeholder="Suche anhand der ID oder des Titels..."
-							value={searchTerm}
-							onChange={(event) =>
-								setSearchTerm(event.target.value)
-							}
-						/>
-						<Button
-							className="suchen-btn"
-							onClick={handleSearchClick}
-						>
-							Suchen
-						</Button>
-					</Form.Group>
-				</Form>
-			</div>
-			{error && (
-				<Alert
-					variant="danger"
-					onClose={() => setError('')}
-					dismissible
-				>
-					<Alert.Heading>Fehler!</Alert.Heading>
-					<p>{error}</p>
-				</Alert>
-			)}
-			<div className="table-container">
-				{showTableTitel && datenTitel && (
-					<Table striped bordered hover>
-						<thead>
-							<tr>
-								<th>Nr.</th>
-								<th>ID</th>
-								<th>Titel</th>
-								<th>Preis</th>
-								<th>Art</th>
-								<th>Bewertung</th>
-							</tr>
-						</thead>
-						<tbody>
-							{datenTitel?.data.buecher.map((buch, index) => (
-								<tr
-									key={index}
-									onClick={() => handleRowClick(buch)}
-								>
-									<td>{index + 1}</td>
-									<td>{buch.id}</td>
-									<td>{buch.titel?.titel}</td>
-									<td>{buch.preis}</td>
-									<td>{buch.art}</td>
-									<td>{buch.rating}</td>
-								</tr>
-							))}
-						</tbody>
-					</Table>
-				)}
-				{showTableId && datenId && (
-					<Table striped bordered hover>
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Titel</th>
-								<th>Preis</th>
-								<th>Art</th>
-								<th>Bewertung</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr
-								key={datenId.data.buch.id}
-								onClick={() =>
-									handleRowClick(datenId.data.buch)
-								}
+		<Container>
+			<Row className="justify-content-center">
+				<Col>
+					<div className="d-flex align-items-center">
+						<Form>
+							<Form.Group
+								className="buch-suchen-form"
+								controlId="formGroupSuchen"
 							>
-								<td>{datenId.data.buch.id}</td>
-								<td>{datenId.data.buch.titel?.titel}</td>
-								<td>{datenId.data.buch.preis}</td>
-								<td>{datenId.data.buch.art}</td>
-								<td>{datenId.data.buch.rating}</td>
-							</tr>
-						</tbody>
-					</Table>
-				)}
-			</div>
-			{selectedBook && (
-				<Modal
-					className="info-modal"
-					show={showModal}
-					onHide={handleCloseModal}
-				>
-					<Modal.Header closeButton>
-						<Modal.Title>Weitere Informationen</Modal.Title>
-					</Modal.Header>
-					<Modal.Body>
-						{selectedBook && (
-							<div>
-								<p>ISBN: {selectedBook.isbn}</p>
-								<p>
-									Schlagwörter:{' '}
-									{selectedBook.schlagwoerter.join(', ')}
-								</p>
-								<p>
-									Lieferbar: {String(selectedBook.lieferbar)}
-								</p>
-							</div>
+								<Form.Control
+									type="suchkriterien"
+									placeholder="Suche anhand der ID oder des Titels..."
+									value={searchTerm}
+									onChange={(event) =>
+										setSearchTerm(event.target.value)
+									}
+								/>
+								<Button
+									className="suchen-btn"
+									onClick={handleSearchClick}
+								>
+									Suchen
+								</Button>
+							</Form.Group>
+						</Form>
+					</div>
+					{error && (
+						<Alert
+							variant="danger"
+							onClose={() => setError('')}
+							dismissible
+						>
+							<Alert.Heading>Fehler!</Alert.Heading>
+							<p>{error}</p>
+						</Alert>
+					)}
+					<div className="table-container">
+						{showTableTitel && datenTitel && (
+							<Table striped bordered hover>
+								<thead>
+									<tr>
+										<th>Nr.</th>
+										<th>ID</th>
+										<th>Titel</th>
+										<th>Preis</th>
+										<th>Art</th>
+										<th>Bewertung</th>
+									</tr>
+								</thead>
+								<tbody>
+									{datenTitel?.data.buecher.map(
+										(buch, index) => (
+											<tr
+												key={index}
+												onClick={() =>
+													handleRowClick(buch)
+												}
+											>
+												<td>{index + 1}</td>
+												<td>{buch.id}</td>
+												<td>{buch.titel?.titel}</td>
+												<td>{buch.preis}</td>
+												<td>{buch.art}</td>
+												<td>{buch.rating}</td>
+											</tr>
+										),
+									)}
+								</tbody>
+							</Table>
 						)}
-					</Modal.Body>
-				</Modal>
-			)}
-		</>
+						{showTableId && datenId && (
+							<Table striped bordered hover>
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Titel</th>
+										<th>Preis</th>
+										<th>Art</th>
+										<th>Bewertung</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr
+										key={datenId.data.buch.id}
+										onClick={() =>
+											handleRowClick(datenId.data.buch)
+										}
+									>
+										<td>{datenId.data.buch.id}</td>
+										<td>
+											{datenId.data.buch.titel?.titel}
+										</td>
+										<td>{datenId.data.buch.preis}</td>
+										<td>{datenId.data.buch.art}</td>
+										<td>{datenId.data.buch.rating}</td>
+									</tr>
+								</tbody>
+							</Table>
+						)}
+					</div>
+					{selectedBook && (
+						<Modal
+							className="info-modal"
+							show={showModal}
+							onHide={handleCloseModal}
+						>
+							<Modal.Header closeButton>
+								<Modal.Title>Weitere Informationen</Modal.Title>
+							</Modal.Header>
+							<Modal.Body>
+								{selectedBook && (
+									<div>
+										<p>ISBN: {selectedBook.isbn}</p>
+										<p>
+											Schlagwörter:{' '}
+											{selectedBook.schlagwoerter.join(
+												', ',
+											)}
+										</p>
+										<p>
+											Lieferbar:{' '}
+											{String(selectedBook.lieferbar)}
+										</p>
+									</div>
+								)}
+							</Modal.Body>
+						</Modal>
+					)}
+				</Col>
+			</Row>
+		</Container>
 	);
 }
