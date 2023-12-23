@@ -4,6 +4,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import './navbar.css';
 import Button from 'react-bootstrap/Button';
 import { LinkContainer } from 'react-router-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBook } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../../Controller/AuthContext';
 import { useContext } from 'react';
 
@@ -17,7 +19,10 @@ export function LoggedInNavbar() {
 		<Navbar expand="lg">
 			<Container>
 				<LinkContainer to="/">
-					<Navbar.Brand>Buch360</Navbar.Brand>
+					<Navbar.Brand>
+						<FontAwesomeIcon icon={faBook} className="icon" />
+						BuchWeb
+					</Navbar.Brand>
 				</LinkContainer>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">

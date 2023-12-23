@@ -5,6 +5,11 @@
     font-size: 20px;
     font-weight: bold;
 }
+
+.icon {
+    margin-right: 5px;
+}
+
 .navbar-nav {
     margin-left: 20px;
     font-weight: bold;
