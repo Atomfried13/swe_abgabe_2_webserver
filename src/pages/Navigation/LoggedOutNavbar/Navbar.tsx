@@ -7,11 +7,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 
-interface LoggedOutNavbarClick {
-	onLoginClick: () => void;
-}
-
-export function LoggedOutNavbar({ onLoginClick }: LoggedOutNavbarClick) {
+export function LoggedOutNavbar() {
 	return (
 		<Navbar expand="lg">
 			<Container>
@@ -33,12 +29,7 @@ export function LoggedOutNavbar({ onLoginClick }: LoggedOutNavbarClick) {
 					</Nav>
 					<Nav>
 						<LinkContainer to="/Login">
-							<Button
-								className="login-btn"
-								onClick={onLoginClick}
-							>
-								Login
-							</Button>
+							<Button className="login-btn">Login</Button>
 						</LinkContainer>
 					</Nav>
 				</Navbar.Collapse>

@@ -2,8 +2,12 @@ import { Button } from 'react-bootstrap';
 import './Home.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { LinkContainer } from 'react-router-bootstrap';
+import { useContext } from 'react';
+import { AuthContext } from '../../Controller/AuthContext';
 
 export function Home() {
+	const { token } = useContext(AuthContext);
+	console.log('Aktueller Wert des Tokens:', token);
 	return (
 		<div>
 			<div className="infos">

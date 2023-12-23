@@ -1,34 +1,57 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable @typescript-eslint/no-misused-promises */
+import { useState, useContext } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import './Login.css';
-import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Einloggen } from '../../Controller/auth.service';
+import { AuthContext } from '../../Controller/AuthContext';
 
+// eslint-disable-next-line max-lines-per-function
+
+// eslint-disable-next-line max-lines-per-function
 export function Login() {
 	const [showPassword, setShowPassword] = useState(false);
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const [loginSuccess, setLoginSuccess] = useState<boolean | null>(null);
+	const [formVisible, setFormVisible] = useState(true);
+	const [loading, setLoading] = useState(false);
+	const { updateToken } = useContext(AuthContext);
+	const { token } = useContext(AuthContext);
 
 	const handleLogin = async () => {
-		const usernameInput = document.getElementById(
-			'EingabeBenutzername',
-		) as HTMLInputElement;
-		const passwordInput = document.getElementById(
-			'EingabePasswort',
-		) as HTMLInputElement;
-		setUsername(usernameInput.value);
-		setPassword(passwordInput.value);
+		setLoading(true);
 
 		try {
-			await Einloggen(username, password);
+			const usernameInput = document.getElementById(
+				'EingabeBenutzername',
+			) as HTMLInputElement;
+			const passwordInput = document.getElementById(
+				'EingabePasswort',
+			) as HTMLInputElement;
+			setUsername(usernameInput.value);
+			setPassword(passwordInput.value);
+
+			const token = await Einloggen(username, password);
+			if (token) {
+				updateToken(token);
+				setLoginSuccess(true);
+				setFormVisible(false);
+			} else {
+				setLoginSuccess(false);
+			}
 		} catch (error) {
 			console.error('Fehler beim Einloggen:', error);
+		} finally {
+			setLoading(false);
 		}
 	};
+
 	return (
 		<div className="form-container">
-			<Form>
+			<Form className={formVisible ? '' : 'hidden'}>
 				<Form.Group className="eingabe-benutzername-form">
 					<Form.Label htmlFor="EingabeBenutzername">
 						Benutzername
@@ -56,10 +79,23 @@ export function Login() {
 				</Form.Group>
 				<div className="button-container">
 					<Button className="anmelden-btn" onClick={handleLogin}>
-						Anmelden
+						{loading ? 'Lädt...' : 'Anmelden'}
 					</Button>
 				</div>
 			</Form>
+			{loginSuccess !== null && (
+				<div
+					className={
+						loginSuccess ? 'success-message' : 'error-message'
+					}
+				>
+					{loginSuccess ? (
+						<p>Erfolgreich eingeloggt!</p>
+					) : (
+						<p>Fehler beim Einloggen</p>
+					)}
+				</div>
+			)}
 		</div>
 	);
 }

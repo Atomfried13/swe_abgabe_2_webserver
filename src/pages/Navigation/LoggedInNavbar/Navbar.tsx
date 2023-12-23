@@ -6,12 +6,15 @@ import Button from 'react-bootstrap/Button';
 import { LinkContainer } from 'react-router-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
+import { AuthContext } from '../../../Controller/AuthContext';
+import { useContext } from 'react';
 
-interface Props {
-	handleLogout: () => void;
-}
+export function LoggedInNavbar() {
+	const { updateToken } = useContext(AuthContext);
+	const handleLogout = () => {
+		updateToken(null);
+	};
 
-export function LoggedInNavbar({ handleLogout }: Props) {
 	return (
 		<Navbar expand="lg">
 			<Container>
