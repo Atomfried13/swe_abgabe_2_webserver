@@ -5,11 +5,7 @@ import './navbar.css';
 import Button from 'react-bootstrap/Button';
 import { LinkContainer } from 'react-router-bootstrap';
 
-interface LoggedOutNavbarClick {
-	handleLogin: () => void;
-}
-
-export function LoggedOutNavbar({ handleLogin }: LoggedOutNavbarClick) {
+export function LoggedOutNavbar() {
 	return (
 		<Navbar expand="lg">
 			<Container>
@@ -26,9 +22,7 @@ export function LoggedOutNavbar({ handleLogin }: LoggedOutNavbarClick) {
 					</Nav>
 					<Nav>
 						<LinkContainer to="/Login">
-							<Button className="login-btn" onClick={handleLogin}>
-								Login
-							</Button>
+							<Button className="login-btn">Login</Button>
 						</LinkContainer>
 					</Nav>
 				</Navbar.Collapse>

@@ -1,29 +1,35 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable eslint-comments/no-duplicate-disable */
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-lines-per-function */
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import './NeuesBuch.css';
 import { mutation } from '../../Controller/buch-mutation';
 import { BuchArt } from '../../Model/buchDTO.entitie';
+import { AuthContext } from '../../Controller/AuthContext';
 
 export function NeuesBuch() {
-	const [isbn, setISBN] = useState('');
-	const [titel, setTitel] = useState('');
-	const [rabatt, setRabatt] = useState(0.0);
-	const [rating, setRating] = useState('');
-	const [art, setArt] = useState<BuchArt>('DRUCKAUSGABE');
-	const [preis, setPreis] = useState(0.0);
+	const [isbn, setISBN] = useState('978-0-321-19368-1');
+	const [titel, setTitel] = useState('Hallo');
+	const [rabatt, setRabatt] = useState(0.05);
+	const [rating, setRating] = useState(2);
+	const [art, setArt] = useState('DRUCKAUSGABE');
+	const [preis, setPreis] = useState(90.0);
 	const [lieferbar, setLieferbar] = useState(false);
-	const [datum, setDatum] = useState('');
-	const [homepage, setHomepage] = useState('');
+	const [datum, setDatum] = useState('2022-01-31');
+	const [homepage, setHomepage] = useState('https://create.mutation');
 	const [schlagwoerter, setSchlagwoerter] = useState<string[] | undefined>(
 		undefined,
 	);
 	const [selectedSchlagwoerter, setSelectedSchlagwoerter] = useState<
 		string[]
 	>([]);
+	const [id, setID] = useState(null);
 
 	const handleSchlagwoerterChange = (
 		event: React.ChangeEvent<HTMLInputElement>,
@@ -43,28 +49,38 @@ export function NeuesBuch() {
 		setSchlagwoerter(selectedSchlagwoerter);
 	};
 
+	const { token } = useContext(AuthContext);
+
 	const handleCreateClick = async () => {
 		console.log(isbn);
 		console.log(titel);
 		console.log(preis);
 		console.log(rabatt);
-		console.log(
-			await mutation({
-				isbn: isbn,
-				rating: rating,
-				art: art,
-				preis: preis,
-				rabatt: rabatt,
-				lieferbar: lieferbar,
-				datum: datum,
-				homepage: homepage,
-				schlagwoerter: schlagwoerter,
-				titel: {
-					titel: titel,
-					untertitel: undefined,
+		setID(
+			await mutation(
+				{
+					isbn: isbn,
+					rating: 1,
+					art: art,
+					preis: 99.99,
+					rabatt: 0.123,
+					lieferbar: true,
+					datum: '2022-01-31',
+					homepage: 'https://create.mutation',
+					schlagwoerter: ['JAVASCRIPT', 'TYPESCRIPT'],
+					titel: {
+						titel: 'Titelcreatemutation',
+						untertitel: 'untertitelcreatemutation',
+					},
+					abbildungen: [
+						{
+							beschriftung: 'Abb. 1',
+							contentType: 'img/png',
+						},
+					],
 				},
-				abbildungen: undefined,
-			}),
+				token,
+			),
 		);
 	};
 
@@ -101,7 +117,7 @@ export function NeuesBuch() {
 						placeholder="z.B. 30"
 						value={preis}
 						onChange={(event) =>
-							setPreis(parseInt(event.target.value, 10))
+							setPreis(Number(event.target.value))
 						}
 					/>
 					<Form.Label>Rabatt (in Prozent)</Form.Label>
@@ -111,7 +127,7 @@ export function NeuesBuch() {
 						placeholder="z.B. 10"
 						value={rabatt}
 						onChange={(event) =>
-							setRabatt(parseInt(event.target.value, 10))
+							setRabatt(Number(event.target.value))
 						}
 					/>
 					<Form.Label>Rating (1 - 5 Sterne)</Form.Label>
@@ -119,24 +135,9 @@ export function NeuesBuch() {
 						type=""
 						placeholder="z.B. 2"
 						value={rating}
-						onChange={(event) => setRating(event.target.value)}
-					/>
-					<input
-						type="radio"
-						id="DRUCKAUSGABE"
-						name="Art"
-						value="DRUCKAUSGABE"
-						checked="checked" //funktioniert aber fehler muss irgendwann rausgemacht werden
-						onChange={(event) => setArt(event.target.value)} //es erkennt nicht dass auf jeden Fall eine Buchart zurück gegeben wird
-					/>
-					<label id="DRUCKAUSGABE">DRUCKAUSGABE</label>
-					<br />
-					<input
-						type="radio"
-						id="KINDLE"
-						name="Art"
-						value="KINDLE"
-						onChange={(event) => setArt(event.target.value)} //es erkennt nicht dass auf jeden Fall eine Buchart zurück gegeben wird
+						onChange={(event) =>
+							setRating(Number(event.target.value))
+						}
 					/>
 					<label id="KINDLE">KINDLE</label>
 					<br />
