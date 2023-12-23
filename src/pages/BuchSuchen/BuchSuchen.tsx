@@ -217,7 +217,11 @@ export function BuchSuchen() {
 							onHide={handleCloseModal}
 						>
 							<Modal.Header closeButton>
-								<Modal.Title>Weitere Informationen</Modal.Title>
+								<Modal.Title>
+									Weitere Informationen zum Buch{' '}
+									{selectedBook.titel?.titel} mit der ID{' '}
+									{selectedBook.id}
+								</Modal.Title>
 							</Modal.Header>
 							<Modal.Body>
 								{selectedBook && (
