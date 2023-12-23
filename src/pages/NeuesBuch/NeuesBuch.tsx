@@ -10,7 +10,6 @@ import { useState, useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import './NeuesBuch.css';
 import { mutation } from '../../Controller/buch-mutation';
-import { BuchArt } from '../../Model/buchDTO.entitie';
 import { AuthContext } from '../../Controller/AuthContext';
 
 export function NeuesBuch() {
@@ -23,9 +22,11 @@ export function NeuesBuch() {
 	const [lieferbar, setLieferbar] = useState(false);
 	const [datum, setDatum] = useState('2022-01-31');
 	const [homepage, setHomepage] = useState('https://create.mutation');
-	const [schlagwoerter, setSchlagwoerter] = useState<string[] | undefined>(
-		undefined,
-	);
+	const [schlagwoerter, setSchlagwoerter] = useState<string[] | undefined>([
+		'JAVASCRIPT',
+		'TYPESCRIPT',
+	]);
+	const [showTable, setShowTable] = useState(false);
 	const [selectedSchlagwoerter, setSelectedSchlagwoerter] = useState<
 		string[]
 	>([]);
@@ -53,23 +54,20 @@ export function NeuesBuch() {
 
 	const handleCreateClick = async () => {
 		console.log(isbn);
-		console.log(titel);
-		console.log(preis);
-		console.log(rabatt);
 		setID(
 			await mutation(
 				{
 					isbn: isbn,
-					rating: 1,
+					rating: rating,
 					art: art,
-					preis: 99.99,
-					rabatt: 0.123,
-					lieferbar: true,
-					datum: '2022-01-31',
-					homepage: 'https://create.mutation',
-					schlagwoerter: ['JAVASCRIPT', 'TYPESCRIPT'],
+					preis: preis,
+					rabatt: rabatt,
+					lieferbar: lieferbar,
+					datum: datum,
+					homepage: homepage,
+					schlagwoerter: schlagwoerter,
 					titel: {
-						titel: 'Titelcreatemutation',
+						titel: titel,
 						untertitel: 'untertitelcreatemutation',
 					},
 					abbildungen: [
@@ -82,6 +80,10 @@ export function NeuesBuch() {
 				token,
 			),
 		);
+		console.log(id);
+		if (id !== null) {
+			setShowTable(true);
+		}
 	};
 
 	return (
@@ -139,6 +141,23 @@ export function NeuesBuch() {
 							setRating(Number(event.target.value))
 						}
 					/>
+					<input
+						type="radio"
+						id="DRUCKAUSGABE"
+						name="Art"
+						value="DRUCKAUSGABE"
+						defaultChecked
+						onChange={(event) => setArt(event.target.value)}
+					/>
+					<label id="DRUCKAUSGABE">DRUCKAUSGABE</label>
+					<br />
+					<input
+						type="radio"
+						id="KINDLE"
+						name="Art"
+						value="KINDLE"
+						onChange={(event) => setArt(event.target.value)}
+					/>
 					<label id="KINDLE">KINDLE</label>
 					<br />
 					<input
@@ -193,6 +212,11 @@ export function NeuesBuch() {
 					Neues Buch anlegen
 				</Button>
 			</Form>
+			{showTable && id && (
+				<div>
+					<p>Das Buch wurde angelegt</p>
+				</div>
+			)}
 		</div>
 	);
 }
