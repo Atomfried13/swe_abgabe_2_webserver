@@ -1,12 +1,10 @@
 import { TitelDTO } from './titelDTO.entity.ts';
 import { AbbildungDTO } from './abbildungDTO.entity.ts';
 
-export type BuchArt = 'DRUCKAUSGABE' | 'KINDLE';
-
 export class BuchDTO {
 	readonly isbn!: string;
 	readonly rating: number | undefined;
-	readonly art: BuchArt | undefined;
+	readonly art: string | undefined;
 	readonly preis!: number;
 	readonly rabatt: number | undefined;
 	readonly lieferbar: boolean | undefined;

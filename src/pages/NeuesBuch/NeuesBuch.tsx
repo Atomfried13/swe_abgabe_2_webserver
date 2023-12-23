@@ -18,7 +18,7 @@ export function NeuesBuch() {
 	const [titel, setTitel] = useState('Hallo');
 	const [rabatt, setRabatt] = useState(0.05);
 	const [rating, setRating] = useState(2);
-	const [art, setArt] = useState<BuchArt>('DRUCKAUSGABE');
+	const [art, setArt] = useState('DRUCKAUSGABE');
 	const [preis, setPreis] = useState(90.0);
 	const [lieferbar, setLieferbar] = useState(false);
 	const [datum, setDatum] = useState('2022-01-31');
@@ -61,7 +61,7 @@ export function NeuesBuch() {
 				{
 					isbn: isbn,
 					rating: 1,
-					art: undefined,
+					art: art,
 					preis: 99.99,
 					rabatt: 0.123,
 					lieferbar: true,
