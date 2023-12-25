@@ -1,14 +1,10 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable @typescript-eslint/no-misused-promises */
-import { useState, useContext } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
-import './Login.css';
+import { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Einloggen } from '../../Controller/auth.service';
 import { AuthContext } from '../../Controller/AuthContext';
-
-// eslint-disable-next-line max-lines-per-function
+import './Login.css';
 
 // eslint-disable-next-line max-lines-per-function
 export function Login() {
@@ -25,15 +21,6 @@ export function Login() {
 		setLoading(true);
 
 		try {
-			const usernameInput = document.getElementById(
-				'EingabeBenutzername',
-			) as HTMLInputElement;
-			const passwordInput = document.getElementById(
-				'EingabePasswort',
-			) as HTMLInputElement;
-			setUsername(usernameInput.value);
-			setPassword(passwordInput.value);
-
 			const token = await Einloggen(username, password);
 			if (token) {
 				updateToken(token);
@@ -59,6 +46,8 @@ export function Login() {
 					<Form.Control
 						type="benutzername"
 						id="EingabeBenutzername"
+						value={username}
+						onChange={(event) => setUsername(event.target.value)}
 					/>
 				</Form.Group>
 				<Form.Group className="eingabe-passwort-form">
@@ -67,6 +56,8 @@ export function Login() {
 						<Form.Control
 							type={showPassword ? 'text' : 'password'}
 							id="EingabePasswort"
+							value={password}
+							onChange={(event) => setPassword(event.target.value)}
 						/>
 						<Button onClick={() => setShowPassword(!showPassword)}>
 							{showPassword ? (
