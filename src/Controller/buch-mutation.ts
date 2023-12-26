@@ -8,6 +8,7 @@ export const mutation = async (buch: BuchDTO, token: string) => {
 	const authorization = { Authorization: token ? `Bearer ${token}` : '' };
 	try {
 		console.log('am anfang');
+		console.log(buch.titel);
 		const response = await axiosInstance.post(
 			'baseURL/graphql',
 			{

@@ -1,8 +1,8 @@
 import { Form } from 'react-bootstrap';
 
 export interface RabattUebertragung {
-	rabatt: number | undefined;
-	setRabatt: React.Dispatch<React.SetStateAction<number | undefined>>;
+	rabatt: number;
+	setRabatt: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export function Rabatt(rabattUebertragung: RabattUebertragung) {

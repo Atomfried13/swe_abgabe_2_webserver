@@ -1,8 +1,6 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable max-lines-per-function */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { useState, useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import './NeuesBuch.css';
@@ -15,26 +13,31 @@ import { Rating } from './Rating.component';
 import { Datum } from './Datum.component';
 import { Rabatt } from './Rabatt.component';
 import { Preis } from './Preis.component';
+import { Isbn } from './Isbn.component';
+import { Art } from './Art.component';
+import { Titel } from './Titel.component';
 
+// eslint-disable-next-line max-lines-per-function
 export function NeuesBuch() {
-	const [isbn, setISBN] = useState('978-0-321-19368-1');
-	const [titel, setTitel] = useState('Hallo');
-	const [rabatt, setRabatt] = useState<number | undefined>(undefined);
-	const [rating, setRating] = useState<number | undefined>(undefined);
-	const [art, setArt] = useState('DRUCKAUSGABE');
-	const [preis, setPreis] = useState<number>(0.0);
-	const [lieferbar, setLieferbar] = useState(false);
-	const [datum, setDatum] = useState('');
+	//TODO Werte die undefined sind auch offen lassen, andere Werte abprüfen ob gesetz wurden und leere Startwerte setzen.
+	//TODO Isbn stimmt noch was mit dem übertragen der Daten vom Formular nicht.
+	const [isbn, setIsbn] = useState<string>('978-0-321-19368-1');
+	const [titel, setTitel] = useState<string>('');
+	const [rabatt, setRabatt] = useState<number>(0.0);
+	const [rating, setRating] = useState<number>(0);
+	const [art, setArt] = useState<string>('DRUCKAUSGABE');
+	const [preis, setPreis] = useState<number>(100.0);
+	const [lieferbar, setLieferbar] = useState<boolean>(false);
+	//TODO Datum stimmt noch was mit dem übertragen der Daten vom Formular nicht.
+	const [datum, setDatum] = useState<string>('2022-01-31');
 	const [schlagwoerter, setSchlagwoerter] = useState<string[]>([]);
-	const [homepage, setHomepage] = useState('');
+	const [homepage, setHomepage] = useState<string>('');
+
 	const [showTable, setShowTable] = useState(false);
-
 	const [id, setID] = useState(null);
-
 	const { token } = useContext(AuthContext);
 
 	const handleCreateClick = async () => {
-		console.log(preis);
 		setID(
 			await mutation(
 				{
@@ -77,43 +80,12 @@ export function NeuesBuch() {
 					controlId="buch-anlegen"
 					className="buch-anlegen-form"
 				>
-					<Form.Label>ISBN</Form.Label>
-					<Form.Control
-						required
-						type="text"
-						placeholder="z.B. 0-0070-0644-6"
-						value={isbn}
-						onChange={(event) => setISBN(event.target.value)}
-					/>
-					<Form.Label>Titel</Form.Label>
-					<Form.Control
-						required
-						type="text"
-						placeholder="z.B. Learning React"
-						value={titel}
-						onChange={(event) => setTitel(event.target.value)}
-					/>
+					<Isbn isbn={isbn} setIsbn={setIsbn} />
+					<Titel titel={titel} setTitel={setTitel} />
 					<Preis preis={preis} setPreis={setPreis} />
 					<Rabatt rabatt={rabatt} setRabatt={setRabatt} />
 					<Rating rating={rating} setRating={setRating} />
-					<input
-						type="radio"
-						id="DRUCKAUSGABE"
-						name="Art"
-						value="DRUCKAUSGABE"
-						defaultChecked
-						onChange={(event) => setArt(event.target.value)}
-					/>
-					<label id="DRUCKAUSGABE">DRUCKAUSGABE</label>
-					<br />
-					<input
-						type="radio"
-						id="KINDLE"
-						name="Art"
-						value="KINDLE"
-						onChange={(event) => setArt(event.target.value)}
-					/>
-					<label id="KINDLE">KINDLE</label>
+					<Art setArt={setArt} />
 					<br />
 					<Lieferbar setLieferbar={setLieferbar} />
 					<br />
