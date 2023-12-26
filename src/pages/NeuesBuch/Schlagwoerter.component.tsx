@@ -8,6 +8,7 @@ export interface SchlagwoerterUebertragung {
 export function Schlagwoerter(
 	schlagwoerterUebertragung: SchlagwoerterUebertragung,
 ) {
+	//TODO schlagwoerter abwählen funktioniert nicht.
 	const handleSetSchlagwoerter = (schlagwort: string) => {
 		if (!schlagwoerterUebertragung.schlagwoerter.includes(schlagwort)) {
 			const schlagwoerteralt = schlagwoerterUebertragung.schlagwoerter;

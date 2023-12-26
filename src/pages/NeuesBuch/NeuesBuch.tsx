@@ -14,16 +14,19 @@ import { mutation } from '../../Controller/buch-mutation';
 import { AuthContext } from '../../Controller/AuthContext';
 import { Homepage } from './Homepage.component';
 import { Schlagwoerter } from './Schlagwoerter.component';
+import { Lieferbar } from './Lieferbar.component';
+import { Rating } from './Rating.component';
+import { Datum } from './Datum.component';
 
 export function NeuesBuch() {
 	const [isbn, setISBN] = useState('978-0-321-19368-1');
 	const [titel, setTitel] = useState('Hallo');
 	const [rabatt, setRabatt] = useState(0.05);
-	const [rating, setRating] = useState(2);
+	const [rating, setRating] = useState<number | undefined>(undefined);
 	const [art, setArt] = useState('DRUCKAUSGABE');
 	const [preis, setPreis] = useState(90.0);
 	const [lieferbar, setLieferbar] = useState(false);
-	const [datum, setDatum] = useState('2022-01-31');
+	const [datum, setDatum] = useState('');
 	const [schlagwoerter, setSchlagwoerter] = useState<string[]>([]);
 	const [homepage, setHomepage] = useState('');
 	const [showTable, setShowTable] = useState(false);
@@ -33,7 +36,7 @@ export function NeuesBuch() {
 	const { token } = useContext(AuthContext);
 
 	const handleCreateClick = async () => {
-		console.log(schlagwoerter);
+		console.log(datum);
 		setID(
 			await mutation(
 				{
@@ -112,15 +115,7 @@ export function NeuesBuch() {
 							setRabatt(Number(event.target.value))
 						}
 					/>
-					<Form.Label>Rating (1 - 5 Sterne)</Form.Label>
-					<Form.Control
-						type=""
-						placeholder="z.B. 2"
-						value={rating}
-						onChange={(event) =>
-							setRating(Number(event.target.value))
-						}
-					/>
+					<Rating rating={rating} setRating={setRating} />
 					<input
 						type="radio"
 						id="DRUCKAUSGABE"
@@ -140,22 +135,9 @@ export function NeuesBuch() {
 					/>
 					<label id="KINDLE">KINDLE</label>
 					<br />
-					<input
-						type="checkbox"
-						id="Lieferbar"
-						name="Lieferbar"
-						value="Lieferbar"
-						onChange={(event) => setLieferbar(event.target.checked)}
-					/>
-					<label htmlFor="Lieferbar">Lieferbar</label>
+					<Lieferbar setLieferbar={setLieferbar} />
 					<br />
-					<Form.Label>Datum</Form.Label>
-					<Form.Control
-						type="text"
-						placeholder="2021-01-31"
-						value={datum}
-						onChange={(event) => setDatum(event.target.value)}
-					/>
+					<Datum datum={datum} setDatum={setDatum} />
 					<Homepage homepage={homepage} setHomepage={setHomepage} />
 					<Schlagwoerter
 						schlagwoerter={schlagwoerter}
