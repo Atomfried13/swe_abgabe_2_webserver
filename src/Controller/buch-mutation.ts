@@ -30,7 +30,7 @@ export const mutation = async (buch: BuchDTO, token: string) => {
 			console.log('es ist etwas schiefgelaufen');
 		}
 		console.log('Antwort: ', response.data);
-		return response.data;
+		return response.data.data.create.id;
 	} catch (err) {
 		console.log('Fehler, Schreiben hat nicht geklappt:', err);
 		throw new Error('Fehler beim Anlegen des Buches.');

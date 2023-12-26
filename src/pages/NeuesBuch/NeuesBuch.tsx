@@ -1,4 +1,5 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable eslint-comments/no-duplicate-disable */
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
@@ -11,6 +12,8 @@ import { Form, Button } from 'react-bootstrap';
 import './NeuesBuch.css';
 import { mutation } from '../../Controller/buch-mutation';
 import { AuthContext } from '../../Controller/AuthContext';
+import { Homepage } from './Homepage.component';
+import { Schlagwoerter } from './Schlagwoerter.component';
 
 export function NeuesBuch() {
 	const [isbn, setISBN] = useState('978-0-321-19368-1');
@@ -21,39 +24,16 @@ export function NeuesBuch() {
 	const [preis, setPreis] = useState(90.0);
 	const [lieferbar, setLieferbar] = useState(false);
 	const [datum, setDatum] = useState('2022-01-31');
-	const [homepage, setHomepage] = useState('https://create.mutation');
-	const [schlagwoerter, setSchlagwoerter] = useState<string[] | undefined>([
-		'JAVASCRIPT',
-		'TYPESCRIPT',
-	]);
+	const [schlagwoerter, setSchlagwoerter] = useState<string[]>([]);
+	const [homepage, setHomepage] = useState('');
 	const [showTable, setShowTable] = useState(false);
-	const [selectedSchlagwoerter, setSelectedSchlagwoerter] = useState<
-		string[]
-	>([]);
+
 	const [id, setID] = useState(null);
-
-	const handleSchlagwoerterChange = (
-		event: React.ChangeEvent<HTMLInputElement>,
-	) => {
-		const { value, checked } = event.target;
-		let updatedSchlagwoerter = [...selectedSchlagwoerter];
-
-		if (checked) {
-			updatedSchlagwoerter = [...updatedSchlagwoerter, value];
-		} else {
-			updatedSchlagwoerter = updatedSchlagwoerter.filter(
-				(item) => item !== value,
-			);
-		}
-
-		setSelectedSchlagwoerter(updatedSchlagwoerter);
-		setSchlagwoerter(selectedSchlagwoerter);
-	};
 
 	const { token } = useContext(AuthContext);
 
 	const handleCreateClick = async () => {
-		console.log(isbn);
+		console.log(schlagwoerter);
 		setID(
 			await mutation(
 				{
@@ -176,33 +156,11 @@ export function NeuesBuch() {
 						value={datum}
 						onChange={(event) => setDatum(event.target.value)}
 					/>
-					<Form.Label>Homepage</Form.Label>
-					<Form.Control
-						type="text"
-						placeholder="z.B. https://h-ka.de"
-						value={homepage}
-						onChange={(event) => setHomepage(event.target.value)}
+					<Homepage homepage={homepage} setHomepage={setHomepage} />
+					<Schlagwoerter
+						schlagwoerter={schlagwoerter}
+						setSchlagwoerter={setSchlagwoerter}
 					/>
-					<Form.Label>Schlagwoerter</Form.Label>
-					<br />
-					<input
-						type="checkbox"
-						id="Typescript"
-						name="Typescript"
-						value="Typescript"
-						onChange={handleSchlagwoerterChange}
-					/>
-					<label htmlFor="Typescript">Typescript</label>
-					<br />
-					<input
-						type="checkbox"
-						id="Javascript"
-						name="Javascript"
-						value="Javascript"
-						onChange={handleSchlagwoerterChange}
-					/>
-					<label htmlFor="Javascript">Javascript</label>
-					<br />
 				</Form.Group>
 				<Button
 					onClick={handleCreateClick}
