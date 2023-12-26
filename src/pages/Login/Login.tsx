@@ -14,8 +14,11 @@ export function Login() {
 	const [loginSuccess, setLoginSuccess] = useState<boolean | null>(null);
 	const [formVisible, setFormVisible] = useState(true);
 	const [loading, setLoading] = useState(false);
-	const { updateToken } = useContext(AuthContext);
 	const [errMsg, setErrMsg] = useState('');
+
+	const { setToken } = useContext(AuthContext);
+	const { setExpiresIn } = useContext(AuthContext);
+	const { setTokenIssuedAt } = useContext(AuthContext);
 
 	const handleLogin = async () => {
 		setLoading(true);
@@ -24,9 +27,12 @@ export function Login() {
 			const response = await Einloggen(username, password);
 			console.log(response);
 			const token = response.data.data?.login?.token;
+			const expiresIn = response.data.data?.login?.expiresIn;
 			if (token) {
-				updateToken(token);
+				setToken(token);
 				setLoginSuccess(true);
+				setExpiresIn(expiresIn);
+				setTokenIssuedAt(new Date());
 				setFormVisible(false);
 			} else {
 				setLoginSuccess(false);

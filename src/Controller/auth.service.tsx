@@ -6,6 +6,7 @@ interface LoginResponse {
 		login: {
 			token: string;
 			roles: string[];
+			expiresIn: string;
 		};
 	};
 	errors: {
@@ -26,7 +27,8 @@ export async function Einloggen(username: string, password: string) {
 								password: "${password}"
 							) {
 								token,
-								roles
+								roles,
+								expiresIn
 							}
 						}
 					`,
