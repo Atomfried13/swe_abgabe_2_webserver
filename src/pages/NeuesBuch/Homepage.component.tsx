@@ -5,16 +5,16 @@ export interface HomepageUebertragung {
 	setHomepage: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export function Homepage(homepageUeertragung: HomepageUebertragung) {
+export function Homepage(homepageUebertragung: HomepageUebertragung) {
 	return (
 		<>
 			<Form.Label>Homepage</Form.Label>
 			<Form.Control
 				type="text"
 				placeholder="z.B. https://h-ka.de"
-				value={homepageUeertragung.homepage}
+				value={homepageUebertragung.homepage}
 				onChange={(event) =>
-					homepageUeertragung.setHomepage(event.target.value)
+					homepageUebertragung.setHomepage(event.target.value)
 				}
 			/>
 		</>

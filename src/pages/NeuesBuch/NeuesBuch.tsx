@@ -1,11 +1,7 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable eslint-comments/no-duplicate-disable */
-/* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-lines-per-function */
 import { useState, useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
@@ -17,14 +13,16 @@ import { Schlagwoerter } from './Schlagwoerter.component';
 import { Lieferbar } from './Lieferbar.component';
 import { Rating } from './Rating.component';
 import { Datum } from './Datum.component';
+import { Rabatt } from './Rabatt.component';
+import { Preis } from './Preis.component';
 
 export function NeuesBuch() {
 	const [isbn, setISBN] = useState('978-0-321-19368-1');
 	const [titel, setTitel] = useState('Hallo');
-	const [rabatt, setRabatt] = useState(0.05);
+	const [rabatt, setRabatt] = useState<number | undefined>(undefined);
 	const [rating, setRating] = useState<number | undefined>(undefined);
 	const [art, setArt] = useState('DRUCKAUSGABE');
-	const [preis, setPreis] = useState(90.0);
+	const [preis, setPreis] = useState<number>(0.0);
 	const [lieferbar, setLieferbar] = useState(false);
 	const [datum, setDatum] = useState('');
 	const [schlagwoerter, setSchlagwoerter] = useState<string[]>([]);
@@ -36,7 +34,7 @@ export function NeuesBuch() {
 	const { token } = useContext(AuthContext);
 
 	const handleCreateClick = async () => {
-		console.log(datum);
+		console.log(preis);
 		setID(
 			await mutation(
 				{
@@ -95,26 +93,8 @@ export function NeuesBuch() {
 						value={titel}
 						onChange={(event) => setTitel(event.target.value)}
 					/>
-					<Form.Label>Preis</Form.Label>
-					<Form.Control
-						required
-						type=""
-						placeholder="z.B. 30"
-						value={preis}
-						onChange={(event) =>
-							setPreis(Number(event.target.value))
-						}
-					/>
-					<Form.Label>Rabatt (in Prozent)</Form.Label>
-					<Form.Control
-						required
-						type="text"
-						placeholder="z.B. 10"
-						value={rabatt}
-						onChange={(event) =>
-							setRabatt(Number(event.target.value))
-						}
-					/>
+					<Preis preis={preis} setPreis={setPreis} />
+					<Rabatt rabatt={rabatt} setRabatt={setRabatt} />
 					<Rating rating={rating} setRating={setRating} />
 					<input
 						type="radio"

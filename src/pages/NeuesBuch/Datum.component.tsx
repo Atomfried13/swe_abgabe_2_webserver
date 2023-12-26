@@ -5,16 +5,16 @@ export interface DatumUebertragung {
 	setDatum: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export function Datum(datumUeertragung: DatumUebertragung) {
+export function Datum(datumUebertragung: DatumUebertragung) {
 	return (
 		<>
 			<Form.Label>Datum</Form.Label>
 			<Form.Control
 				type="text"
 				placeholder="2021-01-31"
-				value={datumUeertragung.datum}
+				value={datumUebertragung.datum}
 				onChange={(event) =>
-					datumUeertragung.setDatum(event.target.value)
+					datumUebertragung.setDatum(event.target.value)
 				}
 			/>
 		</>

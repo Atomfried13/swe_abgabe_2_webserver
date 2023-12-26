@@ -2,7 +2,7 @@ export interface LieferbarUebertragung {
 	setLieferbar: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function Lieferbar(lieferbarUeertragung: LieferbarUebertragung) {
+export function Lieferbar(lieferbarUebertragung: LieferbarUebertragung) {
 	return (
 		<>
 			<input
@@ -11,7 +11,7 @@ export function Lieferbar(lieferbarUeertragung: LieferbarUebertragung) {
 				name="Lieferbar"
 				value="Lieferbar"
 				onChange={(event) =>
-					lieferbarUeertragung.setLieferbar(event.target.checked)
+					lieferbarUebertragung.setLieferbar(event.target.checked)
 				}
 			/>
 			<label htmlFor="Lieferbar">Lieferbar</label>

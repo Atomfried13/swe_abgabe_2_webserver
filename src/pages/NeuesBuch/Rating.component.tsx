@@ -5,16 +5,16 @@ export interface RatingUebertragung {
 	setRating: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
 
-export function Rating(ratingUeertragung: RatingUebertragung) {
+export function Rating(ratingUebertragung: RatingUebertragung) {
 	return (
 		<>
 			<Form.Label>Rating (1 - 5 Sterne)</Form.Label>
 			<Form.Control
 				type=""
 				placeholder="z.B. 2"
-				value={ratingUeertragung.rating}
+				value={ratingUebertragung.rating}
 				onChange={(event) =>
-					ratingUeertragung.setRating(Number(event.target.value))
+					ratingUebertragung.setRating(Number(event.target.value))
 				}
 			/>
 		</>
