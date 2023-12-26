@@ -15,22 +15,26 @@ export function Login() {
 	const [formVisible, setFormVisible] = useState(true);
 	const [loading, setLoading] = useState(false);
 	const { updateToken } = useContext(AuthContext);
-	const { token } = useContext(AuthContext);
+	const [errMsg, setErrMsg] = useState('');
 
 	const handleLogin = async () => {
 		setLoading(true);
 
 		try {
-			const token = await Einloggen(username, password);
+			const response = await Einloggen(username, password);
+			console.log(response);
+			const token = response.data.data?.login?.token;
 			if (token) {
 				updateToken(token);
 				setLoginSuccess(true);
 				setFormVisible(false);
 			} else {
 				setLoginSuccess(false);
+				setErrMsg(response.data.errors[0].message);
 			}
 		} catch (error) {
-			console.error('Fehler beim Einloggen:', error);
+			console.error(error);
+			setLoginSuccess(false);
 		} finally {
 			setLoading(false);
 		}
@@ -86,7 +90,7 @@ export function Login() {
 					{loginSuccess ? (
 						<p>Erfolgreich eingeloggt!</p>
 					) : (
-						<p>Fehler beim Einloggen</p>
+						<p>{errMsg ? errMsg : 'Fehler beim Einloggen'}</p>
 					)}
 				</div>
 			)}
