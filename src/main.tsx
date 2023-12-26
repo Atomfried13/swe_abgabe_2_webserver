@@ -16,10 +16,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 			<Router>
 				<Nav />
 				<Routes>
-					<Route path="/" Component={Home}></Route>
-					<Route path="/BuchSuchen" Component={BuchSuchen}></Route>
-					<Route path="/NeuesBuch" Component={NeuesBuch}></Route>
-					<Route path="/Login" Component={Login}></Route>
+					<Route path="/" element={<Home />}></Route>
+					<Route path="/BuchSuchen" element={<BuchSuchen />}></Route>
+					<Route path="/NeuesBuch" element={<NeuesBuch />}></Route>
+					<Route path="/Login" element={<Login />}></Route>
 				</Routes>
 			</Router>
 		</AuthProvider>
