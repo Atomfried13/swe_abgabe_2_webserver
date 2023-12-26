@@ -38,7 +38,7 @@ export function LoggedInNavbar() {
 						</LinkContainer>
 					</Nav>
 					<Nav>
-						<LinkContainer to="/NeuesBuch">
+						<LinkContainer to="/">
 							<Button
 								onClick={handleLogout}
 								className="logout-btn"
