@@ -37,8 +37,9 @@ export function Login() {
 	};
 
 	return (
-		<div className="form-container">
+		<div className="d-flex flex-column align-items-center mt-5">
 			<Form className={formVisible ? '' : 'hidden'}>
+				<h2 className="text-center mb-4">Login</h2>
 				<Form.Group className="eingabe-benutzername-form">
 					<Form.Label htmlFor="EingabeBenutzername">
 						Benutzername
@@ -57,7 +58,9 @@ export function Login() {
 							type={showPassword ? 'text' : 'password'}
 							id="EingabePasswort"
 							value={password}
-							onChange={(event) => setPassword(event.target.value)}
+							onChange={(event) =>
+								setPassword(event.target.value)
+							}
 						/>
 						<Button onClick={() => setShowPassword(!showPassword)}>
 							{showPassword ? (
@@ -68,7 +71,7 @@ export function Login() {
 						</Button>
 					</InputGroup>
 				</Form.Group>
-				<div className="button-container">
+				<div className="mt-3">
 					<Button className="anmelden-btn" onClick={handleLogin}>
 						{loading ? 'Lädt...' : 'Anmelden'}
 					</Button>

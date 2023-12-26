@@ -25,13 +25,12 @@
 }
 
 .login-btn {
-    background-color: black;
+    background-color: black !important;
     padding: 10px 30px;
     border: none;
 }
 
 .login-btn:hover {
-    background-color: #00c27b;
+    background-color: blue !important;
 }
-
  
