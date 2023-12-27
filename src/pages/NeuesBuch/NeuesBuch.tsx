@@ -6,7 +6,7 @@ import { Form, Button } from 'react-bootstrap';
 import './NeuesBuch.css';
 import { mutation } from '../../Controller/buch-mutation';
 import { AuthContext } from '../../Controller/AuthContext';
-import { isTokenExpired } from './TokenValidator';
+import { isTokenExpired } from './TokenValidierung';
 import { Homepage } from './Homepage.component';
 import { Schlagwoerter } from './Schlagwoerter.component';
 import { Lieferbar } from './Lieferbar.component';
