@@ -9,16 +9,18 @@ import './Login.css';
 // eslint-disable-next-line max-lines-per-function
 export function Login() {
 	const [showPassword, setShowPassword] = useState(false);
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
 	const [loginSuccess, setLoginSuccess] = useState<boolean | null>(null);
 	const [formVisible, setFormVisible] = useState(true);
 	const [loading, setLoading] = useState(false);
 	const [errMsg, setErrMsg] = useState('');
 
+	const { username } = useContext(AuthContext);
+	const { password } = useContext(AuthContext);
 	const { setToken } = useContext(AuthContext);
 	const { setExpiresIn } = useContext(AuthContext);
 	const { setTokenIssuedAt } = useContext(AuthContext);
+	const { setUsername } = useContext(AuthContext);
+	const { setPassword } = useContext(AuthContext);
 
 	const handleLogin = async () => {
 		setLoading(true);

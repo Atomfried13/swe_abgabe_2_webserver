@@ -7,6 +7,7 @@ import './NeuesBuch.css';
 import { mutation } from '../../Controller/buch-mutation';
 import { AuthContext } from '../../Controller/AuthContext';
 import { isTokenExpired } from './TokenValidierung';
+import { Einloggen } from '../../Controller/auth.service';
 import { Homepage } from './Homepage.component';
 import { Schlagwoerter } from './Schlagwoerter.component';
 import { Lieferbar } from './Lieferbar.component';
@@ -36,22 +37,40 @@ export function NeuesBuch() {
 
 	const [showTable, setShowTable] = useState(false);
 	const [id, setID] = useState(null);
+	const { username } = useContext(AuthContext);
+	const { password } = useContext(AuthContext);
 	const { token } = useContext(AuthContext);
 	const { expiresIn } = useContext(AuthContext);
 	const { tokenIssuedAt } = useContext(AuthContext);
+	const { setToken } = useContext(AuthContext);
+	const { setExpiresIn } = useContext(AuthContext);
+	const { setTokenIssuedAt } = useContext(AuthContext);
 
 	const handleCreateClick = async () => {
 		console.log(isbn);
 		console.log(titel);
 		console.log(preis);
 		console.log(rabatt);
+		console.log(username);
 		const isExpired = isTokenExpired(expiresIn, tokenIssuedAt);
+		let validToken: string = token;
 		if (isExpired) {
 			console.log('Das Token ist abgelaufen.');
+			try {
+				const response = await Einloggen(username, password);
+				console.log(response);
+				const newToken = response.data.data?.login?.token;
+				const newExpiresIn = response.data.data?.login?.expiresIn;
+				setToken(newToken);
+				setExpiresIn(newExpiresIn);
+				setTokenIssuedAt(new Date());
+				validToken = newToken;
+			} catch (error) {
+				console.error(error);
+			}
 		} else {
 			console.log('Das Token ist noch gültig.');
 		}
-
 		setID(
 			await mutation(
 				{
@@ -75,7 +94,7 @@ export function NeuesBuch() {
 						},
 					],
 				},
-				token,
+				validToken,
 			),
 		);
 		console.log(id);
