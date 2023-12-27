@@ -10,8 +10,13 @@ import {
 	Container,
 } from 'react-bootstrap';
 import './BuchSuchen.css';
-import { fetchTitel, fetchId } from '../../Controller/buch-query';
-
+import {
+	fetchTitel,
+	fetchId,
+	QueryResultId,
+	QueryResultTitel,
+} from '../../Controller/buch-query';
+// muss man ändern mit Buchdata !!!!!!!!
 interface BuchData {
 	id: string;
 	isbn: string;
@@ -27,14 +32,10 @@ interface BuchData {
 }
 
 interface QueryIdAusgabe {
-	data: {
-		buch: BuchData;
-	};
+	buch: QueryResultId;
 }
 interface QueryTitelAusgabe {
-	data: {
-		buecher: BuchData[];
-	};
+	buecher: QueryResultTitel;
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -62,7 +63,7 @@ export function BuchSuchen() {
 				const result = await fetchTitel(searchTerm);
 				setShowTableId(false);
 
-				if (result?.data?.buecher) {
+				if (result) {
 					setError('');
 					setDatenTitel(result);
 					setShowTableTitel(true);
@@ -74,7 +75,7 @@ export function BuchSuchen() {
 				const result = await fetchId(searchTerm);
 				setShowTableTitel(false);
 
-				if (result?.data?.buch) {
+				if (result?.buch) {
 					setError('');
 					setDatenId(result);
 					setShowTableId(true);
@@ -152,23 +153,19 @@ export function BuchSuchen() {
 									</tr>
 								</thead>
 								<tbody>
-									{datenTitel?.data.buecher.map(
-										(buch, index) => (
-											<tr
-												key={index}
-												onClick={() =>
-													handleRowClick(buch)
-												}
-											>
-												<td>{index + 1}</td>
-												<td>{buch.id}</td>
-												<td>{buch.titel?.titel}</td>
-												<td>{buch.preis}</td>
-												<td>{buch.art}</td>
-												<td>{buch.rating}</td>
-											</tr>
-										),
-									)}
+									{datenTitel?.buecher.map((buch, index) => (
+										<tr
+											key={index}
+											onClick={() => handleRowClick(buch)}
+										>
+											<td>{index + 1}</td>
+											<td>{buch.id}</td>
+											<td>{buch.titel?.titel}</td>
+											<td>{buch.preis}</td>
+											<td>{buch.art}</td>
+											<td>{buch.rating}</td>
+										</tr>
+									))}
 								</tbody>
 							</Table>
 						)}
@@ -185,18 +182,16 @@ export function BuchSuchen() {
 								</thead>
 								<tbody>
 									<tr
-										key={datenId.data.buch.id}
+										key={datenId.buch.id}
 										onClick={() =>
-											handleRowClick(datenId.data.buch)
+											handleRowClick(datenId.buch)
 										}
 									>
-										<td>{datenId.data.buch.id}</td>
-										<td>
-											{datenId.data.buch.titel?.titel}
-										</td>
-										<td>{datenId.data.buch.preis}</td>
-										<td>{datenId.data.buch.art}</td>
-										<td>{datenId.data.buch.rating}</td>
+										<td>{datenId.buch.id}</td>
+										<td>{datenId.buch.titel?.titel}</td>
+										<td>{datenId.buch.preis}</td>
+										<td>{datenId.buch.art}</td>
+										<td>{datenId.buch.rating}</td>
 									</tr>
 								</tbody>
 							</Table>

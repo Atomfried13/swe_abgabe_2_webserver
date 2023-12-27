@@ -12,7 +12,7 @@ import { AxiosResponse } from 'axios';
 		titel: string;
 	};
 }*/
-interface QueryResultId {
+export interface QueryResultId {
 	id: string;
 	isbn: string;
 	art: string;
@@ -26,7 +26,13 @@ interface QueryResultId {
 	};
 }
 
-interface QueryResultTitel {
+export interface QueryResultTitel {
+	map(
+		arg0: (
+			buch: QueryResultId,
+			index: number,
+		) => import('react/jsx-runtime').JSX.Element,
+	): import('react').ReactNode;
 	id: string;
 	isbn: string;
 	art: string;
@@ -70,7 +76,7 @@ export const fetchId = async (id: string) => {
 		throw new Error();
 	}
 	console.log('Ergebnis der API:', response);
-	return response.data;
+	return response.data.data;
 };
 
 export const fetchTitel = async (titel: string) => {
@@ -102,5 +108,5 @@ export const fetchTitel = async (titel: string) => {
 		);
 		throw new Error();
 	}
-	return response.data;
+	return response.data.data;
 };
