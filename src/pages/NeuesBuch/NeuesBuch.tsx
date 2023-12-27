@@ -131,7 +131,7 @@ export function NeuesBuch() {
 				</Form.Group>
 				<Button
 					onClick={handleCreateClick}
-					type="submit"
+					type="button"
 					className="buch-schreiben-form"
 				>
 					Neues Buch anlegen
