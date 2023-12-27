@@ -63,9 +63,10 @@ export function BuchSuchen() {
 				setShowTableId(false);
 
 				if (
-					result.data.buecher.id !== null ||
-					result.data.buecher !== null ||
-					result.data.buecher !== undefined
+					result &&
+					result.data &&
+					result.data.buecher &&
+					result.data.buecher.id !== null
 				) {
 					setError('');
 					setDatenTitel(result);
@@ -79,9 +80,10 @@ export function BuchSuchen() {
 				setShowTableTitel(false);
 
 				if (
-					result.data.buch.id !== null ||
-					result.data !== null ||
-					result.data !== undefined
+					result &&
+					result.data &&
+					result.data.buch &&
+					result.data.buch.id !== null
 				) {
 					setError('');
 					setDatenId(result);

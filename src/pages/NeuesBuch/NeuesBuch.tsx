@@ -1,54 +1,40 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable eslint-comments/no-duplicate-disable */
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable max-lines-per-function */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { useState, useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import './NeuesBuch.css';
 import { mutation } from '../../Controller/buch-mutation';
-import { BuchArt } from '../../Model/buchDTO.entitie';
 import { AuthContext } from '../../Controller/AuthContext';
+import { Homepage } from './Homepage.component';
+import { Schlagwoerter } from './Schlagwoerter.component';
+import { Lieferbar } from './Lieferbar.component';
+import { Rating } from './Rating.component';
+import { Datum } from './Datum.component';
+import { Rabatt } from './Rabatt.component';
+import { Preis } from './Preis.component';
+import { Isbn } from './Isbn.component';
+import { Art } from './Art.component';
+import { Titel } from './Titel.component';
 
+// eslint-disable-next-line max-lines-per-function
 export function NeuesBuch() {
-	const [isbn, setISBN] = useState('978-0-321-19368-1');
-	const [titel, setTitel] = useState('Hallo');
-	const [rabatt, setRabatt] = useState(0.05);
-	const [rating, setRating] = useState(2);
-	const [art, setArt] = useState('DRUCKAUSGABE');
-	const [preis, setPreis] = useState(90.0);
-	const [lieferbar, setLieferbar] = useState(false);
-	const [datum, setDatum] = useState('2022-01-31');
-	const [homepage, setHomepage] = useState('https://create.mutation');
-	const [schlagwoerter, setSchlagwoerter] = useState<string[] | undefined>(
-		undefined,
-	);
-	const [selectedSchlagwoerter, setSelectedSchlagwoerter] = useState<
-		string[]
-	>([]);
+	//TODO Werte die undefined sind auch offen lassen, andere Werte abprüfen ob gesetz wurden und leere Startwerte setzen.
+	//TODO Isbn stimmt noch was mit dem übertragen der Daten vom Formular nicht.
+	const [isbn, setIsbn] = useState<string>('978-0-321-19368-1');
+	const [titel, setTitel] = useState<string>('');
+	const [rabatt, setRabatt] = useState<number>(0.0);
+	const [rating, setRating] = useState<number>(0);
+	const [art, setArt] = useState<string>('DRUCKAUSGABE');
+	const [preis, setPreis] = useState<number>(100.0);
+	const [lieferbar, setLieferbar] = useState<boolean>(false);
+	//TODO Datum stimmt noch was mit dem übertragen der Daten vom Formular nicht.
+	const [datum, setDatum] = useState<string>('2022-01-31');
+	const [schlagwoerter, setSchlagwoerter] = useState<string[]>([]);
+	const [homepage, setHomepage] = useState<string>('');
+
+	const [showTable, setShowTable] = useState(false);
 	const [id, setID] = useState(null);
-
-	const handleSchlagwoerterChange = (
-		event: React.ChangeEvent<HTMLInputElement>,
-	) => {
-		const { value, checked } = event.target;
-		let updatedSchlagwoerter = [...selectedSchlagwoerter];
-
-		if (checked) {
-			updatedSchlagwoerter = [...updatedSchlagwoerter, value];
-		} else {
-			updatedSchlagwoerter = updatedSchlagwoerter.filter(
-				(item) => item !== value,
-			);
-		}
-
-		setSelectedSchlagwoerter(updatedSchlagwoerter);
-		setSchlagwoerter(selectedSchlagwoerter);
-	};
-
 	const { token } = useContext(AuthContext);
 	const { expiresIn } = useContext(AuthContext);
 	const { tokenIssuedAt } = useContext(AuthContext);
@@ -88,20 +74,21 @@ export function NeuesBuch() {
 		} else {
 			console.log('Das Token ist noch gültig.');
 		}
+
 		setID(
 			await mutation(
 				{
 					isbn: isbn,
-					rating: 1,
+					rating: rating,
 					art: art,
-					preis: 99.99,
-					rabatt: 0.123,
-					lieferbar: true,
-					datum: '2022-01-31',
-					homepage: 'https://create.mutation',
-					schlagwoerter: ['JAVASCRIPT', 'TYPESCRIPT'],
+					preis: preis,
+					rabatt: rabatt,
+					lieferbar: lieferbar,
+					datum: datum,
+					homepage: homepage,
+					schlagwoerter: schlagwoerter,
 					titel: {
-						titel: 'Titelcreatemutation',
+						titel: titel,
 						untertitel: 'untertitelcreatemutation',
 					},
 					abbildungen: [
@@ -114,6 +101,10 @@ export function NeuesBuch() {
 				token,
 			),
 		);
+		console.log(id);
+		if (id !== null) {
+			setShowTable(true);
+		}
 	};
 
 	return (
@@ -126,96 +117,21 @@ export function NeuesBuch() {
 					controlId="buch-anlegen"
 					className="buch-anlegen-form"
 				>
-					<Form.Label>ISBN</Form.Label>
-					<Form.Control
-						required
-						type="text"
-						placeholder="z.B. 0-0070-0644-6"
-						value={isbn}
-						onChange={(event) => setISBN(event.target.value)}
-					/>
-					<Form.Label>Titel</Form.Label>
-					<Form.Control
-						required
-						type="text"
-						placeholder="z.B. Learning React"
-						value={titel}
-						onChange={(event) => setTitel(event.target.value)}
-					/>
-					<Form.Label>Preis</Form.Label>
-					<Form.Control
-						required
-						type=""
-						placeholder="z.B. 30"
-						value={preis}
-						onChange={(event) =>
-							setPreis(Number(event.target.value))
-						}
-					/>
-					<Form.Label>Rabatt (in Prozent)</Form.Label>
-					<Form.Control
-						required
-						type="text"
-						placeholder="z.B. 10"
-						value={rabatt}
-						onChange={(event) =>
-							setRabatt(Number(event.target.value))
-						}
-					/>
-					<Form.Label>Rating (1 - 5 Sterne)</Form.Label>
-					<Form.Control
-						type=""
-						placeholder="z.B. 2"
-						value={rating}
-						onChange={(event) =>
-							setRating(Number(event.target.value))
-						}
-					/>
-					<label id="KINDLE">KINDLE</label>
+					<Isbn isbn={isbn} setIsbn={setIsbn} />
+					<Titel titel={titel} setTitel={setTitel} />
+					<Preis preis={preis} setPreis={setPreis} />
+					<Rabatt rabatt={rabatt} setRabatt={setRabatt} />
+					<Rating rating={rating} setRating={setRating} />
+					<Art setArt={setArt} />
 					<br />
-					<input
-						type="checkbox"
-						id="Lieferbar"
-						name="Lieferbar"
-						value="Lieferbar"
-						onChange={(event) => setLieferbar(event.target.checked)}
-					/>
-					<label htmlFor="Lieferbar">Lieferbar</label>
+					<Lieferbar setLieferbar={setLieferbar} />
 					<br />
-					<Form.Label>Datum</Form.Label>
-					<Form.Control
-						type="text"
-						placeholder="2021-01-31"
-						value={datum}
-						onChange={(event) => setDatum(event.target.value)}
+					<Datum datum={datum} setDatum={setDatum} />
+					<Homepage homepage={homepage} setHomepage={setHomepage} />
+					<Schlagwoerter
+						schlagwoerter={schlagwoerter}
+						setSchlagwoerter={setSchlagwoerter}
 					/>
-					<Form.Label>Homepage</Form.Label>
-					<Form.Control
-						type="text"
-						placeholder="z.B. https://h-ka.de"
-						value={homepage}
-						onChange={(event) => setHomepage(event.target.value)}
-					/>
-					<Form.Label>Schlagwoerter</Form.Label>
-					<br />
-					<input
-						type="checkbox"
-						id="Typescript"
-						name="Typescript"
-						value="Typescript"
-						onChange={handleSchlagwoerterChange}
-					/>
-					<label htmlFor="Typescript">Typescript</label>
-					<br />
-					<input
-						type="checkbox"
-						id="Javascript"
-						name="Javascript"
-						value="Javascript"
-						onChange={handleSchlagwoerterChange}
-					/>
-					<label htmlFor="Javascript">Javascript</label>
-					<br />
 				</Form.Group>
 				<Button
 					onClick={handleCreateClick}
@@ -225,6 +141,11 @@ export function NeuesBuch() {
 					Neues Buch anlegen
 				</Button>
 			</Form>
+			{showTable && id && (
+				<div>
+					<p>Das Buch wurde angelegt</p>
+				</div>
+			)}
 		</div>
 	);
 }
