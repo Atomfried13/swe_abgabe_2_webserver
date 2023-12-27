@@ -62,12 +62,7 @@ export function BuchSuchen() {
 				const result = await fetchTitel(searchTerm);
 				setShowTableId(false);
 
-				if (
-					result &&
-					result.data &&
-					result.data.buecher &&
-					result.data.buecher.id !== null
-				) {
+				if (result?.data?.buecher) {
 					setError('');
 					setDatenTitel(result);
 					setShowTableTitel(true);
@@ -79,12 +74,7 @@ export function BuchSuchen() {
 				const result = await fetchId(searchTerm);
 				setShowTableTitel(false);
 
-				if (
-					result &&
-					result.data &&
-					result.data.buch &&
-					result.data.buch.id !== null
-				) {
+				if (result?.data?.buch) {
 					setError('');
 					setDatenId(result);
 					setShowTableId(true);
