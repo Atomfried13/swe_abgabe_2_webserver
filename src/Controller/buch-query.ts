@@ -1,18 +1,7 @@
 import { axiosInstance } from './getAxiosInstance';
 import { AxiosResponse } from 'axios';
 
-/*interface BuchData {
-	id: string;
-	isbn: string;
-	art: string;
-	preis: number;
-	rating: number;
-	rabatt: string;
-	titel: {
-		titel: string;
-	};
-}*/
-export interface QueryResultId {
+export interface Buch {
 	id: string;
 	isbn: string;
 	art: string;
@@ -26,27 +15,17 @@ export interface QueryResultId {
 	};
 }
 
-export interface QueryResultTitel {
+export interface BuchListe {
 	map(
 		arg0: (
-			buch: QueryResultId,
+			buch: Buch,
 			index: number,
 		) => import('react/jsx-runtime').JSX.Element,
 	): import('react').ReactNode;
-	id: string;
-	isbn: string;
-	art: string;
-	preis: number;
-	rating: number;
-	rabatt: string;
-	schlagwoerter: string[];
-	lieferbar: boolean;
-	titel: {
-		titel: string;
-	}[];
+	buecher: Buch[];
 }
 export const fetchId = async (id: string) => {
-	let response: AxiosResponse<{ data: { buch: QueryResultId } }>;
+	let response: AxiosResponse<{ data: { buch: Buch } }>;
 	try {
 		response = await axiosInstance.post('baseURL/query', {
 			variables: { id },
@@ -70,9 +49,6 @@ export const fetchId = async (id: string) => {
 		});
 	} catch (error) {
 		console.error('Fehler beim Laden des Querys:', error);
-		//console.log(
-		//'Fehler, genauere Fehlermeldung noch nicht vorhanden, schaue in die Konsole des Browsers',
-		//);
 		throw new Error();
 	}
 	console.log('Ergebnis der API:', response);
@@ -80,7 +56,7 @@ export const fetchId = async (id: string) => {
 };
 
 export const fetchTitel = async (titel: string) => {
-	let response: AxiosResponse<{ data: { buecher: QueryResultTitel } }>; // buecher
+	let response: AxiosResponse<{ data: { buecher: BuchListe } }>;
 	try {
 		response = await axiosInstance.post('baseURL/query', {
 			variables: { titel },
@@ -102,11 +78,10 @@ export const fetchTitel = async (titel: string) => {
 				}
 			`,
 		});
-	} catch (err: unknown) {
-		console.log(
-			'Fehler, genauere Fehlermeldung noch nicht vorhanden, schaue in die Konsole des Browsers',
-		);
+	} catch (error) {
+		console.error('Fehler beim Laden des Querys:', error);
 		throw new Error();
 	}
-	return response.data.data;
+	console.log('Ergebnis der API:', response);
+	return response.data.data; // warum 2 mal data
 };

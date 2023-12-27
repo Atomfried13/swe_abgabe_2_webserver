@@ -13,29 +13,14 @@ import './BuchSuchen.css';
 import {
 	fetchTitel,
 	fetchId,
-	QueryResultId,
-	QueryResultTitel,
+	Buch,
+	BuchListe,
 } from '../../Controller/buch-query';
-// muss man ändern mit Buchdata !!!!!!!!
-interface BuchData {
-	id: string;
-	isbn: string;
-	art: string;
-	preis: number;
-	rating: number;
-	rabatt: string;
-	schlagwoerter: string[];
-	lieferbar: boolean;
-	titel: {
-		titel: string;
-	};
-}
-
 interface QueryIdAusgabe {
-	buch: QueryResultId;
+	buch: Buch;
 }
 interface QueryTitelAusgabe {
-	buecher: QueryResultTitel;
+	buecher: BuchListe;
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -48,13 +33,13 @@ export function BuchSuchen() {
 	const [showTableTitel, setShowTableTitel] = useState(false);
 	const [showTableId, setShowTableId] = useState(false);
 	const [error, setError] = useState('');
-	const [selectedBook, setSelectedBook] = useState<BuchData | null>(null);
+	const [selectedBook, setSelectedBook] = useState<Buch | null>(null);
 	const [showModal, setShowModal] = useState(false);
 
 	// eslint-disable-next-line max-statements
 	const handleSearchClick = async () => {
 		try {
-			if (!searchTerm) {
+			if (searchTerm === '') {
 				setDatenTitel(await fetchTitel(searchTerm));
 				setError('');
 				setShowTableId(false);
@@ -63,7 +48,7 @@ export function BuchSuchen() {
 				const result = await fetchTitel(searchTerm);
 				setShowTableId(false);
 
-				if (result) {
+				if (result?.buecher) {
 					setError('');
 					setDatenTitel(result);
 					setShowTableTitel(true);
@@ -92,7 +77,7 @@ export function BuchSuchen() {
 		}
 	};
 
-	const handleRowClick = (buch: BuchData) => {
+	const handleRowClick = (buch: Buch) => {
 		setSelectedBook(buch);
 		setShowModal(true);
 	};
