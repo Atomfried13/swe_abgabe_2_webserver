@@ -1,22 +1,22 @@
 import { Form } from 'react-bootstrap';
 
 export interface RabattUebertragung {
-	rabatt: number;
 	setRabatt: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export function Rabatt(rabattUebertragung: RabattUebertragung) {
+	const handleRabatt = (value: string) => {
+		const valueAlsProzent = Number(value) * 0.01;
+		rabattUebertragung.setRabatt(valueAlsProzent);
+	};
 	return (
 		<>
-			<Form.Label>Rabatt (in Prozent)</Form.Label>
+			<Form.Label>Rabatt (in Prozent)*</Form.Label>
 			<Form.Control
 				required
-				type="text"
+				type="int"
 				placeholder="z.B. 10"
-				value={rabattUebertragung.rabatt}
-				onChange={(event) =>
-					rabattUebertragung.setRabatt(Number(event.target.value))
-				}
+				onChange={(event) => handleRabatt(event.target.value)}
 			/>
 		</>
 	);

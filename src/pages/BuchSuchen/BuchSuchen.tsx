@@ -63,6 +63,8 @@ export function BuchSuchen() {
 				setShowTableId(false);
 
 				if (
+					//TODO Optional-chain?
+					// eslint-disable-next-line @typescript-eslint/prefer-optional-chain
 					result &&
 					result.data &&
 					result.data.buecher &&
@@ -80,6 +82,8 @@ export function BuchSuchen() {
 				setShowTableTitel(false);
 
 				if (
+					//TODO Optional-chain?
+					// eslint-disable-next-line @typescript-eslint/prefer-optional-chain
 					result &&
 					result.data &&
 					result.data.buch &&

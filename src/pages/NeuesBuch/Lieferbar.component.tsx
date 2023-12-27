@@ -5,6 +5,7 @@ export interface LieferbarUebertragung {
 export function Lieferbar(lieferbarUebertragung: LieferbarUebertragung) {
 	return (
 		<>
+			<br />
 			<input
 				type="checkbox"
 				id="Lieferbar"
@@ -15,6 +16,7 @@ export function Lieferbar(lieferbarUebertragung: LieferbarUebertragung) {
 				}
 			/>
 			<label htmlFor="Lieferbar">Lieferbar</label>
+			<br />
 		</>
 	);
 }
