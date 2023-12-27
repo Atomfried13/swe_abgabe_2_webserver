@@ -16,34 +16,36 @@ export function Login() {
 	const [loading, setLoading] = useState(false);
 	const [errMsg, setErrMsg] = useState('');
 
-	const { setToken } = useContext(AuthContext);
+	const { setToken }: { setToken: (value: string | null) => void } =
+		useContext(AuthContext);
 	const { setExpiresIn } = useContext(AuthContext);
 	const { setTokenIssuedAt } = useContext(AuthContext);
 
-	const handleLogin = async () => {
-		setLoading(true);
-
-		try {
-			const response = await Einloggen(username, password);
-			console.log(response);
-			const token = response.data.data?.login?.token;
-			const expiresIn = response.data.data?.login?.expiresIn;
-			if (token) {
-				setToken(token);
-				setLoginSuccess(true);
-				setExpiresIn(expiresIn);
-				setTokenIssuedAt(new Date());
-				setFormVisible(false);
-			} else {
+	const handleLogin = () => {
+		void (async () => {
+			setLoading(true);
+			try {
+				const response = await Einloggen(username, password);
+				console.log(response);
+				const token = response.data.data?.login?.token;
+				const expiresIn = response.data.data?.login?.expiresIn;
+				if (token) {
+					setToken(token);
+					setLoginSuccess(true);
+					setExpiresIn(expiresIn);
+					setTokenIssuedAt(new Date());
+					setFormVisible(false);
+				} else {
+					setLoginSuccess(false);
+					setErrMsg(response.data.errors[0].message);
+				}
+			} catch (error) {
+				console.error(error);
 				setLoginSuccess(false);
-				setErrMsg(response.data.errors[0].message);
+			} finally {
+				setLoading(false);
 			}
-		} catch (error) {
-			console.error(error);
-			setLoginSuccess(false);
-		} finally {
-			setLoading(false);
-		}
+		})();
 	};
 
 	return (
