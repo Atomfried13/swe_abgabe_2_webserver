@@ -25,7 +25,7 @@
 }
 
 .logout-btn {
-    background-color: black;
+    background-color: black !important;
     padding: 10px 30px;
     border: none;
 }

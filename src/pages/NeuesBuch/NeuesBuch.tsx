@@ -6,6 +6,7 @@ import { Form, Button } from 'react-bootstrap';
 import './NeuesBuch.css';
 import { mutation } from '../../Controller/buch-mutation';
 import { AuthContext } from '../../Controller/AuthContext';
+import { isTokenExpired } from './TokenValidator';
 import { Homepage } from './Homepage.component';
 import { Schlagwoerter } from './Schlagwoerter.component';
 import { Lieferbar } from './Lieferbar.component';
@@ -36,8 +37,21 @@ export function NeuesBuch() {
 	const [showTable, setShowTable] = useState(false);
 	const [id, setID] = useState(null);
 	const { token } = useContext(AuthContext);
+	const { expiresIn } = useContext(AuthContext);
+	const { tokenIssuedAt } = useContext(AuthContext);
 
 	const handleCreateClick = async () => {
+		console.log(isbn);
+		console.log(titel);
+		console.log(preis);
+		console.log(rabatt);
+		const isExpired = isTokenExpired(expiresIn, tokenIssuedAt);
+		if (isExpired) {
+			console.log('Das Token ist abgelaufen.');
+		} else {
+			console.log('Das Token ist noch gültig.');
+		}
+
 		setID(
 			await mutation(
 				{
