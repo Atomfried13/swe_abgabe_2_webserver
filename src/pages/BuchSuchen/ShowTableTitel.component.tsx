@@ -24,7 +24,7 @@ export function ShowTableTitel(
 					</tr>
 				</thead>
 				<tbody>
-					{showTableTitelUebertragung.datenTitel?.data.buecher.map(
+					{showTableTitelUebertragung.datenTitel?.buecher.map(
 						(buch, index) => (
 							<tr
 								key={index}

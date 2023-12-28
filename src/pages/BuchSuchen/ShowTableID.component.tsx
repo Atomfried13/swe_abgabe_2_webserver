@@ -22,27 +22,20 @@ export function ShowTableId(showTableIdUebertragung: ShowTableIdUebertragung) {
 				</thead>
 				<tbody>
 					<tr
-						key={showTableIdUebertragung.datenId.data.buch.id}
+						key={showTableIdUebertragung.datenId.buch.id}
 						onClick={() =>
 							showTableIdUebertragung.handleRowClick(
-								showTableIdUebertragung.datenId.data.buch,
+								showTableIdUebertragung.datenId.buch,
 							)
 						}
 					>
-						<td>{showTableIdUebertragung.datenId.data.buch.id}</td>
+						<td>{showTableIdUebertragung.datenId.buch.id}</td>
 						<td>
-							{
-								showTableIdUebertragung.datenId.data.buch.titel
-									?.titel
-							}
+							{showTableIdUebertragung.datenId.buch.titel?.titel}
 						</td>
-						<td>
-							{showTableIdUebertragung.datenId.data.buch.preis}
-						</td>
-						<td>{showTableIdUebertragung.datenId.data.buch.art}</td>
-						<td>
-							{showTableIdUebertragung.datenId.data.buch.rating}
-						</td>
+						<td>{showTableIdUebertragung.datenId.buch.preis}</td>
+						<td>{showTableIdUebertragung.datenId.buch.art}</td>
+						<td>{showTableIdUebertragung.datenId.buch.rating}</td>
 					</tr>
 				</tbody>
 			</Table>
