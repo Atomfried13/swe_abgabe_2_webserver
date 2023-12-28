@@ -1,3 +1,5 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable prettier/prettier */
 import { useState } from 'react'; // Warum ist da key!!!, habe es weggemacht.
 import {
 	Form,
@@ -39,36 +41,46 @@ export function BuchSuchen() {
 	// eslint-disable-next-line max-statements
 	const handleSearchClick = async () => {
 		try {
-			if (searchTerm === '') {
+			switch (true) {
+			case searchTerm === '':
 				setDatenTitel(await fetchTitel(searchTerm));
 				setError('');
 				setShowTableId(false);
 				setShowTableTitel(true);
-			} else if (isNaN(Number(searchTerm))) {
-				const result = await fetchTitel(searchTerm);
+				break;
+
+			case isNaN(Number(searchTerm)): {
+				const resultTitel = await fetchTitel(searchTerm);
 				setShowTableId(false);
 
-				if (result?.buecher) {
+				if (resultTitel?.buecher) {
 					setError('');
-					setDatenTitel(result);
+					setDatenTitel(resultTitel);
 					setShowTableTitel(true);
 				} else {
 					setError('Mach kein Scheiße, gib was Gescheites an');
 					setDatenTitel(null);
 				}
-			} else {
-				const result = await fetchId(searchTerm);
+				break;
+			}
+			case !isNaN(Number(searchTerm)):{
+				const resultId = await fetchId(searchTerm);
 				setShowTableTitel(false);
 
-				if (result?.buch) {
+				if (resultId?.buch) {
 					setError('');
-					setDatenId(result);
+					setDatenId(resultId);
 					setShowTableId(true);
 				} else {
 					setError('Mach kein Scheiße, gib was Gescheites an');
 					setDatenId(null);
 				}
+				break;
 			}
+			default:
+				setError('Mach kein Scheiße, gib was Gescheites an');
+			}	
+		
 		} catch (error) {
 			console.error('Fehler beim Laden der Daten:', error);
 			setError('Fehler beim Laden der Daten');
