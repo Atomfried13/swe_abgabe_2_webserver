@@ -23,11 +23,12 @@ export function Login() {
 	const [loading, setLoading] = useState(false);
 	const [errMsg, setErrMsg] = useState('');
 
-	const { username } = useContext(AuthContext);
 	const { setToken } = useContext(AuthContext);
 	const { setExpiresIn } = useContext(AuthContext);
 	const { setTokenIssuedAt } = useContext(AuthContext);
+	const { username } = useContext(AuthContext);
 	const { setUsername } = useContext(AuthContext);
+	const { setRoles } = useContext(AuthContext);
 
 	const handleLogin = async () => {
 		setLoading(true);
@@ -37,11 +38,13 @@ export function Login() {
 			console.log(response);
 			const token = response.data.data?.login?.token;
 			const expiresIn = response.data.data?.login?.expiresIn;
+			const roles = response.data.data?.login?.roles;
 			if (token) {
 				setToken(token);
 				setLoginSuccess(true);
 				setExpiresIn(expiresIn);
 				setTokenIssuedAt(new Date());
+				setRoles(roles);
 				setFormVisible(false);
 			} else {
 				setLoginSuccess(false);
