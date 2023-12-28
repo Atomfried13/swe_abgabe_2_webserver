@@ -75,7 +75,6 @@ export function Login() {
 							<Form.Control
 								type="benutzername"
 								id="EingabeBenutzername"
-								value={username}
 								onChange={(event) =>
 									setUsername(event.target.value)
 								}
@@ -99,7 +98,6 @@ export function Login() {
 								<Form.Control
 									type={showPassword ? 'text' : 'password'}
 									id="EingabePasswort"
-									value={password}
 									onChange={(event) =>
 										setPassword(event.target.value)
 									}
