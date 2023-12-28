@@ -1,5 +1,10 @@
+.login-formular {
+    margin-top: 50px;
+}
+
 .anmelden-btn {
     background-color: black;
+    width: 100%;
     border: none;
 }
 
@@ -9,4 +14,16 @@
 
 .hidden {
     display: none;
+}
+
+.login-message {
+    margin-top: 30px;
+}
+
+.passwort-label{
+    font-weight: bold;
+}
+
+.benutzername-label {
+    font-weight: bold;
 }
