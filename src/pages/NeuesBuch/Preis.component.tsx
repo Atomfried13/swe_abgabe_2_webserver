@@ -10,7 +10,7 @@ export function Preis(preisUebertragung: PreisUebertragung) {
 			<Form.Label>Preis*</Form.Label>
 			<Form.Control
 				required
-				type=""
+				type="number"
 				placeholder="z.B. 30"
 				onChange={(event) =>
 					preisUebertragung.setPreis(Number(event.target.value))

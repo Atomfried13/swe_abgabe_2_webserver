@@ -4,7 +4,10 @@
 import { BuchDTO } from '../Model/buchDTO.entitie';
 import { axiosInstance } from './getAxiosInstance';
 
-export const mutation = async (buch: BuchDTO, token: string) => {
+export const mutation = async (
+	buch: BuchDTO,
+	token: string,
+): Promise<number> => {
 	const authorization = { Authorization: token ? `Bearer ${token}` : '' };
 	try {
 		console.log('am anfang');

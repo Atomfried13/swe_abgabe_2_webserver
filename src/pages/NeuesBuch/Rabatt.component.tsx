@@ -11,10 +11,9 @@ export function Rabatt(rabattUebertragung: RabattUebertragung) {
 	};
 	return (
 		<>
-			<Form.Label>Rabatt (in Prozent)*</Form.Label>
+			<Form.Label>Rabatt (in Prozent)</Form.Label>
 			<Form.Control
-				required
-				type="int"
+				type="number"
 				placeholder="z.B. 10"
 				onChange={(event) => handleRabatt(event.target.value)}
 			/>
