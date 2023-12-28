@@ -1,9 +1,10 @@
 import { Table } from 'react-bootstrap';
-import { BuchData, QueryTitelAusgabe } from './BuchSuchen';
+import { QueryTitelAusgabe } from './BuchSuchen';
+import { Buch } from '../../Controller/buch-query';
 
 interface ShowTableTitelUebertragung {
 	datenTitel: QueryTitelAusgabe;
-	handleRowClick: (buch: BuchData) => void;
+	handleRowClick: (buch: Buch) => void;
 }
 
 export function ShowTableTitel(

@@ -1,8 +1,8 @@
 import { Modal } from 'react-bootstrap';
-import { BuchData } from './BuchSuchen';
+import { Buch } from '../../Controller/buch-query';
 
 interface ModalUebertragung {
-	selectedBook: BuchData;
+	selectedBook: Buch;
 	showModal: boolean;
 	handleCloseModal: () => void;
 }

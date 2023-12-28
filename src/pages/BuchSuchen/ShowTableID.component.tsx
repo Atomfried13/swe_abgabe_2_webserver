@@ -1,9 +1,10 @@
 import { Table } from 'react-bootstrap';
-import { BuchData, QueryIdAusgabe } from './BuchSuchen';
+import { QueryIdAusgabe } from './BuchSuchen';
+import { Buch } from '../../Controller/buch-query';
 
 interface ShowTableIdUebertragung {
 	datenId: QueryIdAusgabe;
-	handleRowClick: (buch: BuchData) => void;
+	handleRowClick: (buch: Buch) => void;
 }
 
 export function ShowTableId(showTableIdUebertragung: ShowTableIdUebertragung) {
