@@ -1,5 +1,3 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useState, useContext } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import './Login.css';

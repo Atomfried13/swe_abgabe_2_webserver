@@ -63,6 +63,7 @@ export function BuchSuchen() {
 				}
 				break;
 			}
+
 			case !isNaN(Number(searchTerm)):{
 				const resultId = await fetchId(searchTerm);
 				setShowTableTitel(false);
@@ -77,6 +78,7 @@ export function BuchSuchen() {
 				}
 				break;
 			}
+
 			default:
 				setError('Mach kein Scheiße, gib was Gescheites an');
 			}	
@@ -88,7 +90,7 @@ export function BuchSuchen() {
 			setDatenTitel(null);
 		}
 	};
-
+	// try und catch
 	const handleRowClick = (buch: Buch) => {
 		setSelectedBook(buch);
 		setShowModal(true);

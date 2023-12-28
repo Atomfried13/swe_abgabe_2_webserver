@@ -1,5 +1,6 @@
 import { axiosInstance } from './getAxiosInstance';
 import { AxiosResponse } from 'axios';
+import { ReactNode } from 'react';
 
 export interface Buch {
 	id: string;
@@ -16,12 +17,7 @@ export interface Buch {
 }
 
 export interface BuchListe {
-	map(
-		arg0: (
-			buch: Buch,
-			index: number,
-		) => import('react/jsx-runtime').JSX.Element,
-	): import('react').ReactNode;
+	map(mapFunction: (buch: Buch, index: number) => ReactNode): ReactNode;
 	buecher: Buch[];
 }
 export const fetchId = async (id: string) => {
