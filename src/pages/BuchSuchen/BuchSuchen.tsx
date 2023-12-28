@@ -1,3 +1,5 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable prettier/prettier */
 import { useState } from 'react'; // Warum ist da key!!!, habe es weggemacht.
 import {
 	Form,
@@ -10,31 +12,17 @@ import {
 	Container,
 } from 'react-bootstrap';
 import './BuchSuchen.css';
-import { fetchTitel, fetchId } from '../../Controller/buch-query';
-
-interface BuchData {
-	id: string;
-	isbn: string;
-	art: string;
-	preis: number;
-	rating: number;
-	rabatt: string;
-	schlagwoerter: string[];
-	lieferbar: boolean;
-	titel: {
-		titel: string;
-	};
-}
-
+import {
+	fetchTitel,
+	fetchId,
+	Buch,
+	BuchListe,
+} from '../../Controller/buch-query';
 interface QueryIdAusgabe {
-	data: {
-		buch: BuchData;
-	};
+	buch: Buch;
 }
 interface QueryTitelAusgabe {
-	data: {
-		buecher: BuchData[];
-	};
+	buecher: BuchListe;
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -47,61 +35,64 @@ export function BuchSuchen() {
 	const [showTableTitel, setShowTableTitel] = useState(false);
 	const [showTableId, setShowTableId] = useState(false);
 	const [error, setError] = useState('');
-	const [selectedBook, setSelectedBook] = useState<BuchData | null>(null);
+	const [selectedBook, setSelectedBook] = useState<Buch | null>(null);
 	const [showModal, setShowModal] = useState(false);
 
 	// eslint-disable-next-line max-statements
 	const handleSearchClick = async () => {
 		try {
-			if (!searchTerm) {
+			switch (true) {
+			case searchTerm === '': // '' unsicher
 				setDatenTitel(await fetchTitel(searchTerm));
 				setError('');
 				setShowTableId(false);
 				setShowTableTitel(true);
-			} else if (isNaN(Number(searchTerm))) {
-				const result = await fetchTitel(searchTerm);
+				break;
+
+			case isNaN(Number(searchTerm)): {
+				const resultTitel = await fetchTitel(searchTerm);
 				setShowTableId(false);
 
-				if (
-					result &&
-					result.data &&
-					result.data.buecher &&
-					result.data.buecher.id !== null
-				) {
+				if (resultTitel?.buecher) {
 					setError('');
-					setDatenTitel(result);
+					setDatenTitel(resultTitel);
 					setShowTableTitel(true);
 				} else {
 					setError('Mach kein Scheiße, gib was Gescheites an');
 					setDatenTitel(null);
 				}
-			} else {
-				const result = await fetchId(searchTerm);
+				break;
+			}
+
+			case !isNaN(Number(searchTerm)):{
+				const resultId = await fetchId(searchTerm);
 				setShowTableTitel(false);
 
-				if (
-					result &&
-					result.data &&
-					result.data.buch &&
-					result.data.buch.id !== null
-				) {
+				if (resultId?.buch) {
 					setError('');
-					setDatenId(result);
+					setDatenId(resultId);
 					setShowTableId(true);
 				} else {
 					setError('Mach kein Scheiße, gib was Gescheites an');
 					setDatenId(null);
 				}
+				break;
 			}
+
+			default:
+				setError('Mach kein Scheiße, gib was Gescheites an');
+			}	
+		
 		} catch (error) {
 			console.error('Fehler beim Laden der Daten:', error);
 			setError('Fehler beim Laden der Daten');
 			setDatenId(null);
 			setDatenTitel(null);
+			throw new Error();
 		}
 	};
-
-	const handleRowClick = (buch: BuchData) => {
+	// try und catch
+	const handleRowClick = (buch: Buch) => {
 		setSelectedBook(buch);
 		setShowModal(true);
 	};
@@ -162,23 +153,19 @@ export function BuchSuchen() {
 									</tr>
 								</thead>
 								<tbody>
-									{datenTitel?.data.buecher.map(
-										(buch, index) => (
-											<tr
-												key={index}
-												onClick={() =>
-													handleRowClick(buch)
-												}
-											>
-												<td>{index + 1}</td>
-												<td>{buch.id}</td>
-												<td>{buch.titel?.titel}</td>
-												<td>{buch.preis}</td>
-												<td>{buch.art}</td>
-												<td>{buch.rating}</td>
-											</tr>
-										),
-									)}
+									{datenTitel?.buecher.map((buch, index) => (
+										<tr
+											key={index}
+											onClick={() => handleRowClick(buch)}
+										>
+											<td>{index + 1}</td>
+											<td>{buch.id}</td>
+											<td>{buch.titel?.titel}</td>
+											<td>{buch.preis}</td>
+											<td>{buch.art}</td>
+											<td>{buch.rating}</td>
+										</tr>
+									))}
 								</tbody>
 							</Table>
 						)}
@@ -195,18 +182,16 @@ export function BuchSuchen() {
 								</thead>
 								<tbody>
 									<tr
-										key={datenId.data.buch.id}
+										key={datenId.buch.id}
 										onClick={() =>
-											handleRowClick(datenId.data.buch)
+											handleRowClick(datenId.buch)
 										}
 									>
-										<td>{datenId.data.buch.id}</td>
-										<td>
-											{datenId.data.buch.titel?.titel}
-										</td>
-										<td>{datenId.data.buch.preis}</td>
-										<td>{datenId.data.buch.art}</td>
-										<td>{datenId.data.buch.rating}</td>
+										<td>{datenId.buch.id}</td>
+										<td>{datenId.buch.titel?.titel}</td>
+										<td>{datenId.buch.preis}</td>
+										<td>{datenId.buch.art}</td>
+										<td>{datenId.buch.rating}</td>
 									</tr>
 								</tbody>
 							</Table>
