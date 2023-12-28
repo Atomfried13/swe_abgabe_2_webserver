@@ -1,6 +1,6 @@
 import { Form } from 'react-bootstrap';
 
-export interface IsbnUebertragung {
+interface IsbnUebertragung {
 	setIsbn: React.Dispatch<React.SetStateAction<string>>;
 }
 

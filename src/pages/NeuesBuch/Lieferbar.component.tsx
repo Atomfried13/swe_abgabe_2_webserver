@@ -1,4 +1,4 @@
-export interface LieferbarUebertragung {
+interface LieferbarUebertragung {
 	setLieferbar: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

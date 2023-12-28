@@ -1,6 +1,6 @@
 import { Form } from 'react-bootstrap';
 
-export interface PreisUebertragung {
+interface PreisUebertragung {
 	setPreis: React.Dispatch<React.SetStateAction<number>>;
 }
 

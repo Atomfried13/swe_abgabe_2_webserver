@@ -1,6 +1,6 @@
 import { Form } from 'react-bootstrap';
 
-export interface RabattUebertragung {
+interface RabattUebertragung {
 	setRabatt: React.Dispatch<React.SetStateAction<number>>;
 }
 

@@ -1,6 +1,6 @@
 import { Form } from 'react-bootstrap';
 
-export interface SchlagwoerterUebertragung {
+interface SchlagwoerterUebertragung {
 	schlagwoerter: string[];
 	setSchlagwoerter: React.Dispatch<React.SetStateAction<string[]>>;
 }

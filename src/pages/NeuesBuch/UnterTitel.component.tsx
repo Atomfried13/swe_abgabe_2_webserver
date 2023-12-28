@@ -1,6 +1,6 @@
 import { Form } from 'react-bootstrap';
 
-export interface UnterTitelUebertragung {
+interface UnterTitelUebertragung {
 	setUnterTitel: React.Dispatch<React.SetStateAction<string>>;
 }
 

@@ -1,6 +1,6 @@
 import { Form } from 'react-bootstrap';
 
-export interface DatumUebertragung {
+interface DatumUebertragung {
 	setDatum: React.Dispatch<React.SetStateAction<string>>;
 }
 

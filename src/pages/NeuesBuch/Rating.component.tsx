@@ -1,6 +1,6 @@
 import { Form } from 'react-bootstrap';
 
-export interface RatingUebertragung {
+interface RatingUebertragung {
 	setRating: React.Dispatch<React.SetStateAction<number>>;
 }
 

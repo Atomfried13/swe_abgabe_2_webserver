@@ -1,6 +1,6 @@
 import { Form } from 'react-bootstrap';
 
-export interface HomepageUebertragung {
+interface HomepageUebertragung {
 	setHomepage: React.Dispatch<React.SetStateAction<string>>;
 }
 

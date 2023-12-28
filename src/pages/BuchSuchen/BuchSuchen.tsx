@@ -1,18 +1,15 @@
-import { useState } from 'react'; // Warum ist da key!!!, habe es weggemacht.
-import {
-	Form,
-	Button,
-	Table,
-	Alert,
-	Modal,
-	Row,
-	Col,
-	Container,
-} from 'react-bootstrap';
+import { useState } from 'react';
+import { Form, Row, Col, Container } from 'react-bootstrap';
 import './BuchSuchen.css';
 import { fetchTitel, fetchId } from '../../Controller/buch-query';
+import { SubmitButton } from './SubmitButtonQuery.component';
+import { EingabeFeld } from './EingabeFeld.component';
+import { ModalUbertragung } from './Modal.component';
+import { ErrorAusgabe } from './ErrorAugabe.component';
+import { ShowTableId } from './ShowTableID.component';
+import { ShowTableTitel } from './ShowTableTitel.component';
 
-interface BuchData {
+export interface BuchData {
 	id: string;
 	isbn: string;
 	art: string;
@@ -26,12 +23,12 @@ interface BuchData {
 	};
 }
 
-interface QueryIdAusgabe {
+export interface QueryIdAusgabe {
 	data: {
 		buch: BuchData;
 	};
 }
-interface QueryTitelAusgabe {
+export interface QueryTitelAusgabe {
 	data: {
 		buecher: BuchData[];
 	};
@@ -125,128 +122,34 @@ export function BuchSuchen() {
 								className="buch-suchen-form"
 								controlId="formGroupSuchen"
 							>
-								<Form.Control
-									type="suchkriterien"
-									placeholder="Suche anhand der ID oder des Titels..."
-									value={searchTerm}
-									onChange={(event) =>
-										setSearchTerm(event.target.value)
-									}
+								<EingabeFeld setSearchTerm={setSearchTerm} />
+								<SubmitButton
+									handleSearchClick={handleSearchClick}
 								/>
-								<Button
-									className="suchen-btn"
-									onClick={handleSearchClick}
-								>
-									Suchen
-								</Button>
 							</Form.Group>
 						</Form>
 					</div>
-					{error && (
-						<Alert
-							variant="danger"
-							onClose={() => setError('')}
-							dismissible
-						>
-							<Alert.Heading>Fehler!</Alert.Heading>
-							<p>{error}</p>
-						</Alert>
-					)}
+					<ErrorAusgabe error={error} setError={setError} />
 					<div className="table-container">
 						{showTableTitel && datenTitel && (
-							<Table striped bordered hover>
-								<thead>
-									<tr>
-										<th>Nr.</th>
-										<th>ID</th>
-										<th>Titel</th>
-										<th>Preis</th>
-										<th>Art</th>
-										<th>Bewertung</th>
-									</tr>
-								</thead>
-								<tbody>
-									{datenTitel?.data.buecher.map(
-										(buch, index) => (
-											<tr
-												key={index}
-												onClick={() =>
-													handleRowClick(buch)
-												}
-											>
-												<td>{index + 1}</td>
-												<td>{buch.id}</td>
-												<td>{buch.titel?.titel}</td>
-												<td>{buch.preis}</td>
-												<td>{buch.art}</td>
-												<td>{buch.rating}</td>
-											</tr>
-										),
-									)}
-								</tbody>
-							</Table>
+							<ShowTableTitel
+								datenTitel={datenTitel}
+								handleRowClick={handleRowClick}
+							/>
 						)}
 						{showTableId && datenId && (
-							<Table striped bordered hover>
-								<thead>
-									<tr>
-										<th>ID</th>
-										<th>Titel</th>
-										<th>Preis</th>
-										<th>Art</th>
-										<th>Bewertung</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr
-										key={datenId.data.buch.id}
-										onClick={() =>
-											handleRowClick(datenId.data.buch)
-										}
-									>
-										<td>{datenId.data.buch.id}</td>
-										<td>
-											{datenId.data.buch.titel?.titel}
-										</td>
-										<td>{datenId.data.buch.preis}</td>
-										<td>{datenId.data.buch.art}</td>
-										<td>{datenId.data.buch.rating}</td>
-									</tr>
-								</tbody>
-							</Table>
+							<ShowTableId
+								datenId={datenId}
+								handleRowClick={handleRowClick}
+							/>
 						)}
 					</div>
 					{selectedBook && (
-						<Modal
-							className="info-modal"
-							show={showModal}
-							onHide={handleCloseModal}
-						>
-							<Modal.Header closeButton>
-								<Modal.Title>
-									Weitere Informationen zum Buch{' '}
-									{selectedBook.titel?.titel} mit der ID{' '}
-									{selectedBook.id}
-								</Modal.Title>
-							</Modal.Header>
-							<Modal.Body>
-								{selectedBook && (
-									<div>
-										<p>ISBN: {selectedBook.isbn}</p>
-										<p>
-											Schlagwörter:{' '}
-											{selectedBook.schlagwoerter.join(
-												', ',
-											)}
-										</p>
-										<p>
-											Lieferbar:{' '}
-											{String(selectedBook.lieferbar)}
-										</p>
-									</div>
-								)}
-							</Modal.Body>
-						</Modal>
+						<ModalUbertragung
+							selectedBook={selectedBook}
+							showModal={showModal}
+							handleCloseModal={handleCloseModal}
+						/>
 					)}
 				</Col>
 			</Row>

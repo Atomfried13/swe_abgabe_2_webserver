@@ -1,6 +1,6 @@
 import { Button } from 'react-bootstrap';
 
-export interface SubmitButtonHandleCreateClick {
+interface SubmitButtonHandleCreateClick {
 	handleCreateClick: () => void;
 }
 
