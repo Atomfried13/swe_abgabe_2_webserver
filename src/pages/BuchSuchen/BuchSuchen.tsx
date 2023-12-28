@@ -42,7 +42,7 @@ export function BuchSuchen() {
 	const handleSearchClick = async () => {
 		try {
 			switch (true) {
-			case searchTerm === '':
+			case searchTerm === '': // '' unsicher
 				setDatenTitel(await fetchTitel(searchTerm));
 				setError('');
 				setShowTableId(false);
@@ -88,6 +88,7 @@ export function BuchSuchen() {
 			setError('Fehler beim Laden der Daten');
 			setDatenId(null);
 			setDatenTitel(null);
+			throw new Error();
 		}
 	};
 	// try und catch

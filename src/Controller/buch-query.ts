@@ -45,7 +45,7 @@ export const fetchId = async (id: string) => {
 		});
 	} catch (error) {
 		console.error('Fehler beim Laden des Querys:', error);
-		throw new Error();
+		throw new Error(); //....
 	}
 	console.log('Ergebnis der API:', response);
 	return response.data.data;
