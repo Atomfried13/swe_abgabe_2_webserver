@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { useState, useContext } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Alert } from 'react-bootstrap';
 import './NeuesBuch.css';
 import { mutation } from '../../Controller/buch-mutation';
 import { AuthContext } from '../../Controller/AuthContext';
@@ -36,9 +36,9 @@ export function NeuesBuch() {
 	const [homepage, setHomepage] = useState<string>('');
 
 	const [showTable, setShowTable] = useState(false);
+	const [showTokenExpiredMsg, setShowTokenExpiredMsg] = useState(false);
 	const [id, setID] = useState(null);
 	const { username } = useContext(AuthContext);
-	const { password } = useContext(AuthContext);
 	const { token } = useContext(AuthContext);
 	const { expiresIn } = useContext(AuthContext);
 	const { tokenIssuedAt } = useContext(AuthContext);
@@ -53,53 +53,41 @@ export function NeuesBuch() {
 		console.log(rabatt);
 		console.log(username);
 		const isExpired = isTokenExpired(expiresIn, tokenIssuedAt);
-		let validToken: string = token;
 		if (isExpired) {
 			console.log('Das Token ist abgelaufen.');
-			try {
-				const response = await Einloggen(username, password);
-				console.log(response);
-				const newToken = response.data.data?.login?.token;
-				const newExpiresIn = response.data.data?.login?.expiresIn;
-				setToken(newToken);
-				setExpiresIn(newExpiresIn);
-				setTokenIssuedAt(new Date());
-				validToken = newToken;
-			} catch (error) {
-				console.error(error);
-			}
+			setShowTokenExpiredMsg(true);
 		} else {
 			console.log('Das Token ist noch gültig.');
-		}
-		setID(
-			await mutation(
-				{
-					isbn: isbn,
-					rating: rating,
-					art: art,
-					preis: preis,
-					rabatt: rabatt,
-					lieferbar: lieferbar,
-					datum: datum,
-					homepage: homepage,
-					schlagwoerter: schlagwoerter,
-					titel: {
-						titel: titel,
-						untertitel: 'untertitelcreatemutation',
-					},
-					abbildungen: [
-						{
-							beschriftung: 'Abb. 1',
-							contentType: 'img/png',
+			setID(
+				await mutation(
+					{
+						isbn: isbn,
+						rating: rating,
+						art: art,
+						preis: preis,
+						rabatt: rabatt,
+						lieferbar: lieferbar,
+						datum: datum,
+						homepage: homepage,
+						schlagwoerter: schlagwoerter,
+						titel: {
+							titel: titel,
+							untertitel: 'untertitelcreatemutation',
 						},
-					],
-				},
-				validToken,
-			),
-		);
-		console.log(id);
-		if (id !== null) {
-			setShowTable(true);
+						abbildungen: [
+							{
+								beschriftung: 'Abb. 1',
+								contentType: 'img/png',
+							},
+						],
+					},
+					token,
+				),
+			);
+			console.log(id);
+			if (id !== null) {
+				setShowTable(true);
+			}
 		}
 	};
 
@@ -132,7 +120,7 @@ export function NeuesBuch() {
 				<Button
 					onClick={handleCreateClick}
 					type="button"
-					className="buch-schreiben-form"
+					className="neuanlegen-btn"
 				>
 					Neues Buch anlegen
 				</Button>
@@ -142,6 +130,10 @@ export function NeuesBuch() {
 					<p>Das Buch wurde angelegt</p>
 				</div>
 			)}
+			<Alert show={showTokenExpiredMsg} variant="danger">
+				<Alert.Heading>Token abgelaufen</Alert.Heading>
+				<p>Token ist nicht mehr gültig. Bitte erneut einloggen.</p>
+			</Alert>
 		</div>
 	);
 }

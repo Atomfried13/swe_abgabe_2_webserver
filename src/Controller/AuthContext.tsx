@@ -4,7 +4,6 @@ export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
 	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
 	const [token, setToken] = useState<string | null>(null);
 	const [expiresIn, setExpiresIn] = useState<string | null>(null);
 	const [tokenIssuedAt, setTokenIssuedAt] = useState<Date | null>(null);
@@ -20,8 +19,6 @@ export const AuthProvider = ({ children }) => {
 				setToken,
 				username,
 				setUsername,
-				password,
-				setPassword,
 			}}
 		>
 			{children}
