@@ -1,18 +1,8 @@
 import { axiosInstance } from './getAxiosInstance';
 import { AxiosResponse } from 'axios';
+import { ReactNode } from 'react';
 
-/*interface BuchData {
-	id: string;
-	isbn: string;
-	art: string;
-	preis: number;
-	rating: number;
-	rabatt: string;
-	titel: {
-		titel: string;
-	};
-}*/
-interface QueryResultId {
+export interface Buch {
 	id: string;
 	isbn: string;
 	art: string;
@@ -26,21 +16,12 @@ interface QueryResultId {
 	};
 }
 
-interface QueryResultTitel {
-	id: string;
-	isbn: string;
-	art: string;
-	preis: number;
-	rating: number;
-	rabatt: string;
-	schlagwoerter: string[];
-	lieferbar: boolean;
-	titel: {
-		titel: string;
-	}[];
+export interface BuchListe {
+	map(mapFunction: (buch: Buch, index: number) => ReactNode): ReactNode;
+	buecher: Buch[];
 }
 export const fetchId = async (id: string) => {
-	let response: AxiosResponse<{ data: { buch: QueryResultId } }>;
+	let response: AxiosResponse<{ data: { buch: Buch } }>;
 	try {
 		response = await axiosInstance.post('baseURL/query', {
 			variables: { id },
@@ -64,17 +45,14 @@ export const fetchId = async (id: string) => {
 		});
 	} catch (error) {
 		console.error('Fehler beim Laden des Querys:', error);
-		//console.log(
-		//'Fehler, genauere Fehlermeldung noch nicht vorhanden, schaue in die Konsole des Browsers',
-		//);
-		throw new Error();
+		throw new Error(); //....
 	}
 	console.log('Ergebnis der API:', response);
-	return response.data;
+	return response.data.data;
 };
 
 export const fetchTitel = async (titel: string) => {
-	let response: AxiosResponse<{ data: { buecher: QueryResultTitel } }>; // buecher
+	let response: AxiosResponse<{ data: { buecher: BuchListe } }>;
 	try {
 		response = await axiosInstance.post('baseURL/query', {
 			variables: { titel },
@@ -96,11 +74,10 @@ export const fetchTitel = async (titel: string) => {
 				}
 			`,
 		});
-	} catch (err: unknown) {
-		console.log(
-			'Fehler, genauere Fehlermeldung noch nicht vorhanden, schaue in die Konsole des Browsers',
-		);
+	} catch (error) {
+		console.error('Fehler beim Laden des Querys:', error);
 		throw new Error();
 	}
-	return response.data;
+	console.log('Ergebnis der API:', response);
+	return response.data.data; // warum 2 mal data
 };
