@@ -1,3 +1,4 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable max-lines */
 // eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable prettier/prettier */
@@ -38,28 +39,8 @@ export function BuchSuchen() {
 	const [error, setError] = useState('');
 	const [selectedBook, setSelectedBook] = useState<Buch | null>(null);
 	const [showModal, setShowModal] = useState(false);
-	const [selectedLetter, setSelectedLetter] = useState<string | null>(null);
-	const handleSearchInputChange = () => {
-		
-		// Setze den ausgewählten Buchstaben zurück, wenn etwas in die Suchleiste eingegeben wird
-		setSelectedLetter(null);
-	};
+	const [selectedLetter, setSelectedLetter] = useState<string | null>(null); //aktiv zeichen im Radiobutton
 	const [showTableId1, setShowTableId1] = useState(false);
-
-	const handleCheckboxChange = async(id:string) => {
-		
-		const resultId = await fetchId(id);
-		if (resultId?.buch) {
-			setError('');
-			setDatenId(resultId);
-
-			// Toggle the visibility of the table based on the current state of the checkbox
-			if (id === '1') {
-				setShowTableId1(!showTableId1);
-			}
-		}
-			
-	};
 
 	// eslint-disable-next-line max-statements
 	const handleSearchClick = async () => {
@@ -105,7 +86,7 @@ export function BuchSuchen() {
 			default:
 				setError('Mach kein Scheiße, gib was Gescheites an');
 			}	
-			handleSearchInputChange();
+			setSelectedLetter(null);
 		
 		} catch (error) {
 			console.error('Fehler beim Laden der Daten:', error);
@@ -126,15 +107,39 @@ export function BuchSuchen() {
 		setShowModal(false);
 	};
 	const handleRadioClick = async (letter: string) => {
-		setDatenTitel(await fetchTitel(letter));
-		setError('');
-		setShowTableId(false);
-		setShowTableTitel(true);
-		// Setze den Suchbegriff zurück, wenn ein Radio-Button ausgewählt wird
-		setSearchTerm('');
-		// Setze den ausgewählten Buchstaben
-		setSelectedLetter(letter);
+		try {
+			setDatenTitel(await fetchTitel(letter));
+			setError('');
+			setShowTableId(false);
+			setShowTableTitel(true);
+			setSearchTerm('');
+			setSelectedLetter(letter);
+		} catch (error) {
+			console.error('Fehler beim Laden der Daten:', error);
+			setError('Fehler beim Laden der Daten');
+			setDatenTitel(null);
+			throw new Error();
+		}
 	};
+
+	const handleCheckboxChange = async(id:string) => {
+		try {
+			if (id === '1') {
+				setShowTableId1(!showTableId1);
+			
+				const resultIdCheckBox = await fetchId(id);
+				setDatenId(resultIdCheckBox);
+				setError('');
+			}
+		} catch (error) {
+			console.error('Fehler beim Laden der Daten:', error);
+			setError('Fehler beim Laden der Daten');
+			setDatenId(null);
+			setShowTableId1(false);
+			throw new Error();
+		}
+	};
+
 	return (
 		<Container>
 			<Row className="justify-content-center">
