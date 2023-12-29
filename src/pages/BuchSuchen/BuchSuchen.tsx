@@ -14,7 +14,6 @@ import { EingabeFeld } from './EingabeFeld.component';
 import { ModalUbertragung } from './Modal.component';
 import { ErrorAusgabe } from './ErrorAugabe.component';
 import { ShowTableId } from './ShowTableID.component';
-import{ShowTableId1Boxcheck} from './ShowTableID1Boxcheck.component';
 import { ShowTableTitel } from './ShowTableTitel.component';
 
 export interface QueryIdAusgabe {
@@ -30,6 +29,8 @@ export function BuchSuchen() {
 		null,
 	);
 	const [datenId, setDatenId] = useState<QueryIdAusgabe | null>(null);
+	const [datenBoxId20, setDatenBoxId20] = useState<QueryIdAusgabe | null>(null);
+	const [datenBoxId1, setDatenBoxId1] = useState<QueryIdAusgabe | null>(null);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [showTableTitel, setShowTableTitel] = useState(false);
 	const [showTableId, setShowTableId] = useState(false);
@@ -99,13 +100,13 @@ export function BuchSuchen() {
 			switch (true) {
 			case id === '1':
 				setShowTableBoxId1(!showTableBoxId1);
-				setDatenId(await fetchId(id));
+				setDatenBoxId1(await fetchId(id));
 				setError('');
 				break;
 
 			case id === '20':
 				setShowTableBoxId20(!showTableBoxId20);
-				setDatenId(await fetchId(id));
+				setDatenBoxId20(await fetchId(id));
 				setError('');
 				break;
 
@@ -113,8 +114,10 @@ export function BuchSuchen() {
 		} catch (error) {
 			console.error('Fehler beim Laden der Daten:', error);
 			setError('Fehler beim Laden der Daten');
-			setDatenId(null);
+			setDatenBoxId1(null);
+			setDatenBoxId20(null);
 			setShowTableBoxId1(false);
+			setShowTableBoxId20(false);
 			throw new Error();
 		}
 	};
@@ -216,15 +219,15 @@ export function BuchSuchen() {
 								handleRowClick={handleRowClick}
 							/>
 						)}
-						{showTableBoxId1 && datenId && (
-							<ShowTableId1Boxcheck
-								datenId={datenId}
+						{showTableBoxId1 && datenBoxId1 && (
+							<ShowTableId
+								datenId={datenBoxId1}
 								handleRowClick={handleRowClick}
 							/>
 						)}
-						{showTableBoxId20 && datenId && (
+						{showTableBoxId20 && datenBoxId20 && (
 							<ShowTableId
-								datenId={datenId}
+								datenId={datenBoxId20}
 								handleRowClick={handleRowClick}
 							/>
 						)}
