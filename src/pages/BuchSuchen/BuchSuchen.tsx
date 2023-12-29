@@ -14,6 +14,7 @@ import { EingabeFeld } from './EingabeFeld.component';
 import { ModalUbertragung } from './Modal.component';
 import { ErrorAusgabe } from './ErrorAugabe.component';
 import { ShowTableId } from './ShowTableID.component';
+import{ShowTableId1Boxcheck} from './ShowTableID1Boxcheck.component';
 import { ShowTableTitel } from './ShowTableTitel.component';
 
 export interface QueryIdAusgabe {
@@ -35,7 +36,9 @@ export function BuchSuchen() {
 	const [error, setError] = useState('');
 	const [selectedBook, setSelectedBook] = useState<Buch | null>(null);
 	const [showModal, setShowModal] = useState(false);
-
+	const [selectedLetter, setSelectedLetter] = useState<string | null>(null); //aktiv zeichen im Radiobutton
+	const [showTableBoxId1, setShowTableBoxId1] = useState(false);
+	const [showTableBoxId20, setShowTableBoxId20] = useState(false);
 	// eslint-disable-next-line max-statements
 	const handleSearchClick = async () => {
 		try {
@@ -80,6 +83,7 @@ export function BuchSuchen() {
 			default:
 				setError('Mach kein Scheiße, gib was Gescheites an');
 			}	
+			setSelectedLetter(null);
 		
 		} catch (error) {
 			console.error('Fehler beim Laden der Daten:', error);
@@ -89,6 +93,49 @@ export function BuchSuchen() {
 			throw new Error();
 		}
 	};
+
+	const handleCheckboxChange = async(id:string) => {
+		try {
+			switch (true) {
+			case id === '1':
+				setShowTableBoxId1(!showTableBoxId1);
+				setDatenId(await fetchId(id));
+				setError('');
+				break;
+
+			case id === '20':
+				setShowTableBoxId20(!showTableBoxId20);
+				setDatenId(await fetchId(id));
+				setError('');
+				break;
+
+			}
+		} catch (error) {
+			console.error('Fehler beim Laden der Daten:', error);
+			setError('Fehler beim Laden der Daten');
+			setDatenId(null);
+			setShowTableBoxId1(false);
+			throw new Error();
+		}
+	};
+
+	const handleRadioClick = async (letter: string) => {
+		try {
+			setDatenTitel(await fetchTitel(letter));
+			setError('');
+			setShowTableId(false);
+			setShowTableTitel(true);
+			setSearchTerm('');
+			setSelectedLetter(letter);
+		} catch (error) {
+			console.error('Fehler beim Laden der Daten:', error);
+			setError('Fehler beim Laden der Daten');
+			setDatenTitel(null);
+			throw new Error();
+		}
+	};
+	
+
 	// try und catch
 	const handleRowClick = (buch: Buch) => {
 		setSelectedBook(buch);
@@ -117,6 +164,44 @@ export function BuchSuchen() {
 							</Form.Group>
 						</Form>
 					</div>
+					<Form.Group>
+						<Form.Check
+							inline
+							type="radio"
+							label="A"
+							name="searchLetter"
+							id="searchLetterA"
+							onChange={() => handleRadioClick('A')}
+							checked={selectedLetter === 'A'}
+						/>
+						<Form.Check
+							inline
+							type="radio"
+							label="L"
+							name="searchLetter"
+							id="searchLetterL"
+							onChange={() => handleRadioClick('L')}
+							checked={selectedLetter === 'L'}
+						/>
+					</Form.Group>
+					<Form.Group>
+						<Form.Check
+							inline
+							type="checkbox"
+							label="ID 1"
+							id="checkboxId1"
+							onChange={() => handleCheckboxChange('1')}
+							checked={showTableBoxId1}
+						/>
+						<Form.Check
+							inline
+							type="checkbox"
+							label="ID 20"
+							id="checkboxId20"
+							onChange={() => handleCheckboxChange('20')}
+							checked={showTableBoxId20}
+						/>
+					</Form.Group>
 					<ErrorAusgabe error={error} setError={setError} />
 					<div className="table-container">
 						{showTableTitel && datenTitel && (
@@ -126,6 +211,18 @@ export function BuchSuchen() {
 							/>
 						)}
 						{showTableId && datenId && (
+							<ShowTableId
+								datenId={datenId}
+								handleRowClick={handleRowClick}
+							/>
+						)}
+						{showTableBoxId1 && datenId && (
+							<ShowTableId1Boxcheck
+								datenId={datenId}
+								handleRowClick={handleRowClick}
+							/>
+						)}
+						{showTableBoxId20 && datenId && (
 							<ShowTableId
 								datenId={datenId}
 								handleRowClick={handleRowClick}
