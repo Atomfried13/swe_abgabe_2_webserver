@@ -43,6 +43,16 @@ export function BuchSuchen() {
 		// Setze den ausgewählten Buchstaben zurück, wenn etwas in die Suchleiste eingegeben wird
 		setSelectedLetter(null);
 	};
+	const [showTableId1, setShowTableId1] = useState(false);
+	const [showTableId20, setShowTableId20] = useState(false);
+
+	const handleCheckboxChange = (id:string) => {
+		if (id === '1') {
+			setShowTableId1(!showTableId1);
+		} else if (id === '20') {
+			setShowTableId20(!showTableId20);
+		}
+	};
 
 	// eslint-disable-next-line max-statements
 	const handleSearchClick = async () => {
@@ -108,7 +118,7 @@ export function BuchSuchen() {
 		setSelectedBook(null);
 		setShowModal(false);
 	};
-	const handleRadioClick = async (letter) => {
+	const handleRadioClick = async (letter: string) => {
 		setDatenTitel(await fetchTitel(letter));
 		setError('');
 		setShowTableId(false);
@@ -163,6 +173,24 @@ export function BuchSuchen() {
 							id="searchLetterL"
 							onChange={() => handleRadioClick('L')}
 							checked={selectedLetter === 'L'}
+						/>
+					</Form.Group>
+					<Form.Group>
+						<Form.Check
+							inline
+							type="checkbox"
+							label="ID 1"
+							id="checkboxId1"
+							onChange={() => handleCheckboxChange('1')}
+							checked={showTableId1}
+						/>
+						<Form.Check
+							inline
+							type="checkbox"
+							label="ID 20"
+							id="checkboxId20"
+							onChange={() => handleCheckboxChange('20')}
+							checked={showTableId20}
 						/>
 					</Form.Group>
 					{error && (
