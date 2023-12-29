@@ -37,6 +37,7 @@ export function BuchSuchen() {
 	const [error, setError] = useState('');
 	const [selectedBook, setSelectedBook] = useState<Buch | null>(null);
 	const [showModal, setShowModal] = useState(false);
+	const [selectedLetter, setSelectedLetter] = useState<string | null>(null);
 
 	// eslint-disable-next-line max-statements
 	const handleSearchClick = async () => {
@@ -101,7 +102,16 @@ export function BuchSuchen() {
 		setSelectedBook(null);
 		setShowModal(false);
 	};
-
+	const handleRadioClick = async (letter) => {
+		setDatenTitel(await fetchTitel(letter));
+		setError('');
+		setShowTableId(false);
+		setShowTableTitel(true);
+		// Setze den Suchbegriff zurück, wenn ein Radio-Button ausgewählt wird
+		setSearchTerm('');
+		// Setze den ausgewählten Buchstaben
+		setSelectedLetter(letter);
+	};
 	return (
 		<Container>
 			<Row className="justify-content-center">
@@ -129,6 +139,26 @@ export function BuchSuchen() {
 							</Form.Group>
 						</Form>
 					</div>
+					<Form.Group>
+						<Form.Check
+							inline
+							type="radio"
+							label="A"
+							name="searchLetter"
+							id="searchLetterA"
+							onChange={() => handleRadioClick('A')}
+							checked={selectedLetter === 'A'}
+						/>
+						<Form.Check
+							inline
+							type="radio"
+							label="L"
+							name="searchLetter"
+							id="searchLetterL"
+							onChange={() => handleRadioClick('L')}
+							checked={selectedLetter === 'L'}
+						/>
+					</Form.Group>
 					{error && (
 						<Alert
 							variant="danger"
