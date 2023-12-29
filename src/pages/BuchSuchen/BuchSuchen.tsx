@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 // eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable prettier/prettier */
 import { useState } from 'react'; // Warum ist da key!!!, habe es weggemacht.
@@ -44,14 +45,20 @@ export function BuchSuchen() {
 		setSelectedLetter(null);
 	};
 	const [showTableId1, setShowTableId1] = useState(false);
-	const [showTableId20, setShowTableId20] = useState(false);
 
-	const handleCheckboxChange = (id:string) => {
-		if (id === '1') {
-			setShowTableId1(!showTableId1);
-		} else if (id === '20') {
-			setShowTableId20(!showTableId20);
+	const handleCheckboxChange = async(id:string) => {
+		
+		const resultId = await fetchId(id);
+		if (resultId?.buch) {
+			setError('');
+			setDatenId(resultId);
+
+			// Toggle the visibility of the table based on the current state of the checkbox
+			if (id === '1') {
+				setShowTableId1(!showTableId1);
+			}
 		}
+			
 	};
 
 	// eslint-disable-next-line max-statements
@@ -184,14 +191,6 @@ export function BuchSuchen() {
 							onChange={() => handleCheckboxChange('1')}
 							checked={showTableId1}
 						/>
-						<Form.Check
-							inline
-							type="checkbox"
-							label="ID 20"
-							id="checkboxId20"
-							onChange={() => handleCheckboxChange('20')}
-							checked={showTableId20}
-						/>
 					</Form.Group>
 					{error && (
 						<Alert
@@ -234,6 +233,33 @@ export function BuchSuchen() {
 							</Table>
 						)}
 						{showTableId && datenId && (
+							<Table striped bordered hover>
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Titel</th>
+										<th>Preis</th>
+										<th>Art</th>
+										<th>Bewertung</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr
+										key={datenId.buch.id}
+										onClick={() =>
+											handleRowClick(datenId.buch)
+										}
+									>
+										<td>{datenId.buch.id}</td>
+										<td>{datenId.buch.titel?.titel}</td>
+										<td>{datenId.buch.preis}</td>
+										<td>{datenId.buch.art}</td>
+										<td>{datenId.buch.rating}</td>
+									</tr>
+								</tbody>
+							</Table>
+						)}
+						{showTableId1 && datenId && (
 							<Table striped bordered hover>
 								<thead>
 									<tr>
