@@ -38,6 +38,11 @@ export function BuchSuchen() {
 	const [selectedBook, setSelectedBook] = useState<Buch | null>(null);
 	const [showModal, setShowModal] = useState(false);
 	const [selectedLetter, setSelectedLetter] = useState<string | null>(null);
+	const handleSearchInputChange = () => {
+		
+		// Setze den ausgewählten Buchstaben zurück, wenn etwas in die Suchleiste eingegeben wird
+		setSelectedLetter(null);
+	};
 
 	// eslint-disable-next-line max-statements
 	const handleSearchClick = async () => {
@@ -83,6 +88,7 @@ export function BuchSuchen() {
 			default:
 				setError('Mach kein Scheiße, gib was Gescheites an');
 			}	
+			handleSearchInputChange();
 		
 		} catch (error) {
 			console.error('Fehler beim Laden der Daten:', error);
