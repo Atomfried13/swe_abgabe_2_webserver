@@ -13,11 +13,11 @@ export function LoggedInNavbar() {
 	const { setToken } = useContext(AuthContext);
 	const { roles } = useContext(AuthContext);
 	const handleLogout = () => {
-		setToken(null);
+		setToken(undefined);
 	};
 
 	const isAdminOrFachabteilung =
-		roles.includes('admin') || roles.includes('fachabteilung');
+		roles?.includes('admin') ?? roles?.includes('fachabteilung');
 
 	return (
 		<Navbar expand="lg">

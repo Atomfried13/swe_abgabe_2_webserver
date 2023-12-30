@@ -17,6 +17,7 @@ import './Login.css';
 // eslint-disable-next-line max-lines-per-function
 export function Login() {
 	const [showPassword, setShowPassword] = useState(false);
+	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [loginSuccess, setLoginSuccess] = useState<boolean | null>(null);
 	const [formVisible, setFormVisible] = useState(true);
@@ -26,8 +27,6 @@ export function Login() {
 	const { setToken } = useContext(AuthContext);
 	const { setExpiresIn } = useContext(AuthContext);
 	const { setTokenIssuedAt } = useContext(AuthContext);
-	const { username } = useContext(AuthContext);
-	const { setUsername } = useContext(AuthContext);
 	const { setRoles } = useContext(AuthContext);
 
 	const handleLogin = async () => {
@@ -39,6 +38,7 @@ export function Login() {
 			const token = response.data.data?.login?.token;
 			const expiresIn = response.data.data?.login?.expiresIn;
 			const roles = response.data.data?.login?.roles;
+			console.log(roles);
 			if (token) {
 				setToken(token);
 				setLoginSuccess(true);
@@ -72,7 +72,10 @@ export function Login() {
 						md={{ span: 9, offset: 2 }}
 					>
 						<Form.Group className="eingabe-benutzername-form">
-							<Form.Label htmlFor="EingabeBenutzername" className="benutzername-label">
+							<Form.Label
+								htmlFor="EingabeBenutzername"
+								className="benutzername-label"
+							>
 								Benutzername
 							</Form.Label>
 							<Form.Control
