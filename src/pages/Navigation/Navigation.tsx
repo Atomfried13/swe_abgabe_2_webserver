@@ -6,5 +6,7 @@ import { AuthContext } from '../../Controller/AuthContext';
 export function Nav() {
 	const { token } = useContext(AuthContext);
 
-	return <>{token !== null ? <LoggedInNavbar /> : <LoggedOutNavbar />}</>;
+	return (
+		<>{token !== undefined ? <LoggedInNavbar /> : <LoggedOutNavbar />}</>
+	);
 }

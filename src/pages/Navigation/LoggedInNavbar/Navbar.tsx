@@ -11,9 +11,13 @@ import { useContext } from 'react';
 
 export function LoggedInNavbar() {
 	const { setToken } = useContext(AuthContext);
+	const { roles } = useContext(AuthContext);
 	const handleLogout = () => {
-		setToken(null);
+		setToken(undefined);
 	};
+
+	const isAdminOrFachabteilung =
+		roles?.includes('admin') ?? roles?.includes('fachabteilung');
 
 	return (
 		<Navbar expand="lg">
@@ -33,9 +37,11 @@ export function LoggedInNavbar() {
 						<LinkContainer to="/BuchSuchen">
 							<Nav.Link>Buch Suchen</Nav.Link>
 						</LinkContainer>
-						<LinkContainer to="/NeuesBuch">
-							<Nav.Link>Neues Buch</Nav.Link>
-						</LinkContainer>
+						{isAdminOrFachabteilung && (
+							<LinkContainer to="/NeuesBuch">
+								<Nav.Link>Neues Buch</Nav.Link>
+							</LinkContainer>
+						)}
 					</Nav>
 					<Nav>
 						<LinkContainer to="/">
