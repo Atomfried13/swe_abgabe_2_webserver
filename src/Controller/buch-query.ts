@@ -24,7 +24,8 @@ export const fetchId = async (id: string) => {
 	let response: AxiosResponse<{
 		status: number;
 		headers: string;
-		data: { buch: Buch };
+		data: { buch: Buch }; //data?: { buch: Buch };
+		//error?: string; //WWWWWWWWWW
 	}>;
 	try {
 		response = await axiosInstance.post('baseURL/query', {

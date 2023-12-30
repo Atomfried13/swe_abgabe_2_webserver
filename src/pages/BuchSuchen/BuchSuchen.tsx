@@ -54,8 +54,8 @@ export function BuchSuchen() {
 			}
 
 			case isNaN(Number(searchTerm)): {
-				const resultTitel = await fetchTitel(searchTerm);
-				const resultTitelDaten = resultTitel.data.data;
+				const {data} = await fetchTitel(searchTerm);// noch überlegen mit {data}
+				const resultTitelDaten = data.data;
 				setShowTableId(false);
 
 				if (resultTitelDaten?.buecher) {
