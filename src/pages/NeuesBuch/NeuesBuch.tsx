@@ -7,7 +7,6 @@ import './NeuesBuch.css';
 import { mutation } from '../../Controller/buch-mutation';
 import { AuthContext } from '../../Controller/AuthContext';
 import { isTokenExpired } from './TokenValidierung';
-import { Einloggen } from '../../Controller/auth.service';
 import { Homepage } from './Homepage.component';
 import { Schlagwoerter } from './Schlagwoerter.component';
 import { Lieferbar } from './Lieferbar.component';
@@ -38,55 +37,55 @@ export function NeuesBuch() {
 	const [showTable, setShowTable] = useState(false);
 	const [showTokenExpiredMsg, setShowTokenExpiredMsg] = useState(false);
 	const [id, setID] = useState(null);
-	const { username } = useContext(AuthContext);
 	const { token } = useContext(AuthContext);
 	const { expiresIn } = useContext(AuthContext);
 	const { tokenIssuedAt } = useContext(AuthContext);
-	const { setToken } = useContext(AuthContext);
-	const { setExpiresIn } = useContext(AuthContext);
-	const { setTokenIssuedAt } = useContext(AuthContext);
 
 	const handleCreateClick = async () => {
 		console.log(isbn);
 		console.log(titel);
 		console.log(preis);
 		console.log(rabatt);
-		console.log(username);
-		const isExpired = isTokenExpired(expiresIn, tokenIssuedAt);
-		if (isExpired) {
-			console.log('Das Token ist abgelaufen.');
-			setShowTokenExpiredMsg(true);
-		} else {
-			console.log('Das Token ist noch gültig.');
-			setID(
-				await mutation(
-					{
-						isbn: isbn,
-						rating: rating,
-						art: art,
-						preis: preis,
-						rabatt: rabatt,
-						lieferbar: lieferbar,
-						datum: datum,
-						homepage: homepage,
-						schlagwoerter: schlagwoerter,
-						titel: {
-							titel: titel,
-							untertitel: 'untertitelcreatemutation',
-						},
-						abbildungen: [
-							{
-								beschriftung: 'Abb. 1',
-								contentType: 'img/png',
+		if (token != undefined) {
+			let isExpired;
+			if (tokenIssuedAt != undefined) {
+				isExpired = isTokenExpired(expiresIn, tokenIssuedAt);
+			}
+			if (isExpired) {
+				console.log('Das Token ist abgelaufen.');
+				setShowTokenExpiredMsg(true);
+			} else {
+				console.log('Das Token ist noch gültig.');
+				setID(
+					await mutation(
+						{
+							isbn: isbn,
+							rating: rating,
+							art: art,
+							preis: preis,
+							rabatt: rabatt,
+							lieferbar: lieferbar,
+							datum: datum,
+							homepage: homepage,
+							schlagwoerter: schlagwoerter,
+							titel: {
+								titel: titel,
+								untertitel: 'untertitelcreatemutation',
 							},
-						],
-					},
-					token,
-				),
-			);
-			console.log(id);
-			if (id !== null) {
-				setShowTable(true);
+							abbildungen: [
+								{
+									beschriftung: 'Abb. 1',
+									contentType: 'img/png',
+								},
+							],
+						},
+						token,
+					),
+				);
+				console.log(id);
+				if (id !== null) {
+					setShowTable(true);
+				}
 			}
 		}
 	};
