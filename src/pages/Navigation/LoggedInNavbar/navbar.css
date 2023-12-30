@@ -25,13 +25,13 @@
 }
 
 .logout-btn {
-    background-color: black !important;
+    background-color: black;
     padding: 10px 30px;
     border: none;
 }
 
 .logout-btn:hover {
-    background-color: #00c27b;
+    background-color: blue;
 }
 
  
