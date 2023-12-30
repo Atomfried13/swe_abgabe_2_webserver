@@ -30,16 +30,16 @@ export function NeuesBuch() {
 	const [datum, setDatum] = useState<string>('');
 	const [schlagwoerter, setSchlagwoerter] = useState<string[]>([]);
 	const [homepage, setHomepage] = useState<string>('');
-  const [titel, setTitel] = useState<string>('');
+	const [titel, setTitel] = useState<string>('');
 	const [unterTitel, setUnterTitel] = useState<string>('');
-	
+
 	const [showID, setShowID] = useState(false);
 	const [id, setID] = useState<number | undefined>(undefined);
 
 	const { token } = useContext(AuthContext);
 	const { expiresIn } = useContext(AuthContext);
 	const { tokenIssuedAt } = useContext(AuthContext);
-  const [showTokenExpiredMsg, setShowTokenExpiredMsg] = useState(false);
+	const [showTokenExpiredMsg, setShowTokenExpiredMsg] = useState(false);
 
 	const handleCreateClick = () => {
 		if (token != undefined) {
@@ -52,41 +52,42 @@ export function NeuesBuch() {
 				setShowTokenExpiredMsg(true);
 			} else {
 				console.log('Das Token ist noch gültig.');
-			    if (isbn !== '' && titel !== '' && preis > 0) {
-				    const ergebnis = async () =>
-					    await mutation(
-              {
-                isbn: isbn,
-                rating: rating,
-                art: art,
-                preis: preis,
-                rabatt: rabatt,
-                lieferbar: lieferbar,
-                datum: datum,
-                homepage: homepage,
-                schlagwoerter: schlagwoerter,
-                titel: {
-                  titel: titel,
-                  untertitel: unterTitel,
-                },
-                abbildungen: [
-                  {
-                    beschriftung: 'Abb. 1',
-                    contentType: 'img/png',
-                  },
-                ],
-              },
-						  token,
-				  	);
-          console.log(ergebnis);
-          //TODO Promise irgendwie abfragen.
-          setID(2);
-          console.log(id);
-          if (id !== null) {
-            setShowID(true);
-          }
-			} else {
-				console.log('Unvollständige oder Falsche Eingabe');
+				if (isbn !== '' && titel !== '' && preis > 0) {
+					const ergebnis = async () =>
+						await mutation(
+							{
+								isbn: isbn,
+								rating: rating,
+								art: art,
+								preis: preis,
+								rabatt: rabatt,
+								lieferbar: lieferbar,
+								datum: datum,
+								homepage: homepage,
+								schlagwoerter: schlagwoerter,
+								titel: {
+									titel: titel,
+									untertitel: unterTitel,
+								},
+								abbildungen: [
+									{
+										beschriftung: 'Abb. 1',
+										contentType: 'img/png',
+									},
+								],
+							},
+							token,
+						);
+					console.log(ergebnis);
+					//TODO Promise irgendwie abfragen.
+					setID(2);
+					console.log(id);
+					if (id !== null) {
+						setShowID(true);
+					}
+				} else {
+					console.log('Unvollständige oder Falsche Eingabe');
+				}
 			}
 		}
 	};
@@ -123,10 +124,10 @@ export function NeuesBuch() {
 						<p>Das Buch wurde angelegt</p>
 					</div>
 				)}
-        <Alert show={showTokenExpiredMsg} variant="danger">
-				<Alert.Heading>Token abgelaufen</Alert.Heading>
-				<p>Token ist nicht mehr gültig. Bitte erneut einloggen.</p>
-			  </Alert>
+				<Alert show={showTokenExpiredMsg} variant="danger">
+					<Alert.Heading>Token abgelaufen</Alert.Heading>
+					<p>Token ist nicht mehr gültig. Bitte erneut einloggen.</p>
+				</Alert>
 			</div>
 		</div>
 	);
