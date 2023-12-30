@@ -1,40 +1,26 @@
-import { useState } from 'react'; // Warum ist da key!!!, habe es weggemacht.
-import {
-	Form,
-	Button,
-	Table,
-	Alert,
-	Modal,
-	Row,
-	Col,
-	Container,
-} from 'react-bootstrap';
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable prettier/prettier */
+import { useState } from 'react';
+import { Form, Row, Col, Container } from 'react-bootstrap';
 import './BuchSuchen.css';
-import { fetchTitel, fetchId } from '../../Controller/buch-query';
+import {
+	fetchTitel,
+	fetchId,
+	Buch,
+	BuchListe,
+} from '../../Controller/buch-query';
+import { SubmitButton } from './SubmitButtonQuery.component';
+import { EingabeFeld } from './EingabeFeld.component';
+import { ModalUbertragung } from './Modal.component';
+import { ErrorAusgabe } from './ErrorAugabe.component';
+import { ShowTableId } from './ShowTableID.component';
+import { ShowTableTitel } from './ShowTableTitel.component';
 
-interface BuchData {
-	id: string;
-	isbn: string;
-	art: string;
-	preis: number;
-	rating: number;
-	rabatt: string;
-	schlagwoerter: string[];
-	lieferbar: boolean;
-	titel: {
-		titel: string;
-	};
+export interface QueryIdAusgabe {
+	buch: Buch;
 }
-
-interface QueryIdAusgabe {
-	data: {
-		buch: BuchData;
-	};
-}
-interface QueryTitelAusgabe {
-	data: {
-		buecher: BuchData[];
-	};
+export interface QueryTitelAusgabe {
+	buecher: BuchListe;
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -47,61 +33,64 @@ export function BuchSuchen() {
 	const [showTableTitel, setShowTableTitel] = useState(false);
 	const [showTableId, setShowTableId] = useState(false);
 	const [error, setError] = useState('');
-	const [selectedBook, setSelectedBook] = useState<BuchData | null>(null);
+	const [selectedBook, setSelectedBook] = useState<Buch | null>(null);
 	const [showModal, setShowModal] = useState(false);
 
 	// eslint-disable-next-line max-statements
 	const handleSearchClick = async () => {
 		try {
-			if (!searchTerm) {
+			switch (true) {
+			case searchTerm === '': // '' unsicher
 				setDatenTitel(await fetchTitel(searchTerm));
 				setError('');
 				setShowTableId(false);
 				setShowTableTitel(true);
-			} else if (isNaN(Number(searchTerm))) {
-				const result = await fetchTitel(searchTerm);
+				break;
+
+			case isNaN(Number(searchTerm)): {
+				const resultTitel = await fetchTitel(searchTerm);
 				setShowTableId(false);
 
-				if (
-					result &&
-					result.data &&
-					result.data.buecher &&
-					result.data.buecher.id !== null
-				) {
+				if (resultTitel?.buecher) {
 					setError('');
-					setDatenTitel(result);
+					setDatenTitel(resultTitel);
 					setShowTableTitel(true);
 				} else {
 					setError('Mach kein Scheiße, gib was Gescheites an');
 					setDatenTitel(null);
 				}
-			} else {
-				const result = await fetchId(searchTerm);
+				break;
+			}
+
+			case !isNaN(Number(searchTerm)):{
+				const resultId = await fetchId(searchTerm);
 				setShowTableTitel(false);
 
-				if (
-					result &&
-					result.data &&
-					result.data.buch &&
-					result.data.buch.id !== null
-				) {
+				if (resultId?.buch) {
 					setError('');
-					setDatenId(result);
+					setDatenId(resultId);
 					setShowTableId(true);
 				} else {
 					setError('Mach kein Scheiße, gib was Gescheites an');
 					setDatenId(null);
 				}
+				break;
 			}
+
+			default:
+				setError('Mach kein Scheiße, gib was Gescheites an');
+			}	
+		
 		} catch (error) {
 			console.error('Fehler beim Laden der Daten:', error);
 			setError('Fehler beim Laden der Daten');
 			setDatenId(null);
 			setDatenTitel(null);
+			throw new Error();
 		}
 	};
-
-	const handleRowClick = (buch: BuchData) => {
+	// try und catch
+	const handleRowClick = (buch: Buch) => {
 		setSelectedBook(buch);
 		setShowModal(true);
 	};
@@ -121,128 +110,34 @@ export function BuchSuchen() {
 								className="buch-suchen-form"
 								controlId="formGroupSuchen"
 							>
-								<Form.Control
-									type="suchkriterien"
-									placeholder="Suche anhand der ID oder des Titels..."
-									value={searchTerm}
-									onChange={(event) =>
-										setSearchTerm(event.target.value)
-									}
+								<EingabeFeld setSearchTerm={setSearchTerm} />
+								<SubmitButton
+									handleSearchClick={handleSearchClick}
 								/>
-								<Button
-									className="suchen-btn"
-									onClick={handleSearchClick}
-								>
-									Suchen
-								</Button>
 							</Form.Group>
 						</Form>
 					</div>
-					{error && (
-						<Alert
-							variant="danger"
-							onClose={() => setError('')}
-							dismissible
-						>
-							<Alert.Heading>Fehler!</Alert.Heading>
-							<p>{error}</p>
-						</Alert>
-					)}
+					<ErrorAusgabe error={error} setError={setError} />
 					<div className="table-container">
 						{showTableTitel && datenTitel && (
-							<Table striped bordered hover>
-								<thead>
-									<tr>
-										<th>Nr.</th>
-										<th>ID</th>
-										<th>Titel</th>
-										<th>Preis</th>
-										<th>Art</th>
-										<th>Bewertung</th>
-									</tr>
-								</thead>
-								<tbody>
-									{datenTitel?.data.buecher.map(
-										(buch, index) => (
-											<tr
-												key={index}
-												onClick={() =>
-													handleRowClick(buch)
-												}
-											>
-												<td>{index + 1}</td>
-												<td>{buch.id}</td>
-												<td>{buch.titel?.titel}</td>
-												<td>{buch.preis}</td>
-												<td>{buch.art}</td>
-												<td>{buch.rating}</td>
-											</tr>
-										),
-									)}
-								</tbody>
-							</Table>
+							<ShowTableTitel
+								datenTitel={datenTitel}
+								handleRowClick={handleRowClick}
+							/>
 						)}
 						{showTableId && datenId && (
-							<Table striped bordered hover>
-								<thead>
-									<tr>
-										<th>ID</th>
-										<th>Titel</th>
-										<th>Preis</th>
-										<th>Art</th>
-										<th>Bewertung</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr
-										key={datenId.data.buch.id}
-										onClick={() =>
-											handleRowClick(datenId.data.buch)
-										}
-									>
-										<td>{datenId.data.buch.id}</td>
-										<td>
-											{datenId.data.buch.titel?.titel}
-										</td>
-										<td>{datenId.data.buch.preis}</td>
-										<td>{datenId.data.buch.art}</td>
-										<td>{datenId.data.buch.rating}</td>
-									</tr>
-								</tbody>
-							</Table>
+							<ShowTableId
+								datenId={datenId}
+								handleRowClick={handleRowClick}
+							/>
 						)}
 					</div>
 					{selectedBook && (
-						<Modal
-							className="info-modal"
-							show={showModal}
-							onHide={handleCloseModal}
-						>
-							<Modal.Header closeButton>
-								<Modal.Title>
-									Weitere Informationen zum Buch{' '}
-									{selectedBook.titel?.titel} mit der ID{' '}
-									{selectedBook.id}
-								</Modal.Title>
-							</Modal.Header>
-							<Modal.Body>
-								{selectedBook && (
-									<div>
-										<p>ISBN: {selectedBook.isbn}</p>
-										<p>
-											Schlagwörter:{' '}
-											{selectedBook.schlagwoerter.join(
-												', ',
-											)}
-										</p>
-										<p>
-											Lieferbar:{' '}
-											{String(selectedBook.lieferbar)}
-										</p>
-									</div>
-								)}
-							</Modal.Body>
-						</Modal>
+						<ModalUbertragung
+							selectedBook={selectedBook}
+							showModal={showModal}
+							handleCloseModal={handleCloseModal}
+						/>
 					)}
 				</Col>
 			</Row>
