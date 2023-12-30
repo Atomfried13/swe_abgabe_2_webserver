@@ -24,8 +24,8 @@ export const fetchId = async (id: string) => {
 	let response: AxiosResponse<{
 		status: number;
 		headers: string;
+		errorMessage: string;
 		data: { buch: Buch }; //data?: { buch: Buch };
-		//error?: string; //WWWWWWWWWW
 	}>;
 	try {
 		response = await axiosInstance.post('baseURL/query', {
@@ -48,18 +48,22 @@ export const fetchId = async (id: string) => {
 				}
 				`,
 		});
+		if (response.data.data === null || undefined) {
+			response.data.errorMessage =
+				'Leere Daten empfangen, gib eine gescheite Id an';
+		}
+		return response;
 	} catch (error) {
 		console.error('Fehler beim Laden des Querys:', error);
 		throw new Error(); //....
 	}
-	console.log('Ergebnis der API:', response);
-	return response;
 };
 
 export const fetchTitel = async (titel: string) => {
 	let response: AxiosResponse<{
 		status: number;
 		headers: string;
+		errorMessage: string;
 		data: { buecher: BuchListe };
 	}>;
 	try {
@@ -83,6 +87,10 @@ export const fetchTitel = async (titel: string) => {
 				}
 			`,
 		});
+		if (!response.data.data.buecher) {
+			response.data.errorMessage =
+				'Leere Daten empfangen, gib ein gescheiten Titel oder Teiltitel an';
+		}
 	} catch (error) {
 		console.error('Fehler beim Laden des Querys:', error);
 		throw new Error();
