@@ -7,7 +7,6 @@ interface ArtUebertragung {
 export function Art(artUebertragung: ArtUebertragung) {
 	return (
 		<>
-			<br />
 			<Form.Check
 				type="radio"
 				id="DRUCKAUSGABE"

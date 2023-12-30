@@ -7,7 +7,7 @@ interface RatingUebertragung {
 export function Rating(ratingUebertragung: RatingUebertragung) {
 	return (
 		<>
-			<Form.Label>Rating (1 - 5 Sterne)</Form.Label>
+			<Form.Label>Sterne Rating</Form.Label>
 			<Form.Select
 				onChange={(event) =>
 					ratingUebertragung.setRating(Number(event.target.value))
