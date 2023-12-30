@@ -1,7 +1,7 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { useState, useContext } from 'react';
-import { Form, Alert } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 import './NeuesBuch.css';
 import { mutation } from '../../Controller/buch-mutation';
 import { AuthContext } from '../../Controller/AuthContext';
@@ -30,22 +30,22 @@ export function NeuesBuch() {
 			} else {
 				console.log('Das Token ist noch gültig.');
 				try {
-          if (buch === undefined) {
-            throw new Error('Kein Buch vorhanden!');
-          }
-          console.log(buch);
-          const result = await mutation(buch, token);
-          console.log(result);
-          setID(2);
-          console.log(id);
-          if (id !== null) {
-            setShowID(true);
-          }
-			  } catch (error) {
-				console.error('Fehler:', error);
-			  }
-		  }
-    }
+					if (buch === undefined) {
+						throw new Error('Kein Buch vorhanden!');
+					}
+					console.log(buch);
+					const result = await mutation(buch, token);
+					console.log(result);
+					setID(2);
+					console.log(id);
+					if (id !== null) {
+						setShowID(true);
+					}
+				} catch (error) {
+					console.error('Fehler:', error);
+				}
+			}
+		}
 	};
 
 	return (
