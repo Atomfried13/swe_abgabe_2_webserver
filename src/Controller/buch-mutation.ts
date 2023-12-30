@@ -8,25 +8,26 @@ export const mutation = async (
 	buch: BuchDTO,
 	token: string,
 ): Promise<number> => {
-	const authorization = { Authorization: token ? `Bearer ${token}` : '' };
 	try {
-		console.log('am anfang');
-		console.log(buch.titel);
+		const authorization = { Authorization: token ? `Bearer ${token}` : '' };
+
+		const query = `
+			mutation ($input: BuchInput!) {
+				create (input: $input) {
+					id
+				}
+			}
+		`;
+
 		const response = await axiosInstance.post(
 			'baseURL/graphql',
 			{
 				variables: { input: buch },
-				query: `
-				mutation ($input: BuchInput!) {
-					create (input: $input) {
-						id
-					}
-				  }
-				`,
+				query,
 			},
 			{ headers: authorization },
 		);
-		console.log('am Ende');
+
 		if (response.data.errors !== undefined) {
 			console.log(response.data.errors);
 		}

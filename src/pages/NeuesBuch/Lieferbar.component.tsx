@@ -1,3 +1,5 @@
+import { Form } from 'react-bootstrap';
+
 interface LieferbarUebertragung {
 	setLieferbar: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -6,16 +8,16 @@ export function Lieferbar(lieferbarUebertragung: LieferbarUebertragung) {
 	return (
 		<>
 			<br />
-			<input
+			<Form.Check
 				type="checkbox"
 				id="Lieferbar"
 				name="Lieferbar"
 				value="Lieferbar"
+				label="Lieferbar"
 				onChange={(event) =>
 					lieferbarUebertragung.setLieferbar(event.target.checked)
 				}
 			/>
-			<label htmlFor="Lieferbar">Lieferbar</label>
 			<br />
 		</>
 	);
