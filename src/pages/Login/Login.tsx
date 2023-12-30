@@ -1,4 +1,12 @@
-import { Form, Button, InputGroup } from 'react-bootstrap';
+import {
+	Form,
+	Button,
+	InputGroup,
+	Container,
+	Row,
+	Col,
+	Alert,
+} from 'react-bootstrap';
 import { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -19,6 +27,7 @@ export function Login() {
 	const { setToken } = useContext(AuthContext);
 	const { setExpiresIn } = useContext(AuthContext);
 	const { setTokenIssuedAt } = useContext(AuthContext);
+	const { setRoles } = useContext(AuthContext);
 
 	const handleLogin = async () => {
 		setLoading(true);
@@ -28,11 +37,14 @@ export function Login() {
 			console.log(response);
 			const token = response.data.data?.login?.token;
 			const expiresIn = response.data.data?.login?.expiresIn;
+			const roles = response.data.data?.login?.roles;
+			console.log(roles);
 			if (token) {
 				setToken(token);
 				setLoginSuccess(true);
 				setExpiresIn(expiresIn);
 				setTokenIssuedAt(new Date());
+				setRoles(roles);
 				setFormVisible(false);
 			} else {
 				setLoginSuccess(false);
@@ -47,59 +59,109 @@ export function Login() {
 	};
 
 	return (
-		<div className="d-flex flex-column align-items-center mt-5">
+		<Container className="login-formular">
 			<Form className={formVisible ? '' : 'hidden'}>
-				<h2 className="text-center mb-4">Login</h2>
-				<Form.Group className="eingabe-benutzername-form">
-					<Form.Label htmlFor="EingabeBenutzername">
-						Benutzername
-					</Form.Label>
-					<Form.Control
-						type="benutzername"
-						id="EingabeBenutzername"
-						value={username}
-						onChange={(event) => setUsername(event.target.value)}
-					/>
-				</Form.Group>
-				<Form.Group className="eingabe-passwort-form">
-					<Form.Label htmlFor="EingabePasswort">Passwort</Form.Label>
-					<InputGroup>
-						<Form.Control
-							type={showPassword ? 'text' : 'password'}
-							id="EingabePasswort"
-							value={password}
-							onChange={(event) =>
-								setPassword(event.target.value)
-							}
-						/>
-						<Button onClick={() => setShowPassword(!showPassword)}>
-							{showPassword ? (
-								<FontAwesomeIcon icon={faEyeSlash} />
-							) : (
-								<FontAwesomeIcon icon={faEye} />
-							)}
-						</Button>
-					</InputGroup>
-				</Form.Group>
-				<div className="mt-3">
-					<Button className="anmelden-btn" onClick={handleLogin}>
-						{loading ? 'Lädt...' : 'Anmelden'}
-					</Button>
-				</div>
+				<Row>
+					<Col lg={{ span: 4, offset: 4 }}>
+						<h2 className="text-center mb-4">Login</h2>
+					</Col>
+				</Row>
+				<Row>
+					<Col
+						lg={{ span: 6, offset: 3 }}
+						md={{ span: 9, offset: 2 }}
+					>
+						<Form.Group className="eingabe-benutzername-form">
+							<Form.Label
+								htmlFor="EingabeBenutzername"
+								className="benutzername-label"
+							>
+								Benutzername
+							</Form.Label>
+							<Form.Control
+								type="benutzername"
+								id="EingabeBenutzername"
+								onChange={(event) =>
+									setUsername(event.target.value)
+								}
+							/>
+						</Form.Group>
+					</Col>
+				</Row>
+				<Row>
+					<Col
+						lg={{ span: 6, offset: 3 }}
+						md={{ span: 9, offset: 2 }}
+					>
+						<Form.Group className="eingabe-passwort-form">
+							<Form.Label
+								htmlFor="EingabePasswort"
+								className="passwort-label"
+							>
+								Passwort
+							</Form.Label>
+							<InputGroup>
+								<Form.Control
+									type={showPassword ? 'text' : 'password'}
+									id="EingabePasswort"
+									onChange={(event) =>
+										setPassword(event.target.value)
+									}
+								/>
+								<Button
+									onClick={() =>
+										setShowPassword(!showPassword)
+									}
+								>
+									{showPassword ? (
+										<FontAwesomeIcon icon={faEyeSlash} />
+									) : (
+										<FontAwesomeIcon icon={faEye} />
+									)}
+								</Button>
+							</InputGroup>
+						</Form.Group>
+					</Col>
+				</Row>
+				<Row>
+					<Col
+						lg={{ span: 6, offset: 3 }}
+						md={{ span: 9, offset: 2 }}
+					>
+						<div className="mt-3">
+							<Button
+								className="anmelden-btn"
+								onClick={handleLogin}
+							>
+								{loading ? 'Lädt...' : 'Anmelden'}
+							</Button>
+						</div>
+					</Col>
+				</Row>
 			</Form>
-			{loginSuccess !== null && (
-				<div
-					className={
-						loginSuccess ? 'success-message' : 'error-message'
-					}
-				>
-					{loginSuccess ? (
-						<p>Erfolgreich eingeloggt!</p>
-					) : (
-						<p>{errMsg ? errMsg : 'Fehler beim Einloggen'}</p>
+			<Row className="login-message">
+				<Col lg={{ span: 6, offset: 3 }} md={{ span: 9, offset: 2 }}>
+					{loginSuccess !== null && (
+						<div
+							className={
+								loginSuccess
+									? 'success-message'
+									: 'error-message'
+							}
+						>
+							{loginSuccess ? (
+								<Alert className="text-center">
+									Erfolgreich eingeloggt!
+								</Alert>
+							) : (
+								<Alert className="text-center">
+									{errMsg ? errMsg : 'Fehler beim Einloggen'}
+								</Alert>
+							)}
+						</div>
 					)}
-				</div>
-			)}
-		</div>
+				</Col>
+			</Row>
+		</Container>
 	);
 }

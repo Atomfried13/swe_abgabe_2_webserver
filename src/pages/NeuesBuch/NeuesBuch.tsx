@@ -1,7 +1,7 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { useState, useContext } from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, Alert } from 'react-bootstrap';
 import './NeuesBuch.css';
 import { mutation } from '../../Controller/buch-mutation';
 import { AuthContext } from '../../Controller/AuthContext';
@@ -30,57 +30,61 @@ export function NeuesBuch() {
 	const [datum, setDatum] = useState<string>('');
 	const [schlagwoerter, setSchlagwoerter] = useState<string[]>([]);
 	const [homepage, setHomepage] = useState<string>('');
-
-	const [titel, setTitel] = useState<string>('');
+  const [titel, setTitel] = useState<string>('');
 	const [unterTitel, setUnterTitel] = useState<string>('');
-
+	
 	const [showID, setShowID] = useState(false);
 	const [id, setID] = useState<number | undefined>(undefined);
 
 	const { token } = useContext(AuthContext);
 	const { expiresIn } = useContext(AuthContext);
 	const { tokenIssuedAt } = useContext(AuthContext);
+  const [showTokenExpiredMsg, setShowTokenExpiredMsg] = useState(false);
 
 	const handleCreateClick = () => {
-		console.log(isbn);
-		const isExpired = isTokenExpired(expiresIn, tokenIssuedAt);
-		if (isExpired) {
-			console.log('Das Token ist abgelaufen.');
-		} else {
-			console.log(rabatt);
-			if (isbn !== '' && titel !== '' && preis > 0) {
-				const ergebnis = async () =>
-					await mutation(
-						{
-							isbn: isbn,
-							rating: rating,
-							art: art,
-							preis: preis,
-							rabatt: rabatt,
-							lieferbar: lieferbar,
-							datum: datum,
-							homepage: homepage,
-							schlagwoerter: schlagwoerter,
-							titel: {
-								titel: titel,
-								untertitel: unterTitel,
-							},
-							abbildungen: [
-								{
-									beschriftung: 'Abb. 1',
-									contentType: 'img/png',
-								},
-							],
-						},
-						token,
-					);
-				console.log(ergebnis);
-				//TODO Promise irgendwie abfragen.
-				setID(2);
-				console.log(id);
-				if (id !== null) {
-					setShowID(true);
-				}
+		if (token != undefined) {
+			let isExpired;
+			if (tokenIssuedAt != undefined) {
+				isExpired = isTokenExpired(expiresIn, tokenIssuedAt);
+			}
+			if (isExpired) {
+				console.log('Das Token ist abgelaufen.');
+				setShowTokenExpiredMsg(true);
+			} else {
+				console.log('Das Token ist noch gültig.');
+			    if (isbn !== '' && titel !== '' && preis > 0) {
+				    const ergebnis = async () =>
+					    await mutation(
+              {
+                isbn: isbn,
+                rating: rating,
+                art: art,
+                preis: preis,
+                rabatt: rabatt,
+                lieferbar: lieferbar,
+                datum: datum,
+                homepage: homepage,
+                schlagwoerter: schlagwoerter,
+                titel: {
+                  titel: titel,
+                  untertitel: unterTitel,
+                },
+                abbildungen: [
+                  {
+                    beschriftung: 'Abb. 1',
+                    contentType: 'img/png',
+                  },
+                ],
+              },
+						  token,
+				  	);
+          console.log(ergebnis);
+          //TODO Promise irgendwie abfragen.
+          setID(2);
+          console.log(id);
+          if (id !== null) {
+            setShowID(true);
+          }
 			} else {
 				console.log('Unvollständige oder Falsche Eingabe');
 			}
@@ -119,6 +123,10 @@ export function NeuesBuch() {
 						<p>Das Buch wurde angelegt</p>
 					</div>
 				)}
+        <Alert show={showTokenExpiredMsg} variant="danger">
+				<Alert.Heading>Token abgelaufen</Alert.Heading>
+				<p>Token ist nicht mehr gültig. Bitte erneut einloggen.</p>
+			  </Alert>
 			</div>
 		</div>
 	);
