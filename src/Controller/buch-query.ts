@@ -21,7 +21,11 @@ export interface BuchListe {
 	buecher: Buch[];
 }
 export const fetchId = async (id: string) => {
-	let response: AxiosResponse<{ data: { buch: Buch } }>;
+	let response: AxiosResponse<{
+		status: number;
+		headers: string;
+		data: { buch: Buch };
+	}>;
 	try {
 		response = await axiosInstance.post('baseURL/query', {
 			variables: { id },
@@ -48,11 +52,15 @@ export const fetchId = async (id: string) => {
 		throw new Error(); //....
 	}
 	console.log('Ergebnis der API:', response);
-	return response.data.data;
+	return response;
 };
 
 export const fetchTitel = async (titel: string) => {
-	let response: AxiosResponse<{ data: { buecher: BuchListe } }>;
+	let response: AxiosResponse<{
+		status: number;
+		headers: string;
+		data: { buecher: BuchListe };
+	}>;
 	try {
 		response = await axiosInstance.post('baseURL/query', {
 			variables: { titel },
@@ -79,5 +87,5 @@ export const fetchTitel = async (titel: string) => {
 		throw new Error();
 	}
 	console.log('Ergebnis der API:', response);
-	return response.data.data; // warum 2 mal data
+	return response;
 };

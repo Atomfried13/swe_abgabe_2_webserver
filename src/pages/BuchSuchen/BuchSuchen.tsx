@@ -44,20 +44,23 @@ export function BuchSuchen() {
 	const handleSearchClick = async () => {
 		try {
 			switch (true) {
-			case searchTerm === '': // '' unsicher
-				setDatenTitel(await fetchTitel(searchTerm));
+			case searchTerm === '':{ // '' unsicher
+				const resultTitel = (await fetchTitel(searchTerm));
+				setDatenTitel(resultTitel.data.data);
 				setError('');
 				setShowTableId(false);
 				setShowTableTitel(true);
 				break;
+			}
 
 			case isNaN(Number(searchTerm)): {
 				const resultTitel = await fetchTitel(searchTerm);
+				const resultTitelDaten = resultTitel.data.data;
 				setShowTableId(false);
 
-				if (resultTitel?.buecher) {
+				if (resultTitelDaten?.buecher) {
 					setError('');
-					setDatenTitel(resultTitel);
+					setDatenTitel(resultTitelDaten);
 					setShowTableTitel(true);
 				} else {
 					setError('Mach kein Scheiße, gib was Gescheites an');
@@ -68,11 +71,12 @@ export function BuchSuchen() {
 
 			case !isNaN(Number(searchTerm)):{
 				const resultId = await fetchId(searchTerm);
+				const resultIdDaten = resultId.data.data;
 				setShowTableTitel(false);
 
-				if (resultId?.buch) {
+				if (resultIdDaten?.buch) {
 					setError('');
-					setDatenId(resultId);
+					setDatenId(resultIdDaten);
 					setShowTableId(true);
 				} else {
 					setError('Mach kein Scheiße, gib was Gescheites an');
@@ -98,17 +102,21 @@ export function BuchSuchen() {
 	const handleCheckboxChange = async(id:string) => {
 		try {
 			switch (true) {
-			case id === '1':
+			case id === '1':{
 				setShowTableBoxId1(!showTableBoxId1);
-				setDatenBoxId1(await fetchId(id));
+				const resultId = await fetchId(id);
+				setDatenBoxId1(resultId.data.data);
 				setError('');
 				break;
+			}
 
-			case id === '20':
+			case id === '20':{
 				setShowTableBoxId20(!showTableBoxId20);
-				setDatenBoxId20(await fetchId(id));
+				const resultId = await fetchId(id);
+				setDatenBoxId20(resultId.data.data);
 				setError('');
 				break;
+			}
 
 			}
 		} catch (error) {
@@ -124,11 +132,11 @@ export function BuchSuchen() {
 
 	const handleRadioClick = async (letter: string) => {
 		try {
-			setDatenTitel(await fetchTitel(letter));
+			const resultRadio=(await fetchTitel(letter));
+			setDatenTitel(resultRadio.data.data);
 			setError('');
 			setShowTableId(false);
 			setShowTableTitel(true);
-			setSearchTerm('');
 			setSelectedLetter(letter);
 		} catch (error) {
 			console.error('Fehler beim Laden der Daten:', error);
