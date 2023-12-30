@@ -1,4 +1,4 @@
-interface ArtUebertragung {
+export interface ArtUebertragung {
 	setArt: React.Dispatch<React.SetStateAction<string>>;
 }
 

@@ -3,6 +3,7 @@ form {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 50px;
 }
 
 form label {
@@ -23,11 +24,11 @@ form > * {
     background-color: #00c27b;
 }
 
-.UeberschriftNeuanlegen {
+.infos {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100px;
+    margin-top: 50px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

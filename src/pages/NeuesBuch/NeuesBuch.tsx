@@ -1,7 +1,8 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { useState, useContext } from 'react';
-import { Form, Alert } from 'react-bootstrap';
+import { Form, Button, Alert } from 'react-bootstrap';
 import './NeuesBuch.css';
 import { mutation } from '../../Controller/buch-mutation';
 import { AuthContext } from '../../Controller/AuthContext';
@@ -16,32 +17,35 @@ import { Preis } from './Preis.component';
 import { Isbn } from './Isbn.component';
 import { Art } from './Art.component';
 import { Titel } from './Titel.component';
-import { UnterTitel } from './UnterTitel.component';
-import { SubmitButton } from './SubmitButton.component';
 
 // eslint-disable-next-line max-lines-per-function
 export function NeuesBuch() {
-	const [isbn, setIsbn] = useState<string>('');
-	const [rabatt, setRabatt] = useState<number>(0);
+	//TODO Werte die undefined sind auch offen lassen, andere Werte abprüfen ob gesetz wurden und leere Startwerte setzen.
+	//TODO Isbn stimmt noch was mit dem übertragen der Daten vom Formular nicht.
+	const [isbn, setIsbn] = useState<string>('978-0-321-19368-1');
+	const [titel, setTitel] = useState<string>('');
+	const [rabatt, setRabatt] = useState<number>(0.0);
 	const [rating, setRating] = useState<number>(0);
 	const [art, setArt] = useState<string>('DRUCKAUSGABE');
-	const [preis, setPreis] = useState<number>(0);
+	const [preis, setPreis] = useState<number>(100.0);
 	const [lieferbar, setLieferbar] = useState<boolean>(false);
-	const [datum, setDatum] = useState<string>('');
+	//TODO Datum stimmt noch was mit dem übertragen der Daten vom Formular nicht.
+	const [datum, setDatum] = useState<string>('2022-01-31');
 	const [schlagwoerter, setSchlagwoerter] = useState<string[]>([]);
 	const [homepage, setHomepage] = useState<string>('');
-  const [titel, setTitel] = useState<string>('');
-	const [unterTitel, setUnterTitel] = useState<string>('');
-	
-	const [showID, setShowID] = useState(false);
-	const [id, setID] = useState<number | undefined>(undefined);
 
+	const [showTable, setShowTable] = useState(false);
+	const [showTokenExpiredMsg, setShowTokenExpiredMsg] = useState(false);
+	const [id, setID] = useState(null);
 	const { token } = useContext(AuthContext);
 	const { expiresIn } = useContext(AuthContext);
 	const { tokenIssuedAt } = useContext(AuthContext);
-  const [showTokenExpiredMsg, setShowTokenExpiredMsg] = useState(false);
 
-	const handleCreateClick = () => {
+	const handleCreateClick = async () => {
+		console.log(isbn);
+		console.log(titel);
+		console.log(preis);
+		console.log(rabatt);
 		if (token != undefined) {
 			let isExpired;
 			if (tokenIssuedAt != undefined) {
@@ -52,82 +56,83 @@ export function NeuesBuch() {
 				setShowTokenExpiredMsg(true);
 			} else {
 				console.log('Das Token ist noch gültig.');
-			    if (isbn !== '' && titel !== '' && preis > 0) {
-				    const ergebnis = async () =>
-					    await mutation(
-              {
-                isbn: isbn,
-                rating: rating,
-                art: art,
-                preis: preis,
-                rabatt: rabatt,
-                lieferbar: lieferbar,
-                datum: datum,
-                homepage: homepage,
-                schlagwoerter: schlagwoerter,
-                titel: {
-                  titel: titel,
-                  untertitel: unterTitel,
-                },
-                abbildungen: [
-                  {
-                    beschriftung: 'Abb. 1',
-                    contentType: 'img/png',
-                  },
-                ],
-              },
-						  token,
-				  	);
-          console.log(ergebnis);
-          //TODO Promise irgendwie abfragen.
-          setID(2);
-          console.log(id);
-          if (id !== null) {
-            setShowID(true);
-          }
-			} else {
-				console.log('Unvollständige oder Falsche Eingabe');
+				setID(
+					await mutation(
+						{
+							isbn: isbn,
+							rating: rating,
+							art: art,
+							preis: preis,
+							rabatt: rabatt,
+							lieferbar: lieferbar,
+							datum: datum,
+							homepage: homepage,
+							schlagwoerter: schlagwoerter,
+							titel: {
+								titel: titel,
+								untertitel: 'untertitelcreatemutation',
+							},
+							abbildungen: [
+								{
+									beschriftung: 'Abb. 1',
+									contentType: 'img/png',
+								},
+							],
+						},
+						token,
+					),
+				);
+				console.log(id);
+				if (id !== null) {
+					setShowTable(true);
+				}
 			}
 		}
 	};
 
 	return (
 		<div>
-			<h1>Neuanlegen eines Buches</h1>
-			<h2 className="UeberschriftNeuanlegen">Neuanlegen eines Buches</h2>
-			<div>
-				<Form>
-					<Form.Group
-						controlId="buch-anlegen"
-						className="buch-anlegen-form"
-					>
-						<Isbn setIsbn={setIsbn} />
-						<Titel setTitel={setTitel} />
-						<UnterTitel setUnterTitel={setUnterTitel} />
-						<Preis setPreis={setPreis} />
-						<Rabatt setRabatt={setRabatt} />
-						<Rating setRating={setRating} />
-						<Art setArt={setArt} />
-						<Lieferbar setLieferbar={setLieferbar} />
-						<Datum setDatum={setDatum} />
-						<Homepage setHomepage={setHomepage} />
-						<Schlagwoerter
-							schlagwoerter={schlagwoerter}
-							setSchlagwoerter={setSchlagwoerter}
-						/>
-					</Form.Group>
-					<SubmitButton handleCreateClick={handleCreateClick} />
-				</Form>
-				{showID && id && (
-					<div>
-						<p>Das Buch wurde angelegt</p>
-					</div>
-				)}
-        <Alert show={showTokenExpiredMsg} variant="danger">
+			<div className="infos">
+				<h2>Neuanlegen eines Buches</h2>
+			</div>
+			<Form>
+				<Form.Group
+					controlId="buch-anlegen"
+					className="buch-anlegen-form"
+				>
+					<Isbn isbn={isbn} setIsbn={setIsbn} />
+					<Titel titel={titel} setTitel={setTitel} />
+					<Preis preis={preis} setPreis={setPreis} />
+					<Rabatt rabatt={rabatt} setRabatt={setRabatt} />
+					<Rating rating={rating} setRating={setRating} />
+					<Art setArt={setArt} />
+					<br />
+					<Lieferbar setLieferbar={setLieferbar} />
+					<br />
+					<Datum datum={datum} setDatum={setDatum} />
+					<Homepage homepage={homepage} setHomepage={setHomepage} />
+					<Schlagwoerter
+						schlagwoerter={schlagwoerter}
+						setSchlagwoerter={setSchlagwoerter}
+					/>
+				</Form.Group>
+				<Button
+					onClick={handleCreateClick}
+					type="button"
+					className="neuanlegen-btn"
+				>
+					Neues Buch anlegen
+				</Button>
+			</Form>
+			{showTable && id && (
+				<div>
+					<p>Das Buch wurde angelegt</p>
+				</div>
+			)}
+			<Alert show={showTokenExpiredMsg} variant="danger">
 				<Alert.Heading>Token abgelaufen</Alert.Heading>
 				<p>Token ist nicht mehr gültig. Bitte erneut einloggen.</p>
-			  </Alert>
-			</div>
+			</Alert>
 		</div>
 	);
 }

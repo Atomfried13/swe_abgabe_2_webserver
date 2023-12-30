@@ -1,6 +1,6 @@
 import { Form } from 'react-bootstrap';
 
-interface SchlagwoerterUebertragung {
+export interface SchlagwoerterUebertragung {
 	schlagwoerter: string[];
 	setSchlagwoerter: React.Dispatch<React.SetStateAction<string[]>>;
 }
@@ -8,20 +8,12 @@ interface SchlagwoerterUebertragung {
 export function Schlagwoerter(
 	schlagwoerterUebertragung: SchlagwoerterUebertragung,
 ) {
-	const handleSetSchlagwoerter = (schlagwort: string, checked: boolean) => {
-		if (checked === true) {
-			if (!schlagwoerterUebertragung.schlagwoerter.includes(schlagwort)) {
-				const schlagwoerterneu =
-					schlagwoerterUebertragung.schlagwoerter;
-				schlagwoerterneu.push(schlagwort);
-				schlagwoerterUebertragung.setSchlagwoerter(schlagwoerterneu);
-			}
-		} else {
-			const schlagwoerterneu =
-				schlagwoerterUebertragung.schlagwoerter.filter((woert) =>
-					woert !== schlagwort ? woert : '',
-				);
-			schlagwoerterUebertragung.setSchlagwoerter(schlagwoerterneu);
+	//TODO schlagwoerter abwählen funktioniert nicht.
+	const handleSetSchlagwoerter = (schlagwort: string) => {
+		if (!schlagwoerterUebertragung.schlagwoerter.includes(schlagwort)) {
+			const schlagwoerteralt = schlagwoerterUebertragung.schlagwoerter;
+			schlagwoerteralt.push(schlagwort);
+			schlagwoerterUebertragung.setSchlagwoerter(schlagwoerteralt);
 		}
 	};
 
@@ -34,9 +26,7 @@ export function Schlagwoerter(
 				id="TYPESCRIPT"
 				name="TYPESCRIPT"
 				value="TYPESCRIPT"
-				onChange={(event) =>
-					handleSetSchlagwoerter('TYPESCRIPT', event.target.checked)
-				}
+				onChange={() => handleSetSchlagwoerter('TYPESCRIPT')}
 			/>
 			<label htmlFor="TYPESCRIPT">TYPESCRIPT</label>
 			<br />
@@ -45,9 +35,7 @@ export function Schlagwoerter(
 				id="JAVASCRIPT"
 				name="JAVASCRIPT"
 				value="JAVASCRIPT"
-				onChange={(event) =>
-					handleSetSchlagwoerter('JAVASCRIPT', event.target.checked)
-				}
+				onChange={() => handleSetSchlagwoerter('JAVASCRIPT')}
 			/>
 			<label htmlFor="JAVASCRIPT">JAVASCRIPT</label>
 			<br />
