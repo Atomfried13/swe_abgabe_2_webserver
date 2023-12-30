@@ -9,7 +9,7 @@ interface LoginResponse {
 			expiresIn: string;
 		};
 	};
-	errors: {
+	errors?: {
 		message: string;
 	}[];
 }
