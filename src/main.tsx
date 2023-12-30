@@ -25,7 +25,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 						element={
 							<RequireAuth
 								element={<NeuesBuch />}
-								allowedRoles={['kunde']}
+								allowedRoles={['admin', 'fachabteilung']}
 							/>
 						}
 					/>
