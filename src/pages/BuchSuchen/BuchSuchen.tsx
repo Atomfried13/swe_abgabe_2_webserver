@@ -93,7 +93,8 @@ export function BuchSuchen() {
 			throw new Error();
 		}
 	};
-
+	// auslagern????????????
+	//veraltete Programme
 	const handleCheckboxChange = async(id:string) => {
 		try {
 			switch (true) {

@@ -11,21 +11,33 @@ test('fetchId für eine valide ID', async () => {
 
   // When
   const result = await fetchId(id);
-  expect(result).toBeDefined();
-
+  
   //then
-  const { status, headers, data } = result;;
-  //expect(data.error).toBeUndefined();
+  expect(result).toBeDefined();
+  const { status, headers, data } = result;
+
+  
   expect(status).toBe(200);
     expect(headers['content-type']).toMatch(/json/iu);
+    expect(data.errorMessage).toMatch('');
   expect(data.data).toBeDefined();
 
   const { buch } = data.data!;
 
   expect(buch).toBeDefined();
-  expect(buch.titel?.titel).toMatch(/^\w/u);
-
   expect(buch.id).toBeDefined();
+  expect(buch.isbn).toMatch(/^(\d{3}-\d{1,5}-\d{2,7}-\d{1,7}-\d{1})$/u);
+  expect(buch.art).toMatch(/^DRUCKAUSGABE$|^KINDLE$/u);
+  expect(buch.preis).toBeGreaterThanOrEqual(0);
+  expect(buch.rating).toBeGreaterThanOrEqual(0);
+  expect(buch.rating).toBeLessThanOrEqual(5);
+  //expect(buch.lieferbar).toBeDefined;
+  //expect(buch.rabatt).toBeGreaterThanOrEqual(0);
+  //expect(buch.rabatt).toBeLessThanOrEqual(1);
+  expect(buch.schlagwoerter.every((wort) => wort === 'JAVASCRIPT' || wort === 'TYPESCRIPT')).toBe(true);
+  expect(buch.titel?.titel).toMatch(/^\w/u);
+ 
+
 
 });
 
