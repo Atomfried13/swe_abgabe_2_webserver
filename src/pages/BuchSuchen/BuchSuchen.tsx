@@ -49,7 +49,7 @@ export function BuchSuchen() {
 			switch (true) {
 			case searchTerm === '':{ // '' unsicher
 				const {data} = await fetchTitel(searchTerm);				
-				setDatenTitel(data.data);
+				setDatenTitel(data.daten);
 				setShowTableTitel(true);
 				break;
 			}
@@ -58,7 +58,7 @@ export function BuchSuchen() {
 				const {data} = await fetchTitel(searchTerm);
 
 				if (data.errorMessage == '') {
-					setDatenTitel(data.data);
+					setDatenTitel(data.daten);
 					setShowTableTitel(true);
 				} else {
 					setError(data.errorMessage);
@@ -71,7 +71,7 @@ export function BuchSuchen() {
 				const {data} = await fetchId(searchTerm);
 
 				if (data.errorMessage == '') {
-					setDatenId(data.data);
+					setDatenId(data.daten);
 					setShowTableId(true);
 				} else {
 					setError(data.errorMessage);
@@ -99,16 +99,16 @@ export function BuchSuchen() {
 			switch (true) {
 			case id === '1':{
 				setShowTableBoxId1(!showTableBoxId1);
-				const resultId = await fetchId(id);
-				setDatenBoxId1(resultId.data.data);
+				const {data} = await fetchId(id);
+				setDatenBoxId1(data.daten);
 				setError('');
 				break;
 			}
 
 			case id === '20':{
 				setShowTableBoxId20(!showTableBoxId20);
-				const resultId = await fetchId(id);
-				setDatenBoxId20(resultId.data.data);
+				const {data} = await fetchId(id);
+				setDatenBoxId20(data.daten);
 				setError('');
 				break;
 			}
@@ -127,8 +127,8 @@ export function BuchSuchen() {
 
 	const handleRadioClick = async (letter: string) => {
 		try {
-			const resultRadio=(await fetchTitel(letter));
-			setDatenTitel(resultRadio.data.data);
+			const {data}=(await fetchTitel(letter));
+			setDatenTitel(data.daten);
 			setError('');
 			setShowTableId(false);
 			setShowTableTitel(true);
