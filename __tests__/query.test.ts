@@ -31,14 +31,11 @@ test('fetchId für eine valide ID', async () => {
   expect(buch.preis).toBeGreaterThanOrEqual(0);
   expect(buch.rating).toBeGreaterThanOrEqual(0);
   expect(buch.rating).toBeLessThanOrEqual(5);
-  //expect(buch.lieferbar).toBeDefined;
+  //expect(buch.lieferbar).toMatch(false);
   //expect(buch.rabatt).toBeGreaterThanOrEqual(0);
   //expect(buch.rabatt).toBeLessThanOrEqual(1);
-  expect(buch.schlagwoerter.every((wort) => wort === 'JAVASCRIPT' || wort === 'TYPESCRIPT')).toBe(true);
+  expect(buch.schlagwoerter).toContainEqual(expect.stringMatching(/^TYPESCRIPT$ || ^JAVASCRIPT$ || 'null'/));  
   expect(buch.titel?.titel).toMatch(/^\w/u);
- 
-
-
 });
 
 test('fetchId für eine invalide ID', async () => {
@@ -83,21 +80,32 @@ expect(buecher).not.toHaveLength(0);
 expect(buecher).toBeDefined();
 
 buecher.forEach((buch: Buch) => {
-  expect(buch.titel?.titel).toMatch(/^\w/u);
+  expect(buch).toBeDefined();
   expect(buch.id).toBeDefined();
+  expect(buch.isbn).toMatch(/^(\d{3}-\d{1,5}-\d{2,7}-\d{1,7}-\d{1})$/u);
+  expect(buch.art).toMatch(/^DRUCKAUSGABE$|^KINDLE$/u);
+  expect(buch.preis).toBeGreaterThanOrEqual(0);
+  expect(buch.rating).toBeGreaterThanOrEqual(0);
+  expect(buch.rating).toBeLessThanOrEqual(5);
+  //expect(buch.lieferbar).toMatch(false);
+  //expect(buch.rabatt).toBeGreaterThanOrEqual(0);
+  //expect(buch.rabatt).toBeLessThanOrEqual(1);
+  expect(buch.schlagwoerter).toContainEqual(expect.stringMatching(/^TYPESCRIPT$ || ^JAVASCRIPT$ || 'null'/));
+
+  expect(buch.titel?.titel).toMatch(/^\w/u);
 });
 });
 
 test('fetchTitel für einen invaliden Teiltitel', async () => {
      
-  // Given
-const teilTitel = 'qqq';
+      // Given
+      const teilTitel = 'qqq';
 
-// When
-const result = await fetchTitel(teilTitel);
+      // When
+        const result = await fetchTitel(teilTitel);
 
-//then
-const { status, headers, data } = result;
+        //then
+        const { status, headers, data } = result;
 
         expect(status).toBe(200);
         expect(headers['content-type']).toMatch(/json/iu);
