@@ -43,24 +43,22 @@ export function BuchSuchen() {
 	// eslint-disable-next-line max-statements
 	const handleSearchClick = async () => {
 		try {
+			setError('');
+			setShowTableId(false);
+			setShowTableTitel(false);
 			switch (true) {
 			case searchTerm === '':{ // '' unsicher
 				const {data} = await fetchTitel(searchTerm);				
 				setDatenTitel(data.data);
-				setError('');
-				setShowTableId(false);
 				setShowTableTitel(true);
 				break;
 			}
 
 			case isNaN(Number(searchTerm)): {
 				const {data} = await fetchTitel(searchTerm);
-				const resultTitelDaten = data.data;
-				setShowTableId(false);
 
-				if (resultTitelDaten?.buecher) {
-					setError('');
-					setDatenTitel(resultTitelDaten);
+				if (data.errorMessage == '') {
+					setDatenTitel(data.data);
 					setShowTableTitel(true);
 				} else {
 					setError(data.errorMessage);
@@ -71,12 +69,9 @@ export function BuchSuchen() {
 
 			case !isNaN(Number(searchTerm)):{
 				const {data} = await fetchId(searchTerm);
-				const resultIdDaten = data.data;
-				setShowTableTitel(false);
 
-				if (resultIdDaten?.buch) {
-					setError('');
-					setDatenId(resultIdDaten);
+				if (data.errorMessage == '') {
+					setDatenId(data.data);
 					setShowTableId(true);
 				} else {
 					setError(data.errorMessage);

@@ -48,7 +48,9 @@ export const fetchId = async (id: string) => {
 				}
 				`,
 		});
-		if (response?.data?.data) {
+		response.data.errorMessage = '';
+		if (response.data.data.buch == null || undefined) {
+			// ändern noch den Vergleich
 			response.data.errorMessage =
 				'Leere Daten empfangen, gib eine gescheite Id an';
 		}
@@ -87,7 +89,8 @@ export const fetchTitel = async (titel: string) => {
 				}
 			`,
 		});
-		if (response?.data?.data) {
+		response.data.errorMessage = '';
+		if (response.data.data.buecher == null || undefined) {
 			response.data.errorMessage =
 				'Leere Daten empfangen, gib ein gescheiten Titel oder Teiltitel an';
 		}
