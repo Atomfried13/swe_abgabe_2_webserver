@@ -51,8 +51,7 @@ export const fetchId = async (id: string) => {
 		response.data.errorMessage = '';
 		if (response.data.data.buch == null || undefined) {
 			// ändern noch den Vergleich
-			response.data.errorMessage =
-				'Leere Daten empfangen, gib eine gescheite Id an';
+			response.data.errorMessage = `Ein Buch mit der ID${id} existiert nicht.`;
 		}
 		return response;
 	} catch (error) {
@@ -91,8 +90,7 @@ export const fetchTitel = async (titel: string) => {
 		});
 		response.data.errorMessage = '';
 		if (response.data.data.buecher == null || undefined) {
-			response.data.errorMessage =
-				'Leere Daten empfangen, gib ein gescheiten Titel oder Teiltitel an';
+			response.data.errorMessage = `Ein Buch mit dem Titel oder dem Teiltitel "${titel}" existiert nicht.`;
 		}
 	} catch (error) {
 		console.error('Fehler beim Laden des Querys:', error);

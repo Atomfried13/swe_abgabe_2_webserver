@@ -45,6 +45,7 @@ test('fetchId sfür eine invalide ID', async () => {
   expect(status).toBe(200);
     expect(headers['content-type']).toMatch(/json/iu);
     expect(data.data!.buch).toBeNull();
+
     const { errorMessage } = data;
-    expect(errorMessage).toHaveLength(1);
+    expect(errorMessage).toBe(`Ein Buch mit der ID${id} existiert nicht.`);
 });
