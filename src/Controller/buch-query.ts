@@ -24,7 +24,7 @@ export const fetchId = async (id: string) => {
 	let response: AxiosResponse<{
 		status: number;
 		headers: string;
-		errorMessage: string;
+		errorMessage: string; // mit dem ? überlegen!!!
 		data: { buch: Buch };
 	}>;
 	try {
