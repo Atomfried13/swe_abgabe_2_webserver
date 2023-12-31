@@ -18,9 +18,9 @@ test('fetchId sfür eine valide ID', async () => {
   //expect(data.error).toBeUndefined();
   expect(status).toBe(200);
     expect(headers['content-type']).toMatch(/json/iu);
-  expect(data.daten).toBeDefined();
+  expect(data.data).toBeDefined();
 
-  const { buch } = data.daten!;
+  const { buch } = data.data!;
 
   expect(buch).toBeDefined();
   console.log('Wert von buch.titel:', buch.titel);
@@ -44,7 +44,7 @@ test('fetchId sfür eine invalide ID', async () => {
   //expect(data.error).toBeUndefined();
   expect(status).toBe(200);
     expect(headers['content-type']).toMatch(/json/iu);
-    expect(data.daten!.buch).toBeNull();
+    expect(data.data!.buch).toBeNull();
     const { errorMessage } = data;
     expect(errorMessage).toHaveLength(1);
 });
