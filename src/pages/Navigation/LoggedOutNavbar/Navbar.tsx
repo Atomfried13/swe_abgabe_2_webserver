@@ -9,7 +9,7 @@ import { faBook } from '@fortawesome/free-solid-svg-icons';
 
 export function LoggedOutNavbar() {
 	return (
-		<Navbar expand="lg">
+		<Navbar expand="md">
 			<Container>
 				<LinkContainer to="/">
 					<Navbar.Brand>
@@ -18,7 +18,7 @@ export function LoggedOutNavbar() {
 					</Navbar.Brand>
 				</LinkContainer>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
-				<Navbar.Collapse id="basic-navbar-nav">
+				<Navbar.Collapse id="basic-navbar-nav" className="text-center">
 					<Nav className="me-auto">
 						<LinkContainer to="/">
 							<Nav.Link>Home</Nav.Link>
@@ -29,7 +29,9 @@ export function LoggedOutNavbar() {
 					</Nav>
 					<Nav>
 						<LinkContainer to="/Login">
-							<Button className="login-btn">Login</Button>
+							<Nav.Link>
+								<Button className="login-btn">Login</Button>
+							</Nav.Link>
 						</LinkContainer>
 					</Nav>
 				</Navbar.Collapse>

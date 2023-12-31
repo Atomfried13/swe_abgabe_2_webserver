@@ -1,17 +1,13 @@
 .infos {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 550px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 250px;
+    text-align: center; 
 }
 
-.suchen-btn {
-    background-color: black;
+.home-suchen-btn {
+    background-color: black !important;
     border: none;
 }
 
-.suchen-btn:hover {
-    background-color: black;
+.home-suchen-btn:hover {
+    background-color: blue !important;
 }
