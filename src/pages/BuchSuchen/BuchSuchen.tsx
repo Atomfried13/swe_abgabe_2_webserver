@@ -34,15 +34,13 @@ export function BuchSuchen() {
 	);
 	const [datenBoxId1, setDatenBoxId1] = useState<QueryIdAusgabe | null>(null);
 	const [searchTerm, setSearchTerm] = useState('');
-	const [showTableTitel, setShowTableTitel] = useState(false);
-	const [showTableId, setShowTableId] = useState(false);
 	const [error, setError] = useState('');
 	const [selectedBook, setSelectedBook] = useState<Buch | null>(null);
 	const [showModal, setShowModal] = useState(false);
 	const [selectedLetter, setSelectedLetter] = useState<string | null>(null); //aktiv zeichen im Radiobutton
 	const [showTableBoxId1, setShowTableBoxId1] = useState(false);
 	const [showTableBoxId20, setShowTableBoxId20] = useState(false);
-	// eslint-disable-next-line max-statements
+	
 	const handleSearchClick = async () => {
 		try {
 			setError('');
@@ -51,8 +49,7 @@ export function BuchSuchen() {
 			switch (true) {
 			case searchTerm === '': {
 				// '' unsicher
-				const { data } = await fetchTitel(searchTerm);
-				setDatenTitel(data.data);
+				setDatenTitel((await fetchTitel(searchTerm)).data.data);
 				break;
 			}
 
@@ -89,7 +86,6 @@ export function BuchSuchen() {
 		}
 	};
 	// auslagern????????????
-	//veraltete Programme
 	const handleCheckboxChange = async (id: string) => {
 		try {
 			switch (true) {
@@ -120,16 +116,14 @@ export function BuchSuchen() {
 
 	const handleRadioClick = async (letter: string) => {
 		try {
-			const { data } = await fetchTitel(letter);
-			setDatenTitel(data.data);
+			setDatenId(null);
+			setDatenTitel((await fetchTitel(letter)).data.data);
 			setError('');
-			setShowTableId(false);
-			setShowTableTitel(true);
 			setSelectedLetter(letter);
 		} catch (error) {
 			console.error('Fehler beim Laden der Daten:', error);
 			setError('Fehler beim Laden der Daten');
-			setDatenTitel(null);
+			//setDatenTitel(null);
 			throw new Error();
 		}
 	};
