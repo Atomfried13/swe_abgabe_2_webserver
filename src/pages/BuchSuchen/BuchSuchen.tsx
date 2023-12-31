@@ -15,6 +15,7 @@ import { ModalUbertragung } from './Modal.component';
 import { ErrorAusgabe } from './ErrorAugabe.component';
 import { ShowTableId } from './ShowTableID.component';
 import { ShowTableTitel } from './ShowTableTitel.component';
+import { RadioButtonA, RadioButtonsA, SearchRadioButtons, searchRadioButtons } from './RadioButtons';
 
 export interface QueryIdAusgabe {
 	buch: Buch;
@@ -157,24 +158,7 @@ export function BuchSuchen() {
 						</Form>
 					</div>
 					<Form.Group>
-						<Form.Check
-							inline
-							type="radio"
-							label="A"
-							name="searchLetter"
-							id="searchLetterA"
-							onChange={() => handleRadioClick('A')}
-							checked={selectedLetter === 'A'}
-						/>
-						<Form.Check
-							inline
-							type="radio"
-							label="L"
-							name="searchLetter"
-							id="searchLetterL"
-							onChange={() => handleRadioClick('L')}
-							checked={selectedLetter === 'L'}
-						/>
+						<SearchRadioButtons selectedLetter={selectedLetter} handleRadioClick={handleRadioClick} />
 					</Form.Group>
 					<Form.Group>
 						<Form.Check
