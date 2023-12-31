@@ -1,4 +1,4 @@
-import { Form } from 'react-bootstrap';
+import { Col, Container, Form, Row } from 'react-bootstrap';
 import { Homepage } from './Homepage.component';
 import { Schlagwoerter } from './Schlagwoerter.component';
 import { Lieferbar } from './Lieferbar.component';
@@ -18,6 +18,7 @@ interface FormularUebertragung {
 	handleCreate: (buch: BuchDTO) => void;
 }
 
+// eslint-disable-next-line max-lines-per-function
 export function Formular(formularUebertragung: FormularUebertragung) {
 	const [isbn, setIsbn] = useState<string>('');
 	const [rabatt, setRabatt] = useState<number>(0);
@@ -59,29 +60,55 @@ export function Formular(formularUebertragung: FormularUebertragung) {
 		}
 	};
 	return (
-		<>
+		<Container>
 			<Form>
 				<Form.Group
 					controlId="buch-anlegen"
 					className="buch-anlegen-form"
 				>
-					<Isbn setIsbn={setIsbn} />
-					<Titel setTitel={setTitel} />
-					<UnterTitel setUnterTitel={setUnterTitel} />
-					<Preis setPreis={setPreis} />
-					<Rabatt setRabatt={setRabatt} />
-					<Rating setRating={setRating} />
-					<Art setArt={setArt} />
-					<Lieferbar setLieferbar={setLieferbar} />
-					<Datum setDatum={setDatum} />
-					<Homepage setHomepage={setHomepage} />
-					<Schlagwoerter
-						schlagwoerter={schlagwoerter}
-						setSchlagwoerter={setSchlagwoerter}
-					/>
+					<Row>
+						<Col lg={{ span: 12 }}>
+							<Isbn setIsbn={setIsbn} />
+							<Titel setTitel={setTitel} />
+							<UnterTitel setUnterTitel={setUnterTitel} />
+						</Col>
+					</Row>
+					<br />
+					<Row>
+						<Col lg={{ span: 4 }} md={{ span: 12 }}>
+							<Preis setPreis={setPreis} />
+						</Col>
+						<Col lg={{ span: 4 }} md={{ span: 12 }}>
+							<Rabatt setRabatt={setRabatt} />
+						</Col>
+						<Col lg={{ span: 4 }} md={{ span: 12 }}>
+							<Rating setRating={setRating} />
+						</Col>
+					</Row>
+					<br />
+					<Row>
+						<Col lg={{ span: 6 }}>
+							<Lieferbar setLieferbar={setLieferbar} />
+							<br />
+							<Art setArt={setArt} />
+						</Col>
+						<Col lg={{ span: 6 }}>
+							<Schlagwoerter
+								schlagwoerter={schlagwoerter}
+								setSchlagwoerter={setSchlagwoerter}
+							/>
+						</Col>
+					</Row>
+					<br />
+					<Row>
+						<Col lg={{ span: 12 }}>
+							<Datum setDatum={setDatum} />
+							<Homepage setHomepage={setHomepage} />
+						</Col>
+					</Row>
 				</Form.Group>
 				<SubmitButton submitHandleCreateClick={handleCreateClick} />
 			</Form>
-		</>
+		</Container>
 	);
 }

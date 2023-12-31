@@ -27,7 +27,6 @@ export function Schlagwoerter(
 
 	return (
 		<>
-			<br />
 			<Form.Label>Schlagwoerter</Form.Label>
 			<Form.Check
 				type="checkbox"

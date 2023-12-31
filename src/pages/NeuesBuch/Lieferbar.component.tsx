@@ -7,7 +7,6 @@ interface LieferbarUebertragung {
 export function Lieferbar(lieferbarUebertragung: LieferbarUebertragung) {
 	return (
 		<>
-			<br />
 			<Form.Check
 				type="checkbox"
 				id="Lieferbar"
@@ -18,7 +17,6 @@ export function Lieferbar(lieferbarUebertragung: LieferbarUebertragung) {
 					lieferbarUebertragung.setLieferbar(event.target.checked)
 				}
 			/>
-			<br />
 		</>
 	);
 }
