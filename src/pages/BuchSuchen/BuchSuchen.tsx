@@ -15,7 +15,8 @@ import { ModalUbertragung } from './Modal.component';
 import { ErrorAusgabe } from './ErrorAugabe.component';
 import { ShowTableId } from './ShowTableID.component';
 import { ShowTableTitel } from './ShowTableTitel.component';
-import { RadioButtonA, RadioButtonsA, SearchRadioButtons, searchRadioButtons } from './RadioButtons';
+import { SearchRadioButtons} from './RadioButtons';
+import { SearchCheckboxId1, SearchCheckboxId20 } from './Checkboxen';
 
 export interface QueryIdAusgabe {
 	buch: Buch;
@@ -161,22 +162,16 @@ export function BuchSuchen() {
 						<SearchRadioButtons selectedLetter={selectedLetter} handleRadioClick={handleRadioClick} />
 					</Form.Group>
 					<Form.Group>
-						<Form.Check
-							inline
-							type="checkbox"
-							label="ID 1"
-							id="checkboxId1"
-							onChange={() => handleCheckboxChange('1')}
+						<SearchCheckboxId1
+							handleCheckboxChange={handleCheckboxChange}
 							checked={showTableBoxId1}
 						/>
-						<Form.Check
-							inline
-							type="checkbox"
-							label="ID 20"
-							id="checkboxId20"
-							onChange={() => handleCheckboxChange('20')}
+
+						<SearchCheckboxId20
+							handleCheckboxChange={handleCheckboxChange}
 							checked={showTableBoxId20}
 						/>
+
 					</Form.Group>
 					<ErrorAusgabe error={error} setError={setError} />
 					<div className="table-container">
