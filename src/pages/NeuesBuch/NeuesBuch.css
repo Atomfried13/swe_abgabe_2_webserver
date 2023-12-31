@@ -1,26 +1,15 @@
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
 form label {
     font-weight: bold;
-}
-  
-form > * {
-    margin-bottom: 15px; 
-    width: 500px;
 }
 
 .neuanlegen-btn {
     background-color: black;
     border: none;
+    margin-top: 30px;
 }
 
 .neuanlegen-btn:hover {
-    background-color: #00c27b;
+    background-color: blue;
 }
 
 .UeberschriftNeuanlegen {
@@ -28,6 +17,6 @@ form > * {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 15px;
 }
