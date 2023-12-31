@@ -81,7 +81,7 @@ export function BuchSuchen() {
 			}
 
 			default:
-				setError('Mach kein Scheiße, gib was Gescheites an');
+				setError('Mach kein Scheiße, gib was Gescheites an'); //Break????
 			}	
 			setSelectedLetter(null);
 		
