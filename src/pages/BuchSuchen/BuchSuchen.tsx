@@ -44,13 +44,12 @@ export function BuchSuchen() {
 	const handleSearchClick = async () => {
 		try {
 			setError('');
-			setShowTableId(false);
-			setShowTableTitel(false);
+			setDatenId(null);
+			setDatenTitel(null);
 			switch (true) {
 			case searchTerm === '':{ // '' unsicher
 				const {data} = await fetchTitel(searchTerm);				
 				setDatenTitel(data.data);
-				setShowTableTitel(true);
 				break;
 			}
 
@@ -59,10 +58,8 @@ export function BuchSuchen() {
 
 				if (data.errorMessage == '') {
 					setDatenTitel(data.data);
-					setShowTableTitel(true);
 				} else {
 					setError(data.errorMessage);
-					setDatenTitel(null); //Ü
 				}
 				break;
 			}
@@ -72,10 +69,10 @@ export function BuchSuchen() {
 
 				if (data.errorMessage == '') {
 					setDatenId(data.data);
-					setShowTableId(true);
+					
 				} else {
 					setError(data.errorMessage);
-					setDatenId(null);//Ü
+					
 				}
 				break;
 			}
@@ -88,8 +85,6 @@ export function BuchSuchen() {
 		} catch (error) {
 			console.error('Fehler beim Laden der Daten:', error);
 			setError('Fehler beim Laden der Daten');
-			setDatenId(null);
-			setDatenTitel(null);
 			throw new Error();
 		}
 	};
@@ -211,13 +206,13 @@ export function BuchSuchen() {
 					</Form.Group>
 					<ErrorAusgabe error={error} setError={setError} />
 					<div className="table-container">
-						{showTableTitel && datenTitel && (
+						{datenTitel && (
 							<ShowTableTitel
 								datenTitel={datenTitel}
 								handleRowClick={handleRowClick}
 							/>
 						)}
-						{showTableId && datenId && (
+						{datenId && (
 							<ShowTableId
 								datenId={datenId}
 								handleRowClick={handleRowClick}
