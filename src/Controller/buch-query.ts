@@ -48,7 +48,7 @@ export const fetchId = async (id: string) => {
 				}
 				`,
 		});
-		if (response.data.data === null || undefined) {
+		if (response?.data?.data) {
 			response.data.errorMessage =
 				'Leere Daten empfangen, gib eine gescheite Id an';
 		}
@@ -87,7 +87,7 @@ export const fetchTitel = async (titel: string) => {
 				}
 			`,
 		});
-		if (!response.data.data.buecher) {
+		if (response?.data?.data) {
 			response.data.errorMessage =
 				'Leere Daten empfangen, gib ein gescheiten Titel oder Teiltitel an';
 		}

@@ -45,8 +45,8 @@ export function BuchSuchen() {
 		try {
 			switch (true) {
 			case searchTerm === '':{ // '' unsicher
-				const resultTitel = (await fetchTitel(searchTerm));
-				setDatenTitel(resultTitel.data.data);
+				const {data} = await fetchTitel(searchTerm);				
+				setDatenTitel(data.data);
 				setError('');
 				setShowTableId(false);
 				setShowTableTitel(true);
@@ -54,7 +54,7 @@ export function BuchSuchen() {
 			}
 
 			case isNaN(Number(searchTerm)): {
-				const {data} = await fetchTitel(searchTerm);// noch überlegen mit {data}
+				const {data} = await fetchTitel(searchTerm);
 				const resultTitelDaten = data.data;
 				setShowTableId(false);
 
@@ -63,15 +63,15 @@ export function BuchSuchen() {
 					setDatenTitel(resultTitelDaten);
 					setShowTableTitel(true);
 				} else {
-					setError('Mach kein Scheiße, gib was Gescheites an');
+					setError(data.errorMessage);
 					setDatenTitel(null);
 				}
 				break;
 			}
 
 			case !isNaN(Number(searchTerm)):{
-				const resultId = await fetchId(searchTerm);
-				const resultIdDaten = resultId.data.data;
+				const {data} = await fetchId(searchTerm);
+				const resultIdDaten = data.data;
 				setShowTableTitel(false);
 
 				if (resultIdDaten?.buch) {
@@ -79,7 +79,7 @@ export function BuchSuchen() {
 					setDatenId(resultIdDaten);
 					setShowTableId(true);
 				} else {
-					setError('Mach kein Scheiße, gib was Gescheites an');
+					setError(data.errorMessage);
 					setDatenId(null);
 				}
 				break;
