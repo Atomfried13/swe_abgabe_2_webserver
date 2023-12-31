@@ -43,50 +43,45 @@ export function BuchSuchen() {
 	// eslint-disable-next-line max-statements
 	const handleSearchClick = async () => {
 		try {
+			setError('');
+			setShowTableId(false);
+			setShowTableTitel(false);
 			switch (true) {
 			case searchTerm === '':{ // '' unsicher
-				const resultTitel = (await fetchTitel(searchTerm));
-				setDatenTitel(resultTitel.data.data);
-				setError('');
-				setShowTableId(false);
+				const {data} = await fetchTitel(searchTerm);				
+				setDatenTitel(data.data);
 				setShowTableTitel(true);
 				break;
 			}
 
 			case isNaN(Number(searchTerm)): {
-				const resultTitel = await fetchTitel(searchTerm);
-				const resultTitelDaten = resultTitel.data.data;
-				setShowTableId(false);
+				const {data} = await fetchTitel(searchTerm);
 
-				if (resultTitelDaten?.buecher) {
-					setError('');
-					setDatenTitel(resultTitelDaten);
+				if (data.errorMessage == '') {
+					setDatenTitel(data.data);
 					setShowTableTitel(true);
 				} else {
-					setError('Mach kein Scheiße, gib was Gescheites an');
-					setDatenTitel(null);
+					setError(data.errorMessage);
+					setDatenTitel(null); //Ü
 				}
 				break;
 			}
 
 			case !isNaN(Number(searchTerm)):{
-				const resultId = await fetchId(searchTerm);
-				const resultIdDaten = resultId.data.data;
-				setShowTableTitel(false);
+				const {data} = await fetchId(searchTerm);
 
-				if (resultIdDaten?.buch) {
-					setError('');
-					setDatenId(resultIdDaten);
+				if (data.errorMessage == '') {
+					setDatenId(data.data);
 					setShowTableId(true);
 				} else {
-					setError('Mach kein Scheiße, gib was Gescheites an');
-					setDatenId(null);
+					setError(data.errorMessage);
+					setDatenId(null);//Ü
 				}
 				break;
 			}
 
 			default:
-				setError('Mach kein Scheiße, gib was Gescheites an');
+				setError('Mach kein Scheiße, gib was Gescheites an'); //Break????
 			}	
 			setSelectedLetter(null);
 		
@@ -104,16 +99,16 @@ export function BuchSuchen() {
 			switch (true) {
 			case id === '1':{
 				setShowTableBoxId1(!showTableBoxId1);
-				const resultId = await fetchId(id);
-				setDatenBoxId1(resultId.data.data);
+				const {data} = await fetchId(id);
+				setDatenBoxId1(data.data);
 				setError('');
 				break;
 			}
 
 			case id === '20':{
 				setShowTableBoxId20(!showTableBoxId20);
-				const resultId = await fetchId(id);
-				setDatenBoxId20(resultId.data.data);
+				const {data} = await fetchId(id);
+				setDatenBoxId20(data.data);
 				setError('');
 				break;
 			}
@@ -132,8 +127,8 @@ export function BuchSuchen() {
 
 	const handleRadioClick = async (letter: string) => {
 		try {
-			const resultRadio=(await fetchTitel(letter));
-			setDatenTitel(resultRadio.data.data);
+			const {data}=(await fetchTitel(letter));
+			setDatenTitel(data.data);
 			setError('');
 			setShowTableId(false);
 			setShowTableTitel(true);
