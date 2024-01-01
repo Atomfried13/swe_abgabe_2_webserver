@@ -1,13 +1,27 @@
+import React, { useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { QueryIdAusgabe } from './BuchSuchen';
 import { Buch } from '../../Controller/buch-query';
+import { ModalUbertragung } from './Modal.component';
 
 interface ShowTableIdUebertragung {
 	datenId: QueryIdAusgabe;
-	handleRowClick: (buch: Buch) => void;
 }
 
-export function ShowTableId(showTableIdUebertragung: ShowTableIdUebertragung) {
+export function ShowTableId({ datenId }: ShowTableIdUebertragung) {
+	const [selectedBook, setSelectedBook] = useState<Buch | null>(null);
+	const [showModal, setShowModal] = useState(false);
+
+	const handleRowClick = (buch: Buch) => {
+		setSelectedBook(buch);
+		setShowModal(true);
+	};
+
+	const handleCloseModal = () => {
+		setSelectedBook(null);
+		setShowModal(false);
+	};
+
 	return (
 		<>
 			<Table striped bordered hover>
@@ -22,23 +36,24 @@ export function ShowTableId(showTableIdUebertragung: ShowTableIdUebertragung) {
 				</thead>
 				<tbody>
 					<tr
-						key={showTableIdUebertragung.datenId.buch.id}
-						onClick={() =>
-							showTableIdUebertragung.handleRowClick(
-								showTableIdUebertragung.datenId.buch,
-							)
-						}
+						key={datenId.buch.id}
+						onClick={() => handleRowClick(datenId.buch)}
 					>
-						<td>{showTableIdUebertragung.datenId.buch.id}</td>
-						<td>
-							{showTableIdUebertragung.datenId.buch.titel?.titel}
-						</td>
-						<td>{showTableIdUebertragung.datenId.buch.preis}</td>
-						<td>{showTableIdUebertragung.datenId.buch.art}</td>
-						<td>{showTableIdUebertragung.datenId.buch.rating}</td>
+						<td>{datenId.buch.id}</td>
+						<td>{datenId.buch.titel?.titel}</td>
+						<td>{datenId.buch.preis}</td>
+						<td>{datenId.buch.art}</td>
+						<td>{datenId.buch.rating}</td>
 					</tr>
 				</tbody>
 			</Table>
+			{selectedBook && (
+				<ModalUbertragung
+					selectedBook={selectedBook}
+					showModal={showModal}
+					handleCloseModal={handleCloseModal}
+				/>
+			)}
 		</>
 	);
 }

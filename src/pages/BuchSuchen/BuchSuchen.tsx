@@ -108,10 +108,10 @@ export function BuchSuchen() {
 		} catch (error) {
 			console.error('Fehler beim Laden der Daten:', error);
 			setError('Fehler beim Laden der Daten');
-			setDatenBoxId1(null);
-			setDatenBoxId20(null);
-			setShowTableBoxId1(false);
-			setShowTableBoxId20(false);
+			//setDatenBoxId1(null);
+			//setDatenBoxId20(null);
+			//setShowTableBoxId1(false);
+			//setShowTableBoxId20(false);
 			throw new Error();
 		}
 	};
@@ -166,12 +166,10 @@ export function BuchSuchen() {
 							handleCheckboxChange={handleCheckboxChange}
 							checked={showTableBoxId1}
 						/>
-
 						<SearchCheckboxId20
 							handleCheckboxChange={handleCheckboxChange}
 							checked={showTableBoxId20}
 						/>
-
 					</Form.Group>
 					<ErrorAusgabe error={error} setError={setError} />
 					<div className="table-container">
@@ -184,7 +182,7 @@ export function BuchSuchen() {
 						{datenId && (
 							<ShowTableId
 								datenId={datenId}
-								handleRowClick={handleRowClick}
+								
 							/>
 						)}
 						{showTableBoxId1 && datenBoxId1 && (
