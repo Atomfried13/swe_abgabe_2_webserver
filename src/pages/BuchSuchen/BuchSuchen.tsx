@@ -15,7 +15,7 @@ import { ErrorAusgabe } from './ErrorAugabe.component';
 import { ShowTableId } from './ShowTableID.component';
 import { ShowTableTitel } from './ShowTableTitel.component';
 import { SearchRadioButtons} from './RadioButtons';
-import { SearchCheckboxId1, SearchCheckboxId20 } from './Checkboxen';
+import { SearchCheckboxId1 } from './Checkboxen';
 
 export interface QueryIdAusgabe {
 	buch: Buch;
@@ -30,15 +30,9 @@ export function BuchSuchen() {
 		null,
 	);
 	const [datenId, setDatenId] = useState<QueryIdAusgabe | null>(null);
-	const [datenBoxId20, setDatenBoxId20] = useState<QueryIdAusgabe | null>(
-		null,
-	);
-	const [datenBoxId1, setDatenBoxId1] = useState<QueryIdAusgabe | null>(null);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [error, setError] = useState('');
 	const [selectedLetter, setSelectedLetter] = useState<string | null>(null); //aktiv zeichen im Radiobutton
-	const [showTableBoxId1, setShowTableBoxId1] = useState(false);
-	const [showTableBoxId20, setShowTableBoxId20] = useState(false);
 	
 	const handleSearchClick = async () => {
 		try {
@@ -84,34 +78,6 @@ export function BuchSuchen() {
 			throw new Error();
 		}
 	};
-	// auslagern????????????
-	const handleCheckboxChange = async (id: string) => {
-		try {
-			switch (true) {
-			case id === '1': {
-				setShowTableBoxId1(!showTableBoxId1);
-				setDatenBoxId1((await fetchId(id)).data.data);
-				setError('');
-				break;
-			}
-
-			case id === '20': {
-				setShowTableBoxId20(!showTableBoxId20);
-				setDatenBoxId20((await fetchId(id)).data.data);
-				setError('');
-				break;
-			}
-			}
-		} catch (error) {
-			console.error('Fehler beim Laden der Daten:', error);
-			setError('Fehler beim Laden der Daten');
-			//setDatenBoxId1(null);
-			//setDatenBoxId20(null);
-			//setShowTableBoxId1(false);
-			//setShowTableBoxId20(false);
-			throw new Error();
-		}
-	};
 
 	const handleRadioClick = async (letter: string) => {
 		try {
@@ -149,12 +115,6 @@ export function BuchSuchen() {
 					</Form.Group>
 					<Form.Group>
 						<SearchCheckboxId1
-							handleCheckboxChange={handleCheckboxChange}
-							checked={showTableBoxId1}
-						/>
-						<SearchCheckboxId20
-							handleCheckboxChange={handleCheckboxChange}
-							checked={showTableBoxId20}
 						/>
 					</Form.Group>
 					<ErrorAusgabe error={error} setError={setError} />
@@ -168,16 +128,6 @@ export function BuchSuchen() {
 							<ShowTableId
 								datenId={datenId}
 								
-							/>
-						)}
-						{showTableBoxId1 && datenBoxId1 && (
-							<ShowTableId
-								datenId={datenBoxId1}
-							/>
-						)}
-						{showTableBoxId20 && datenBoxId20 && (
-							<ShowTableId
-								datenId={datenBoxId20}
 							/>
 						)}
 					</div>
