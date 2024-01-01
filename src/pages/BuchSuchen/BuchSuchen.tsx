@@ -11,7 +11,6 @@ import {
 } from '../../Controller/buch-query';
 import { SubmitButton } from './SubmitButtonQuery.component';
 import { EingabeFeld } from './EingabeFeld.component';
-import { ModalUbertragung } from './Modal.component';
 import { ErrorAusgabe } from './ErrorAugabe.component';
 import { ShowTableId } from './ShowTableID.component';
 import { ShowTableTitel } from './ShowTableTitel.component';
@@ -37,8 +36,6 @@ export function BuchSuchen() {
 	const [datenBoxId1, setDatenBoxId1] = useState<QueryIdAusgabe | null>(null);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [error, setError] = useState('');
-	const [selectedBook, setSelectedBook] = useState<Buch | null>(null);
-	const [showModal, setShowModal] = useState(false);
 	const [selectedLetter, setSelectedLetter] = useState<string | null>(null); //aktiv zeichen im Radiobutton
 	const [showTableBoxId1, setShowTableBoxId1] = useState(false);
 	const [showTableBoxId20, setShowTableBoxId20] = useState(false);
@@ -130,17 +127,6 @@ export function BuchSuchen() {
 		}
 	};
 
-	// try und catch
-	const handleRowClick = (buch: Buch) => {
-		setSelectedBook(buch);
-		setShowModal(true);
-	};
-
-	const handleCloseModal = () => {
-		setSelectedBook(null);
-		setShowModal(false);
-	};
-
 	return (
 		<Container>
 			<Row className="justify-content-center">
@@ -176,7 +162,6 @@ export function BuchSuchen() {
 						{datenTitel && (
 							<ShowTableTitel
 								datenTitel={datenTitel}
-								handleRowClick={handleRowClick}
 							/>
 						)}
 						{datenId && (
@@ -188,23 +173,14 @@ export function BuchSuchen() {
 						{showTableBoxId1 && datenBoxId1 && (
 							<ShowTableId
 								datenId={datenBoxId1}
-								handleRowClick={handleRowClick}
 							/>
 						)}
 						{showTableBoxId20 && datenBoxId20 && (
 							<ShowTableId
 								datenId={datenBoxId20}
-								handleRowClick={handleRowClick}
 							/>
 						)}
 					</div>
-					{selectedBook && (
-						<ModalUbertragung
-							selectedBook={selectedBook}
-							showModal={showModal}
-							handleCloseModal={handleCloseModal}
-						/>
-					)}
 				</Col>
 			</Row>
 		</Container>
