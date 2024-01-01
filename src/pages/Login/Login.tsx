@@ -62,22 +62,33 @@ export function Login() {
 		<Container className="login-formular">
 			<Form className={formVisible ? '' : 'hidden'}>
 				<Row>
-					<Col lg={{ span: 4, offset: 4 }}>
-						<h2 className="text-center mb-4">Login</h2>
+					<Col
+						lg={{ span: 2, offset: 5 }}
+						md={{ span: 2, offset: 5 }}
+						sm={{ span: 2, offset: 5 }}
+						xs={{ span: 4, offset: 4 }}
+						className="text-center"
+					>
+						<h2>Login</h2>
 					</Col>
 				</Row>
+				<br />
 				<Row>
 					<Col
-						lg={{ span: 6, offset: 3 }}
-						md={{ span: 9, offset: 2 }}
+						lg={{ span: 4, offset: 4 }}
+						md={{ span: 6, offset: 3 }}
+						sm={{ span: 8, offset: 2 }}
+						xs={{ span: 8, offset: 2 }}
 					>
 						<BenutzernameInput setUsername={setUsername} />
 					</Col>
 				</Row>
 				<Row>
 					<Col
-						lg={{ span: 6, offset: 3 }}
-						md={{ span: 9, offset: 2 }}
+						lg={{ span: 4, offset: 4 }}
+						md={{ span: 6, offset: 3 }}
+						sm={{ span: 8, offset: 2 }}
+						xs={{ span: 8, offset: 2 }}
 					>
 						<Passwort
 							setPassword={setPassword}
@@ -88,8 +99,10 @@ export function Login() {
 				</Row>
 				<Row>
 					<Col
-						lg={{ span: 6, offset: 3 }}
-						md={{ span: 9, offset: 2 }}
+						lg={{ span: 4, offset: 4 }}
+						md={{ span: 6, offset: 3 }}
+						sm={{ span: 8, offset: 2 }}
+						xs={{ span: 8, offset: 2 }}
 					>
 						<AnmeldenButton
 							handleLogin={handleLogin}
@@ -99,7 +112,12 @@ export function Login() {
 				</Row>
 			</Form>
 			<Row className="login-message">
-				<Col lg={{ span: 6, offset: 3 }} md={{ span: 9, offset: 2 }}>
+				<Col
+					lg={{ span: 4, offset: 4 }}
+					md={{ span: 6, offset: 3 }}
+					sm={{ span: 8, offset: 2 }}
+					xs={{ span: 8, offset: 2 }}
+				>
 					{loginSuccess !== undefined && (
 						<LoginMessage
 							errMsg={errMsg}
