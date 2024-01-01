@@ -4,7 +4,7 @@ interface EingabeUebertragung {
 	setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export function EingabeFeld(eingabeUebertragung: EingabeUebertragung) {
+export function EingabeFeldComponent(eingabeUebertragung: EingabeUebertragung) {
 	return (
 		<>
 			<Form.Control
