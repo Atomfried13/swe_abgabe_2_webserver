@@ -32,7 +32,7 @@ export function BuchSuchen() {
 	const [datenId, setDatenId] = useState<QueryIdAusgabe | null>(null);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [error, setError] = useState('');
-	
+
 	const handleSearchClick = async () => {
 		try {
 			setError('');
@@ -70,7 +70,6 @@ export function BuchSuchen() {
 			default:
 				setError('Mach kein Scheiße, gib was Gescheites an'); //Break????
 			}
-			setSelectedLetter(null);
 		} catch (error) {
 			console.error('Fehler beim Laden der Daten:', error);
 			setError('Fehler beim Laden der Daten');

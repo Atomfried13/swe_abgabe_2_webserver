@@ -3,6 +3,7 @@ import { Form } from 'react-bootstrap';
 import { fetchTitel } from '../../Controller/buch-query';
 import { QueryTitelAusgabe } from './BuchSuchen';
 import { ShowTableTitel } from './ShowTableTitel.component';
+import { RadioButtons } from './RadioButton.component';
 
 interface SearchRadioButtonsProps {
 	setError: React.Dispatch<React.SetStateAction<string>>;
@@ -31,32 +32,9 @@ export function SearchRadioButtons({ setError }: SearchRadioButtonsProps) {
 	return (
 		<>
 			<Form.Group>
-				<Form.Check
-					inline
-					type="radio"
-					label="A"
-					name="searchLetter"
-					id="searchLetterA"
-					onChange={() => handleRadioClick('A')}
-					checked={selectedLetter === 'A'}
-				/>
-				<Form.Check
-					inline
-					type="radio"
-					label="L"
-					name="searchLetter"
-					id="searchLetterL"
-					onChange={() => handleRadioClick('L')}
-					checked={selectedLetter === 'L'}
-				/>
-				<Form.Check
-					inline
-					type="radio"
-					label=""
-					name="searchLetter"
-					id="searchLetter"
-					onChange={() => handleRadioClick('')}
-					checked={selectedLetter === ''}
+				<RadioButtons
+					selectedLetter={selectedLetter}
+					handleRadioClick={handleRadioClick}
 				/>
 			</Form.Group>
 			<div className="table-container">
