@@ -20,7 +20,7 @@ export function LoggedInNavbar() {
 		roles?.includes('admin') ?? roles?.includes('fachabteilung');
 
 	return (
-		<Navbar expand="lg">
+		<Navbar expand="md">
 			<Container>
 				<LinkContainer to="/">
 					<Navbar.Brand>
@@ -29,7 +29,7 @@ export function LoggedInNavbar() {
 					</Navbar.Brand>
 				</LinkContainer>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
-				<Navbar.Collapse id="basic-navbar-nav">
+				<Navbar.Collapse id="basic-navbar-nav" className="text-center">
 					<Nav className="me-auto">
 						<LinkContainer to="/">
 							<Nav.Link>Home</Nav.Link>
@@ -45,12 +45,14 @@ export function LoggedInNavbar() {
 					</Nav>
 					<Nav>
 						<LinkContainer to="/">
-							<Button
-								onClick={handleLogout}
-								className="logout-btn"
-							>
-								Logout
-							</Button>
+							<Nav.Link>
+								<Button
+									onClick={handleLogout}
+									className="logout-btn"
+								>
+									Logout
+								</Button>
+							</Nav.Link>
 						</LinkContainer>
 					</Nav>
 				</Navbar.Collapse>
