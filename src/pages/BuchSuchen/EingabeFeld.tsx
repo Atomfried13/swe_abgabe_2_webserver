@@ -65,28 +65,29 @@ export function EingabeFeld({ setError }: EingabeFeldProps) {
 		}
 	};
 	return (
-		<><div className="d-flex align-items-center">
-			<Form>
-				<Form.Group
-					className="buch-suchen-form"
-					controlId="formGroupSuchen"
-				>
-					<EingabeFeldComponent setSearchTerm={setSearchTerm} />
-					<SubmitButton
-						handleSearchClick={handleSearchClick} />
-				</Form.Group>
-			</Form>
-		</div>
-		
-		<div className="table-container">
-			{datenTitel && (
-				<ShowTableTitel
-					datenTitel={datenTitel} />
-			)}
-			{datenId && (
-				<ShowTableId
-					datenId={datenId} />
-			)}
-		</div></>
+		<>
+			<div className="d-flex align-items-center">
+				<Form>
+					<Form.Group
+						className="buch-suchen-form"
+						controlId="formGroupSuchen"
+					>
+						<EingabeFeldComponent setSearchTerm={setSearchTerm} />
+						<SubmitButton
+							handleSearchClick={handleSearchClick} />
+					</Form.Group>
+				</Form>
+			</div>
+			<div className="table-container">
+				{datenTitel && (
+					<ShowTableTitel
+						datenTitel={datenTitel} />
+				)}
+				{datenId && (
+					<ShowTableId
+						datenId={datenId} />
+				)}
+			</div>
+		</>
 	);
 }

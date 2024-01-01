@@ -5,7 +5,6 @@
 
 .buch-suchen-form {
     display: flex;
-    margin-left: 30px;
 }
 
 .suchen-btn {
@@ -33,3 +32,4 @@
     max-width: 700px;
     margin: 100px auto; 
 }
+

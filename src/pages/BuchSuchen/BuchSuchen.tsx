@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Form, Row, Col, Container } from 'react-bootstrap';
+import { Row, Container } from 'react-bootstrap';
 import './BuchSuchen.css';
 import { Buch, BuchListe } from '../../Controller/buch-query';
 import { EingabeFeld } from './EingabeFeld';
@@ -14,7 +14,6 @@ export interface QueryTitelAusgabe {
 	buecher: BuchListe;
 }
 
-// eslint-disable-next-line max-lines-per-function
 export function BuchSuchen() {
 	const [error, setError] = useState('');
 
