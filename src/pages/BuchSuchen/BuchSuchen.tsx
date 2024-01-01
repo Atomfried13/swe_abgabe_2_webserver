@@ -15,7 +15,7 @@ import { ErrorAusgabe } from './ErrorAugabe.component';
 import { ShowTableId } from './ShowTableID.component';
 import { ShowTableTitel } from './ShowTableTitel.component';
 import { SearchRadioButtons} from './RadioButtons';
-import { SearchCheckboxId1 } from './Checkboxen';
+import { SearchCheckboxId } from './CheckboxenFunktion';
 
 export interface QueryIdAusgabe {
 	buch: Buch;
@@ -114,7 +114,7 @@ export function BuchSuchen() {
 						<SearchRadioButtons selectedLetter={selectedLetter} handleRadioClick={handleRadioClick} />
 					</Form.Group>
 					<Form.Group>
-						<SearchCheckboxId1
+						<SearchCheckboxId
 						/>
 					</Form.Group>
 					<ErrorAusgabe error={error} setError={setError} />

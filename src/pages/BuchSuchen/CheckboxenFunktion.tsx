@@ -4,9 +4,10 @@ import { Form } from 'react-bootstrap';
 import { fetchId } from '../../Controller/buch-query';
 import { ShowTableId } from './ShowTableID.component';
 import { QueryIdAusgabe } from './BuchSuchen';
+import { SearchCheckboxId1, SearchCheckboxId20 } from './Checkbox.component';
 
 // eslint-disable-next-line max-lines-per-function
-export function SearchCheckboxId1() {
+export function SearchCheckboxId() {
 	const [datenBoxId1, setDatenBoxId1] = useState<QueryIdAusgabe | null>(null);
 	const [showTableBoxId1, setShowTableBoxId1] = useState(false);
 	const [datenBoxId20, setDatenBoxId20] = useState<QueryIdAusgabe | null>(
@@ -43,20 +44,12 @@ export function SearchCheckboxId1() {
 	return (
 		<>
 			<Form.Group>
-				<Form.Check
-					inline
-					type="checkbox"
-					label="ID 1"
-					id="checkboxId1"
-					onChange={() => handleCheckboxChange('1')}
+				<SearchCheckboxId1
+					handleCheckboxChange={handleCheckboxChange}
 					checked={showTableBoxId1}
 				/>
-				<Form.Check
-					inline
-					type="checkbox"
-					label="ID 20"
-					id="checkboxId20"
-					onChange={() => handleCheckboxChange('20')}
+				<SearchCheckboxId20
+					handleCheckboxChange={handleCheckboxChange}
 					checked={showTableBoxId20}
 				/>
 			</Form.Group>
