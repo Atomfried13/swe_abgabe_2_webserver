@@ -19,9 +19,9 @@ export function NeuesBuch() {
 	const [showTokenExpiredMsg, setShowTokenExpiredMsg] = useState(false);
 
 	const handleCreate = async (buch: BuchDTO) => {
-		if (token != undefined) {
+		if (token !== undefined) {
 			let isExpired;
-			if (tokenIssuedAt != undefined) {
+			if (tokenIssuedAt !== undefined) {
 				isExpired = isTokenExpired(expiresIn, tokenIssuedAt);
 			}
 			if (isExpired) {
