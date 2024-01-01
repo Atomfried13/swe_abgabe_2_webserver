@@ -1,39 +1,39 @@
-import React from 'react';
-import { Form } from 'react-bootstrap';
-
 interface SearchCheckboxesProps {
-	handleCheckboxChange: (id: string) => void; // Ändern Sie hier auf "void"
-	checked: boolean;
+	handleCheckboxChange: (id: string) => void;
 }
 
 export function SearchCheckboxId1({
 	handleCheckboxChange,
-	checked,
 }: SearchCheckboxesProps) {
 	return (
-		<Form.Check
-			inline
-			type="checkbox"
-			label="ID 1"
-			id="checkboxId1"
-			onChange={() => handleCheckboxChange('1')}
-			checked={checked}
-		/>
+		<>
+			<input
+				style={{ display: 'inline-block', marginRight: '1%' }}
+				type="checkbox"
+				id="checkboxId1"
+				onChange={() => handleCheckboxChange('1')}
+			/>
+			<label htmlFor="checkboxId1">1</label>
+		</>
 	);
 }
 
 export function SearchCheckboxId20({
 	handleCheckboxChange,
-	checked,
 }: SearchCheckboxesProps) {
 	return (
-		<Form.Check
-			inline
-			type="checkbox"
-			label="ID 20"
-			id="checkboxId20"
-			onChange={() => handleCheckboxChange('20')}
-			checked={checked}
-		/>
+		<>
+			<input
+				style={{
+					display: 'inline-block',
+					marginRight: '1%',
+					marginLeft: '3%',
+				}}
+				type="checkbox"
+				id="checkboxId20"
+				onChange={() => handleCheckboxChange('20')}
+			/>
+			<label htmlFor="checkboxId20">20</label>
+		</>
 	);
 }

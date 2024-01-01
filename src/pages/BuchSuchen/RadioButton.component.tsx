@@ -12,7 +12,7 @@ export function RadioButtons({ handleRadioClick }: RadioButtonsProps) {
 				id="searchLetterA"
 				onChange={() => handleRadioClick('A')}
 			/>
-			<label id="searchLetterA">A</label>
+			<label htmlFor="searchLetterA">A</label>
 			<input
 				style={{
 					display: 'inline-block',
@@ -24,7 +24,7 @@ export function RadioButtons({ handleRadioClick }: RadioButtonsProps) {
 				id="searchLetterL"
 				onChange={() => handleRadioClick('L')}
 			/>
-			<label id="searchLetterL">L</label>
+			<label htmlFor="searchLetterL">L</label>
 			<input
 				style={{
 					display: 'inline-block',
@@ -37,7 +37,7 @@ export function RadioButtons({ handleRadioClick }: RadioButtonsProps) {
 				defaultChecked
 				onChange={() => handleRadioClick('')}
 			/>
-			<label id="searchLetter?"></label>
+			<label htmlFor="searchLetter?"></label>
 		</>
 	);
 }

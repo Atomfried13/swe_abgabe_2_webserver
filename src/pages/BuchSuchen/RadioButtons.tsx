@@ -9,7 +9,6 @@ interface SearchRadioButtonsProps {
 	setError: React.Dispatch<React.SetStateAction<string>>;
 }
 
-// eslint-disable-next-line max-lines-per-function
 export function SearchRadioButtons({ setError }: SearchRadioButtonsProps) {
 	const [daten, setDaten] = useState<QueryTitelAusgabe | null>(null);
 	const handleRadioClick = async (letter: string) => {
@@ -23,7 +22,6 @@ export function SearchRadioButtons({ setError }: SearchRadioButtonsProps) {
 		} catch (error) {
 			console.error('Fehler beim Laden der Daten:', error);
 			setError('Fehler beim Laden der Daten');
-			//setDatenTitel(null);
 			throw new Error();
 		}
 	};

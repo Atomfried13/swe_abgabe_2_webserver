@@ -8,13 +8,15 @@ import { QueryIdAusgabe } from './BuchSuchen';
 import { SearchCheckboxId1, SearchCheckboxId20 } from './Checkbox.component';
 
 interface SearchCheckboxIdProps {
-  setError: React.Dispatch<React.SetStateAction<string>>;
+	setError: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export function SearchCheckboxId({ setError }: SearchCheckboxIdProps) {
 	const [datenBoxId1, setDatenBoxId1] = useState<QueryIdAusgabe | null>(null);
 	const [showTableBoxId1, setShowTableBoxId1] = useState(false);
-	const [datenBoxId20, setDatenBoxId20] = useState<QueryIdAusgabe | null>(null);
+	const [datenBoxId20, setDatenBoxId20] = useState<QueryIdAusgabe | null>(
+		null,
+	);
 	const [showTableBoxId20, setShowTableBoxId20] = useState(false);
 
 	const handleCheckboxChange = async (id: string) => {
@@ -44,11 +46,9 @@ export function SearchCheckboxId({ setError }: SearchCheckboxIdProps) {
 			<Form.Group>
 				<SearchCheckboxId1
 					handleCheckboxChange={handleCheckboxChange}
-					checked={showTableBoxId1}
 				/>
 				<SearchCheckboxId20
 					handleCheckboxChange={handleCheckboxChange}
-					checked={showTableBoxId20}
 				/>
 			</Form.Group>
 			<div className="table-container">
@@ -56,9 +56,7 @@ export function SearchCheckboxId({ setError }: SearchCheckboxIdProps) {
 					<ShowTableId datenId={datenBoxId1} />
 				)}
 				{showTableBoxId20 && datenBoxId20 && (
-					<ShowTableId
-						datenId={datenBoxId20}
-					/>
+					<ShowTableId datenId={datenBoxId20} />
 				)}
 			</div>
 		</>
