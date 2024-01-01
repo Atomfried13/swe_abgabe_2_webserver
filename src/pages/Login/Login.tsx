@@ -45,7 +45,7 @@ export function Login() {
 					setFormVisible(false);
 				} else {
 					setLoginSuccess(false);
-					if (response.data.errors != undefined) {
+					if (response.data.errors !== undefined) {
 						setErrMsg(response.data.errors[0].message);
 					}
 				}
@@ -74,6 +74,7 @@ export function Login() {
 						<BenutzernameInput setUsername={setUsername} />
 					</Col>
 				</Row>
+				<br />
 				<Row>
 					<Col
 						lg={{ span: 6, offset: 3 }}
