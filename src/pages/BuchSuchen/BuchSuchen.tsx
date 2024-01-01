@@ -29,90 +29,79 @@ export function BuchSuchen() {
 		null,
 	);
 	const [datenId, setDatenId] = useState<QueryIdAusgabe | null>(null);
-	const [datenBoxId20, setDatenBoxId20] = useState<QueryIdAusgabe | null>(null);
+	const [datenBoxId20, setDatenBoxId20] = useState<QueryIdAusgabe | null>(
+		null,
+	);
 	const [datenBoxId1, setDatenBoxId1] = useState<QueryIdAusgabe | null>(null);
 	const [searchTerm, setSearchTerm] = useState('');
-	const [showTableTitel, setShowTableTitel] = useState(false);
-	const [showTableId, setShowTableId] = useState(false);
 	const [error, setError] = useState('');
 	const [selectedBook, setSelectedBook] = useState<Buch | null>(null);
 	const [showModal, setShowModal] = useState(false);
 	const [selectedLetter, setSelectedLetter] = useState<string | null>(null); //aktiv zeichen im Radiobutton
 	const [showTableBoxId1, setShowTableBoxId1] = useState(false);
 	const [showTableBoxId20, setShowTableBoxId20] = useState(false);
-	// eslint-disable-next-line max-statements
+	
 	const handleSearchClick = async () => {
 		try {
 			setError('');
-			setShowTableId(false);
-			setShowTableTitel(false);
+			setDatenId(null);
+			setDatenTitel(null);
 			switch (true) {
-			case searchTerm === '':{ // '' unsicher
-				const {data} = await fetchTitel(searchTerm);				
-				setDatenTitel(data.data);
-				setShowTableTitel(true);
+			case searchTerm === '': {
+				// '' unsicher
+				setDatenTitel((await fetchTitel(searchTerm)).data.data);
 				break;
 			}
 
 			case isNaN(Number(searchTerm)): {
-				const {data} = await fetchTitel(searchTerm);
+				const { data } = await fetchTitel(searchTerm);
 
 				if (data.errorMessage == '') {
 					setDatenTitel(data.data);
-					setShowTableTitel(true);
 				} else {
 					setError(data.errorMessage);
-					setDatenTitel(null); //Ü
 				}
 				break;
 			}
 
-			case !isNaN(Number(searchTerm)):{
-				const {data} = await fetchId(searchTerm);
+			case !isNaN(Number(searchTerm)): {
+				const { data } = await fetchId(searchTerm);
 
 				if (data.errorMessage == '') {
 					setDatenId(data.data);
-					setShowTableId(true);
 				} else {
 					setError(data.errorMessage);
-					setDatenId(null);//Ü
 				}
 				break;
 			}
 
 			default:
 				setError('Mach kein Scheiße, gib was Gescheites an'); //Break????
-			}	
+			}
 			setSelectedLetter(null);
-		
 		} catch (error) {
 			console.error('Fehler beim Laden der Daten:', error);
 			setError('Fehler beim Laden der Daten');
-			setDatenId(null);
-			setDatenTitel(null);
 			throw new Error();
 		}
 	};
-
-	const handleCheckboxChange = async(id:string) => {
+	// auslagern????????????
+	const handleCheckboxChange = async (id: string) => {
 		try {
 			switch (true) {
-			case id === '1':{
+			case id === '1': {
 				setShowTableBoxId1(!showTableBoxId1);
-				const {data} = await fetchId(id);
-				setDatenBoxId1(data.data);
+				setDatenBoxId1((await fetchId(id)).data.data);
 				setError('');
 				break;
 			}
 
-			case id === '20':{
+			case id === '20': {
 				setShowTableBoxId20(!showTableBoxId20);
-				const {data} = await fetchId(id);
-				setDatenBoxId20(data.data);
+				setDatenBoxId20((await fetchId(id)).data.data);
 				setError('');
 				break;
 			}
-
 			}
 		} catch (error) {
 			console.error('Fehler beim Laden der Daten:', error);
@@ -127,20 +116,17 @@ export function BuchSuchen() {
 
 	const handleRadioClick = async (letter: string) => {
 		try {
-			const {data}=(await fetchTitel(letter));
-			setDatenTitel(data.data);
+			setDatenId(null);
+			setDatenTitel((await fetchTitel(letter)).data.data);
 			setError('');
-			setShowTableId(false);
-			setShowTableTitel(true);
 			setSelectedLetter(letter);
 		} catch (error) {
 			console.error('Fehler beim Laden der Daten:', error);
 			setError('Fehler beim Laden der Daten');
-			setDatenTitel(null);
+			//setDatenTitel(null);
 			throw new Error();
 		}
 	};
-	
 
 	// try und catch
 	const handleRowClick = (buch: Buch) => {
@@ -210,13 +196,13 @@ export function BuchSuchen() {
 					</Form.Group>
 					<ErrorAusgabe error={error} setError={setError} />
 					<div className="table-container">
-						{showTableTitel && datenTitel && (
+						{datenTitel && (
 							<ShowTableTitel
 								datenTitel={datenTitel}
 								handleRowClick={handleRowClick}
 							/>
 						)}
-						{showTableId && datenId && (
+						{datenId && (
 							<ShowTableId
 								datenId={datenId}
 								handleRowClick={handleRowClick}

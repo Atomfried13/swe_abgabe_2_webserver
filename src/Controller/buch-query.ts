@@ -8,7 +8,7 @@ export interface Buch {
 	art: string;
 	preis: number;
 	rating: number;
-	rabatt: string;
+	rabatt: number;
 	schlagwoerter: string[];
 	lieferbar: boolean;
 	titel: {
@@ -49,7 +49,7 @@ export const fetchId = async (id: string) => {
 				}
 				`,
 		});
-		response.data.errorMessage = '';
+		response.data.errorMessage = ''; //weg mit '';
 		if (response.data.data.buch == null || undefined) {
 			// ändern noch den Vergleich
 			response.data.errorMessage = `Ein Buch mit der ID${id} existiert nicht.`;
