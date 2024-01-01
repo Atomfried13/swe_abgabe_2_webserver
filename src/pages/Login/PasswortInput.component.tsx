@@ -1,24 +1,21 @@
 import { Form, InputGroup, Button } from 'react-bootstrap';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import './Login.css';
 
 interface PasswortProps {
 	setPassword: React.Dispatch<React.SetStateAction<string>>;
-	showPassword: boolean;
-	setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
 	setPasswordError: React.Dispatch<React.SetStateAction<boolean>>;
 	passwordError: boolean;
 }
 
-export function Passwort({
-	showPassword,
-	setShowPassword,
+export function PasswortInput({
 	setPassword,
 	setPasswordError,
 	passwordError,
 }: PasswortProps) {
+	const [showPassword, setShowPassword] = useState(false);
 	const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setPassword(event.target.value);
 		setPasswordError(false);

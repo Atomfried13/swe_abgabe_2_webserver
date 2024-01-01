@@ -26,7 +26,7 @@ export function BenutzernameInput({
 			</Form.Label>
 			<InputGroup>
 				<Form.Control
-					type="benutzername"
+					type="text"
 					id="EingabeBenutzername"
 					onChange={handleUsernameChange}
 					isInvalid={usernameError}
