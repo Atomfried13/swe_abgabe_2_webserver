@@ -1,3 +1,5 @@
+import { Form } from 'react-bootstrap';
+
 interface ArtUebertragung {
 	setArt: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -5,24 +7,23 @@ interface ArtUebertragung {
 export function Art(artUebertragung: ArtUebertragung) {
 	return (
 		<>
-			<input
+			<Form.Check
 				type="radio"
 				id="DRUCKAUSGABE"
 				name="Art"
 				value="DRUCKAUSGABE"
+				label="DRUCKAUSGABE"
 				defaultChecked
 				onChange={(event) => artUebertragung.setArt(event.target.value)}
 			/>
-			<label id="DRUCKAUSGABE">DRUCKAUSGABE</label>
-			<br />
-			<input
+			<Form.Check
 				type="radio"
 				id="KINDLE"
 				name="Art"
 				value="KINDLE"
+				label="KINDLE"
 				onChange={(event) => artUebertragung.setArt(event.target.value)}
 			/>
-			<label id="KINDLE">KINDLE</label>
 		</>
 	);
 }

@@ -28,29 +28,26 @@ export function Schlagwoerter(
 	return (
 		<>
 			<Form.Label>Schlagwoerter</Form.Label>
-			<br />
-			<input
+			<Form.Check
 				type="checkbox"
 				id="TYPESCRIPT"
 				name="TYPESCRIPT"
 				value="TYPESCRIPT"
+				label="TYPESCRIPT"
 				onChange={(event) =>
 					handleSetSchlagwoerter('TYPESCRIPT', event.target.checked)
 				}
 			/>
-			<label htmlFor="TYPESCRIPT">TYPESCRIPT</label>
-			<br />
-			<input
+			<Form.Check
 				type="checkbox"
 				id="JAVASCRIPT"
 				name="JAVASCRIPT"
 				value="JAVASCRIPT"
+				label="JAVASCRIPT"
 				onChange={(event) =>
 					handleSetSchlagwoerter('JAVASCRIPT', event.target.checked)
 				}
 			/>
-			<label htmlFor="JAVASCRIPT">JAVASCRIPT</label>
-			<br />
 		</>
 	);
 }

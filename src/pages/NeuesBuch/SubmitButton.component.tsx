@@ -1,7 +1,7 @@
 import { Button } from 'react-bootstrap';
 
 interface SubmitButtonHandleCreateClick {
-	handleCreateClick: () => void;
+	submitHandleCreateClick: () => void;
 }
 
 export function SubmitButton(
@@ -10,9 +10,9 @@ export function SubmitButton(
 	return (
 		<>
 			<Button
-				onClick={submitButtonhandleCreateClick.handleCreateClick}
+				onClick={submitButtonhandleCreateClick.submitHandleCreateClick}
 				type="submit"
-				className="buch-schreiben-form"
+				className="neuanlegen-btn"
 			>
 				Neues Buch anlegen
 			</Button>
