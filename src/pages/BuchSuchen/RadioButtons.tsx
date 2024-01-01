@@ -1,30 +1,24 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { fetchTitel } from '../../Controller/buch-query';
-import { QueryIdAusgabe, QueryTitelAusgabe } from './BuchSuchen';
+import { QueryTitelAusgabe } from './BuchSuchen';
 import { ShowTableTitel } from './ShowTableTitel.component';
 
 interface SearchRadioButtonsProps {
 	setError: React.Dispatch<React.SetStateAction<string>>;
-	setDatenId: React.Dispatch<React.SetStateAction<QueryIdAusgabe | null>>;
-	setDatenTitel: React.Dispatch<
-		React.SetStateAction<QueryTitelAusgabe | null>
-	>;
-	//setSelectedLetter: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-export function SearchRadioButtons({
-	setError,
-	setDatenId,
-	setDatenTitel,
-}: SearchRadioButtonsProps) {
+// eslint-disable-next-line max-lines-per-function
+export function SearchRadioButtons({ setError }: SearchRadioButtonsProps) {
 	const [selectedLetter, setSelectedLetter] = useState<string | null>(null);
 	const [daten, setDaten] = useState<QueryTitelAusgabe | null>(null);
 	const handleRadioClick = async (letter: string) => {
 		try {
-			setDatenId(null);
-			setDatenTitel(null);
-			setDaten((await fetchTitel(letter)).data.data);
+			if (letter !== '') {
+				setDaten((await fetchTitel(letter)).data.data);
+			} else {
+				setDaten(null);
+			}
 			setError('');
 			setSelectedLetter(letter);
 		} catch (error) {
@@ -54,6 +48,15 @@ export function SearchRadioButtons({
 					id="searchLetterL"
 					onChange={() => handleRadioClick('L')}
 					checked={selectedLetter === 'L'}
+				/>
+				<Form.Check
+					inline
+					type="radio"
+					label=""
+					name="searchLetter"
+					id="searchLetter"
+					onChange={() => handleRadioClick('')}
+					checked={selectedLetter === ''}
 				/>
 			</Form.Group>
 			<div className="table-container">

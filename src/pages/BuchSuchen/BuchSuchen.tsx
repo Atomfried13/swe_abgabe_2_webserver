@@ -32,7 +32,6 @@ export function BuchSuchen() {
 	const [datenId, setDatenId] = useState<QueryIdAusgabe | null>(null);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [error, setError] = useState('');
-	const [selectedLetter, setSelectedLetter] = useState<string | null>(null); //aktiv zeichen im Radiobutton
 	
 	const handleSearchClick = async () => {
 		try {
@@ -99,8 +98,6 @@ export function BuchSuchen() {
 					<Form.Group>
 						<SearchRadioButtons
 							setError={setError}
-							setDatenId={setDatenId}
-							setDatenTitel={setDatenTitel}
 						/>
 					</Form.Group>
 					<Form.Group>
