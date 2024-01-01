@@ -79,20 +79,6 @@ export function BuchSuchen() {
 		}
 	};
 
-	const handleRadioClick = async (letter: string) => {
-		try {
-			setDatenId(null);
-			setDatenTitel((await fetchTitel(letter)).data.data);
-			setError('');
-			setSelectedLetter(letter);
-		} catch (error) {
-			console.error('Fehler beim Laden der Daten:', error);
-			setError('Fehler beim Laden der Daten');
-			//setDatenTitel(null);
-			throw new Error();
-		}
-	};
-
 	return (
 		<Container>
 			<Row className="justify-content-center">
@@ -111,7 +97,11 @@ export function BuchSuchen() {
 						</Form>
 					</div>
 					<Form.Group>
-						<SearchRadioButtons selectedLetter={selectedLetter} handleRadioClick={handleRadioClick} />
+						<SearchRadioButtons
+							setError={setError}
+							setDatenId={setDatenId}
+							setDatenTitel={setDatenTitel}
+						/>
 					</Form.Group>
 					<Form.Group>
 						<SearchCheckboxId setError={setError} />
