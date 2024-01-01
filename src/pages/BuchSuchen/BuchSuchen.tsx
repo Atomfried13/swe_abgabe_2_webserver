@@ -114,8 +114,7 @@ export function BuchSuchen() {
 						<SearchRadioButtons selectedLetter={selectedLetter} handleRadioClick={handleRadioClick} />
 					</Form.Group>
 					<Form.Group>
-						<SearchCheckboxId
-						/>
+						<SearchCheckboxId setError={setError} />
 					</Form.Group>
 					<ErrorAusgabe error={error} setError={setError} />
 					<div className="table-container">
