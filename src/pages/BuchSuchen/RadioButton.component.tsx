@@ -1,44 +1,43 @@
-import React from 'react';
-import { Form } from 'react-bootstrap';
-
 interface RadioButtonsProps {
-	selectedLetter: string | null;
 	handleRadioClick: (letter: string) => void;
 }
 
-export function RadioButtons({
-	selectedLetter,
-	handleRadioClick,
-}: RadioButtonsProps) {
+export function RadioButtons({ handleRadioClick }: RadioButtonsProps) {
 	return (
-		<Form.Group>
-			<Form.Check
-				inline
+		<>
+			<input
+				style={{ display: 'inline-block', marginRight: '1%' }}
 				type="radio"
-				label="A"
 				name="searchLetter"
 				id="searchLetterA"
 				onChange={() => handleRadioClick('A')}
-				checked={selectedLetter === 'A'}
 			/>
-			<Form.Check
-				inline
+			<label id="searchLetterA">A</label>
+			<input
+				style={{
+					display: 'inline-block',
+					marginLeft: '3%',
+					marginRight: '1%',
+				}}
 				type="radio"
-				label="L"
 				name="searchLetter"
 				id="searchLetterL"
 				onChange={() => handleRadioClick('L')}
-				checked={selectedLetter === 'L'}
 			/>
-			<Form.Check
-				inline
+			<label id="searchLetterL">L</label>
+			<input
+				style={{
+					display: 'inline-block',
+					marginLeft: '3%',
+					marginRight: '1%',
+				}}
 				type="radio"
-				label=""
 				name="searchLetter"
-				id="searchLetter"
+				id="searchLetter?"
+				defaultChecked
 				onChange={() => handleRadioClick('')}
-				checked={selectedLetter === ''}
 			/>
-		</Form.Group>
+			<label id="searchLetter?"></label>
+		</>
 	);
 }

@@ -11,7 +11,6 @@ interface SearchRadioButtonsProps {
 
 // eslint-disable-next-line max-lines-per-function
 export function SearchRadioButtons({ setError }: SearchRadioButtonsProps) {
-	const [selectedLetter, setSelectedLetter] = useState<string | null>(null);
 	const [daten, setDaten] = useState<QueryTitelAusgabe | null>(null);
 	const handleRadioClick = async (letter: string) => {
 		try {
@@ -21,7 +20,6 @@ export function SearchRadioButtons({ setError }: SearchRadioButtonsProps) {
 				setDaten(null);
 			}
 			setError('');
-			setSelectedLetter(letter);
 		} catch (error) {
 			console.error('Fehler beim Laden der Daten:', error);
 			setError('Fehler beim Laden der Daten');
@@ -32,10 +30,7 @@ export function SearchRadioButtons({ setError }: SearchRadioButtonsProps) {
 	return (
 		<>
 			<Form.Group>
-				<RadioButtons
-					selectedLetter={selectedLetter}
-					handleRadioClick={handleRadioClick}
-				/>
+				<RadioButtons handleRadioClick={handleRadioClick} />
 			</Form.Group>
 			<div className="table-container">
 				{daten && <ShowTableTitel datenTitel={daten} />}

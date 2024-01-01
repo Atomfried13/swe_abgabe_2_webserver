@@ -29,7 +29,6 @@ export function EingabeFeld({ setError }: EingabeFeldProps) {
 			setDatenTitel(null);
 			switch (true) {
 			case searchTerm === '': {
-				// '' unsicher
 				setDatenTitel((await fetchTitel(searchTerm)).data.data);
 				break;
 			}
@@ -77,7 +76,9 @@ export function EingabeFeld({ setError }: EingabeFeldProps) {
 						handleSearchClick={handleSearchClick} />
 				</Form.Group>
 			</Form>
-		</div><div className="table-container">
+		</div>
+		
+		<div className="table-container">
 			{datenTitel && (
 				<ShowTableTitel
 					datenTitel={datenTitel} />

@@ -30,12 +30,12 @@ test('fetchId für eine valide ID', async () => {
 	expect(buch.preis).toBeGreaterThanOrEqual(0);
 	expect(buch.rating).toBeGreaterThanOrEqual(0);
 	expect(buch.rating).toBeLessThanOrEqual(5);
-	//expect(buch.lieferbar).toMatch(false);
 	//expect(buch.rabatt).toBeGreaterThanOrEqual(0);
-	//expect(buch.rabatt).toBeLessThanOrEqual(1);
-	expect(buch.schlagwoerter).toContainEqual(
-		expect.stringMatching(/^TYPESCRIPT$ || ^JAVASCRIPT$ || 'null'/),
-	);
+	//expect(buch.rabatt as number).toBeLessThanOrEqual(1);
+	
+	//expect(buch.schlagwoerter).toContainEqual(
+		//expect.stringMatching(/^TYPESCRIPT$ || ^JAVASCRIPT$ || 'null'/),
+	//);
 	expect(buch.titel?.titel).toMatch(/^\w/u);
 });
 

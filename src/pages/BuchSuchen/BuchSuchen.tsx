@@ -19,20 +19,12 @@ export function BuchSuchen() {
 	const [error, setError] = useState('');
 
 	return (
-		<Container>
+		<Container className="buchsuchen-formular">
 			<Row className="justify-content-center">
-				<Col>
-					<Form.Group>
-						<EingabeFeld setError={setError} />
-					</Form.Group>
-					<Form.Group>
-						<SearchRadioButtons setError={setError} />
-					</Form.Group>
-					<Form.Group>
-						<SearchCheckboxId setError={setError} />
-					</Form.Group>
-					<ErrorAusgabe error={error} setError={setError} />
-				</Col>
+				<EingabeFeld setError={setError} />
+				<SearchRadioButtons setError={setError} />
+				<SearchCheckboxId setError={setError} />
+				<ErrorAusgabe error={error} setError={setError} />
 			</Row>
 		</Container>
 	);
