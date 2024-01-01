@@ -10,6 +10,8 @@ import './Login.css';
 
 // eslint-disable-next-line max-lines-per-function
 export function Login() {
+	const [usernameError, setUsernameError] = useState(false);
+	const [passwordError, setPasswordError] = useState(false);
 	const [showPassword, setShowPassword] = useState(false);
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
@@ -27,6 +29,11 @@ export function Login() {
 
 	const handleLogin = () => {
 		void (async () => {
+			if (!username || !password) {
+				setUsernameError(!username);
+				setPasswordError(!password);
+				return;
+			}
 			setLoading(true);
 
 			try {
@@ -80,9 +87,14 @@ export function Login() {
 						sm={{ span: 8, offset: 2 }}
 						xs={{ span: 8, offset: 2 }}
 					>
-						<BenutzernameInput setUsername={setUsername} />
+						<BenutzernameInput
+							setUsername={setUsername}
+							setUsernameError={setUsernameError}
+							usernameError={usernameError}
+						/>
 					</Col>
 				</Row>
+				<br />
 				<Row>
 					<Col
 						lg={{ span: 4, offset: 4 }}
@@ -94,6 +106,8 @@ export function Login() {
 							setPassword={setPassword}
 							showPassword={showPassword}
 							setShowPassword={setShowPassword}
+							setPasswordError={setPasswordError}
+							passwordError={passwordError}
 						/>
 					</Col>
 				</Row>

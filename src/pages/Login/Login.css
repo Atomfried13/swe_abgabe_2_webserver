@@ -28,3 +28,7 @@
 .benutzername-label {
     font-weight: bold;
 }
+
+.showPasswordBtn {
+    background-color: black !important;
+}
