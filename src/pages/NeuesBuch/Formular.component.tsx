@@ -16,6 +16,7 @@ import { BuchDTO } from '../../Model/buchDTO.entitie';
 
 interface FormularUebertragung {
 	handleCreate: (buch: BuchDTO) => void;
+	setErrorMessage: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -34,7 +35,9 @@ export function Formular(formularUebertragung: FormularUebertragung) {
 
 	const handleCreateClick = () => {
 		if (!isbn || !titel || preis == 0 || !datum) {
-			console.log('Error');
+			formularUebertragung.setErrorMessage(
+				'Bitte alle notwendigen (*) Felder ausfüllen.',
+			);
 			return;
 		}
 
