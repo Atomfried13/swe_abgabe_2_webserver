@@ -13,10 +13,7 @@ interface CreateResponse {
 	}[];
 }
 
-export const mutation = async (
-	buch: BuchDTO,
-	token: string,
-): Promise<number> => {
+export const mutation = async (buch: BuchDTO, token: string) => {
 	try {
 		const authorization = { Authorization: token ? `Bearer ${token}` : '' };
 
@@ -37,17 +34,10 @@ export const mutation = async (
 				},
 				{ headers: authorization },
 			);
-
-		console.log('Ende Anfrage');
-		if (response.data.errors !== undefined) {
-			console.log(response.data.errors);
-		}
-		if (response.data === undefined) {
-			console.log('es ist etwas schiefgelaufen');
-		}
-		console.log('Antwort: ', response.data);
-		return response.data.data.create.id;
+		return response;
 	} catch (error) {
-		throw new Error('Fehler beim Anlegen des Buches: $error');
+		throw new Error(
+			'Ein unerwarteter Fehler ist aufgetreten, bitte versuche es später erneut.',
+		);
 	}
 };
