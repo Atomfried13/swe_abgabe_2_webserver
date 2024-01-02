@@ -27,6 +27,7 @@ export function EingabeFeld({ setError }: EingabeFeldProps) {
 			setError('');
 			setDatenId(null);
 			setDatenTitel(null);
+
 			switch (true) {
 			case searchTerm === '': {
 				setDatenTitel((await fetchTitel(searchTerm)).data.data);
@@ -56,12 +57,11 @@ export function EingabeFeld({ setError }: EingabeFeldProps) {
 			}
 
 			default:
-				setError('Mach kein Scheiße, gib was Gescheites an'); //Break????
+				setError('Mach kein Scheiße, gib was Gescheites an');
 			}
 		} catch (error) {
-			console.error('Fehler beim Laden der Daten:', error);
 			setError('Fehler beim Laden der Daten');
-			throw new Error();
+			throw new Error(); //?
 		}
 	};
 	return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { QueryIdAusgabe } from './BuchSuchen';
 import { Buch } from '../../Controller/buch-query';
@@ -32,6 +32,7 @@ export function ShowTableId({ datenId }: ShowTableIdUebertragung) {
 						<th>Preis</th>
 						<th>Art</th>
 						<th>Bewertung</th>
+						<th>Rabatt</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -44,6 +45,7 @@ export function ShowTableId({ datenId }: ShowTableIdUebertragung) {
 						<td>{datenId.buch.preis}</td>
 						<td>{datenId.buch.art}</td>
 						<td>{datenId.buch.rating}</td>
+						<td>{datenId.buch.rabatt}</td>
 					</tr>
 				</tbody>
 			</Table>

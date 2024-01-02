@@ -41,6 +41,7 @@ export function SearchCheckboxId({ setError }: SearchCheckboxIdProps) {
 			throw new Error();
 		}
 	};
+	
 	return (
 		<>
 			<Form.Group>

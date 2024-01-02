@@ -32,6 +32,7 @@ export function ShowTableTitel({ datenTitel }: ShowTableTitelUebertragung) {
 						<th>Preis</th>
 						<th>Art</th>
 						<th>Bewertung</th>
+						<th>Rabatt</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -43,6 +44,7 @@ export function ShowTableTitel({ datenTitel }: ShowTableTitelUebertragung) {
 							<td>{buch.preis}</td>
 							<td>{buch.art}</td>
 							<td>{buch.rating}</td>
+							<td>{buch.rabatt}</td>
 						</tr>
 					))}
 				</tbody>

@@ -25,6 +25,7 @@ export function SearchRadioButtons({ setError }: SearchRadioButtonsProps) {
 			throw new Error();
 		}
 	};
+
 	return (
 		<>
 			<Form.Group>
