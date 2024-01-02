@@ -21,23 +21,23 @@ interface FormularUebertragung {
 // eslint-disable-next-line max-lines-per-function
 export function Formular(formularUebertragung: FormularUebertragung) {
 	const [isbn, setIsbn] = useState<string>('');
-	const [isbnError, setIsbnError] = useState<boolean>(false);
+	const [datum, setDatum] = useState<string>('');
+	const [titel, setTitel] = useState<string>('');
 	const [rabatt, setRabatt] = useState<number>(0);
 	const [rating, setRating] = useState<number>(1);
 	const [art, setArt] = useState<string>('DRUCKAUSGABE');
 	const [preis, setPreis] = useState<number>(0);
 	const [lieferbar, setLieferbar] = useState<boolean>(false);
-	const [datum, setDatum] = useState<string>('');
 	const [schlagwoerter, setSchlagwoerter] = useState<string[]>([]);
 	const [homepage, setHomepage] = useState<string>('');
-	const [titel, setTitel] = useState<string>('');
 	const [unterTitel, setUnterTitel] = useState<string>('');
 
 	const handleCreateClick = () => {
-		if (!isbn && titel !== '' && preis > 0) {
-			setIsbnError(!isbn);
+		if (!isbn || !titel || preis == 0 || !datum) {
+			console.log('Error');
 			return;
 		}
+
 		formularUebertragung.handleCreate({
 			isbn: isbn,
 			rating: rating,
@@ -64,15 +64,9 @@ export function Formular(formularUebertragung: FormularUebertragung) {
 				>
 					<Row>
 						<Col lg={{ span: 6, offset: 3 }}>
-							<Isbn isbnError={isbnError} setIsbn={setIsbn} />
+							<Isbn setIsbn={setIsbn} />
 							<Titel setTitel={setTitel} />
 							<UnterTitel setUnterTitel={setUnterTitel} />
-							<Form.Check
-								required
-								label="fill in"
-								feedback="You must fill in the required fields."
-								feedbackType="invalid"
-							/>
 						</Col>
 					</Row>
 					<br />
