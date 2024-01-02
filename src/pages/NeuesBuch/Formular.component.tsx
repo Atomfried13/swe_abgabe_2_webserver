@@ -67,32 +67,42 @@ export function Formular(formularUebertragung: FormularUebertragung) {
 					className="buch-anlegen-form"
 				>
 					<Row>
-						<Col lg={{ span: 12 }}>
+						<Col lg={{ span: 6, offset: 3 }}>
 							<Isbn setIsbn={setIsbn} />
 							<Titel setTitel={setTitel} />
 							<UnterTitel setUnterTitel={setUnterTitel} />
+							<Form.Check
+								required
+								label="fill in"
+								feedback="You must fill in the required fields."
+								feedbackType="invalid"
+							/>
 						</Col>
 					</Row>
 					<br />
 					<Row>
-						<Col lg={{ span: 4 }} md={{ span: 12 }}>
+						<Col lg={{ span: 2, offset: 3 }} md={{ span: 12 }}>
 							<Preis setPreis={setPreis} />
 						</Col>
-						<Col lg={{ span: 4 }} md={{ span: 12 }}>
+						<Col lg={{ span: 2 }} md={{ span: 12 }}>
 							<Rabatt setRabatt={setRabatt} />
 						</Col>
-						<Col lg={{ span: 4 }} md={{ span: 12 }}>
+						<Col lg={{ span: 2 }} md={{ span: 12 }}>
 							<Rating setRating={setRating} />
 						</Col>
 					</Row>
 					<br />
 					<Row>
-						<Col lg={{ span: 6 }}>
+						<Col
+							lg={{ span: 3, offset: 3 }}
+							md={{ span: 3, offset: 3 }}
+							sm={{ span: 4 }}
+						>
 							<Lieferbar setLieferbar={setLieferbar} />
 							<br />
 							<Art setArt={setArt} />
 						</Col>
-						<Col lg={{ span: 6 }}>
+						<Col lg={{ span: 3 }} md={{ span: 3 }} sm={{ span: 4 }}>
 							<Schlagwoerter
 								schlagwoerter={schlagwoerter}
 								setSchlagwoerter={setSchlagwoerter}
@@ -101,7 +111,7 @@ export function Formular(formularUebertragung: FormularUebertragung) {
 					</Row>
 					<br />
 					<Row>
-						<Col lg={{ span: 12 }}>
+						<Col lg={{ span: 6, offset: 3 }}>
 							<Datum setDatum={setDatum} />
 							<Homepage setHomepage={setHomepage} />
 						</Col>

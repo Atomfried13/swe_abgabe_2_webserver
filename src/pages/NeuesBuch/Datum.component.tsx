@@ -9,7 +9,7 @@ export function Datum(datumUebertragung: DatumUebertragung) {
 		<>
 			<Form.Label>Datum</Form.Label>
 			<Form.Control
-				type="text"
+				type="date"
 				placeholder="2021-01-31"
 				onChange={(event) =>
 					datumUebertragung.setDatum(event.target.value)
