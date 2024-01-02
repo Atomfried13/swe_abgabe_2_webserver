@@ -1,5 +1,3 @@
-// eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { fetchId } from '../../Controller/buch-query';
@@ -23,18 +21,19 @@ export function SearchCheckboxId({ setError }: SearchCheckboxIdProps) {
 		void (async () => {
 			try {
 				switch (true) {
-				case id === '1': {
-					setShowTableBoxId1(!showTableBoxId1);
-					setDatenBoxId1((await fetchId(id)).data.data);
-					setError('');
-					break;
-				}
-				case id === '20': {
-					setShowTableBoxId20(!showTableBoxId20);
-					setDatenBoxId20((await fetchId(id)).data.data);
-					setError('');
-					break;
-				}
+					case id === '1': {
+						setShowTableBoxId1(!showTableBoxId1);
+						setDatenBoxId1((await fetchId(id)).data.data);
+						setError('');
+						break;
+					}
+
+					case id === '20': {
+						setShowTableBoxId20(!showTableBoxId20);
+						setDatenBoxId20((await fetchId(id)).data.data);
+						setError('');
+						break;
+					}
 				}
 			} catch (error) {
 				console.error('Fehler beim Laden der Daten:', error);
@@ -43,7 +42,7 @@ export function SearchCheckboxId({ setError }: SearchCheckboxIdProps) {
 			}
 		})();
 	};
-	
+
 	return (
 		<>
 			<Form.Group>

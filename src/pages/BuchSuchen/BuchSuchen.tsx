@@ -10,13 +10,14 @@ import { SearchCheckboxId } from './CheckboxenFunktion';
 export interface QueryIdAusgabe {
 	buch: Buch;
 }
+
 export interface QueryTitelAusgabe {
 	buecher: BuchListe;
 }
 
 export function BuchSuchen() {
 	const [error, setError] = useState('');
-	//Abstand?
+
 	return (
 		<Container className="buchsuchen-formular">
 			<EingabeFeld setError={setError} />

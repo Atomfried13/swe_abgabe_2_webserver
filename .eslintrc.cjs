@@ -60,7 +60,8 @@ module.exports = {
    		"react/jsx-uses-vars": "error",
 		'indent': [
 			'error',
-			'tab'
+			'tab',
+			{ "SwitchCase": 1 }
 		],
 		'linebreak-style': [
 			'error',
@@ -100,7 +101,7 @@ module.exports = {
 		'max-depth': 'error',
 		'max-lines': 'error',
 		'max-lines-per-function': ['error', {
-			max: 70,
+			max: 75,
 		}],
 		'max-nested-callbacks': ['error', {
 			max: 4,

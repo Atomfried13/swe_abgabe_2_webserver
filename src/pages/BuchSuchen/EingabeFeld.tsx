@@ -1,7 +1,5 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable max-lines-per-function */
-// eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable prettier/prettier */
 import { useState } from 'react';
 import { fetchId, fetchTitel } from '../../Controller/buch-query';
 import { QueryIdAusgabe, QueryTitelAusgabe } from './BuchSuchen';
@@ -30,35 +28,35 @@ export function EingabeFeld({ setError }: EingabeFeldProps) {
 				setDatenTitel(null);
 
 				switch (true) {
-				case searchTerm === '': {
-					setDatenTitel((await fetchTitel(searchTerm)).data.data);
-					break;
-				}
-
-				case isNaN(Number(searchTerm)): {
-					const { data } = await fetchTitel(searchTerm);
-
-					if (data.errorMessage == '') {
-						setDatenTitel(data.data);
-					} else {
-						setError(data.errorMessage);
+					case searchTerm === '': {
+						setDatenTitel((await fetchTitel(searchTerm)).data.data);
+						break;
 					}
-					break;
-				}
 
-				case !isNaN(Number(searchTerm)): {
-					const { data } = await fetchId(searchTerm);
+					case isNaN(Number(searchTerm)): {
+						const { data } = await fetchTitel(searchTerm);
 
-					if (data.errorMessage == '') {
-						setDatenId(data.data);
-					} else {
-						setError(data.errorMessage);
+						if (data.errorMessage == '') {
+							setDatenTitel(data.data);
+						} else {
+							setError(data.errorMessage);
+						}
+						break;
 					}
-					break;
-				}
 
-				default:
-					setError('Mach kein Scheiße, gib was Gescheites an');
+					case !isNaN(Number(searchTerm)): {
+						const { data } = await fetchId(searchTerm);
+
+						if (data.errorMessage == '') {
+							setDatenId(data.data);
+						} else {
+							setError(data.errorMessage);
+						}
+						break;
+					}
+
+					default:
+						setError('Mach kein Scheiße, gib was Gescheites an');
 				}
 			} catch (error) {
 				setError('Fehler beim Laden der Daten');
@@ -74,18 +72,11 @@ export function EingabeFeld({ setError }: EingabeFeldProps) {
 				controlId="formGroupSuchen"
 			>
 				<EingabeFeldComponent setSearchTerm={setSearchTerm} />
-				<SubmitButton
-					handleSearchClick={handleSearchClick} />
+				<SubmitButton handleSearchClick={handleSearchClick} />
 			</Form.Group>
 			<div className="table-container">
-				{datenTitel && (
-					<ShowTableTitel
-						datenTitel={datenTitel} />
-				)}
-				{datenId && (
-					<ShowTableId
-						datenId={datenId} />
-				)}
+				{datenTitel && <ShowTableTitel datenTitel={datenTitel} />}
+				{datenId && <ShowTableId datenId={datenId} />}
 			</div>
 		</>
 	);
