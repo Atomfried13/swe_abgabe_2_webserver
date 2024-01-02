@@ -23,7 +23,7 @@ export function ShowTableTitel({ datenTitel }: ShowTableTitelUebertragung) {
 	};
 
 	return (
-		<>
+		<div style={{ overflowX: 'auto' }}>
 			<Table striped bordered hover>
 				<thead>
 					<tr>
@@ -57,6 +57,6 @@ export function ShowTableTitel({ datenTitel }: ShowTableTitelUebertragung) {
 					handleCloseModal={handleCloseModal}
 				/>
 			)}
-		</>
+		</div>
 	);
 }

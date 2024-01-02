@@ -23,7 +23,7 @@ export function ShowTableId({ datenId }: ShowTableIdUebertragung) {
 	};
 
 	return (
-		<>
+		<div style={{ overflowX: 'auto' }}>
 			<Table striped bordered hover>
 				<thead>
 					<tr>
@@ -56,6 +56,6 @@ export function ShowTableId({ datenId }: ShowTableIdUebertragung) {
 					handleCloseModal={handleCloseModal}
 				/>
 			)}
-		</>
+		</div>
 	);
 }
