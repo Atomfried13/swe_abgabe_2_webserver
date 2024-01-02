@@ -19,27 +19,29 @@ export function SearchCheckboxId({ setError }: SearchCheckboxIdProps) {
 	);
 	const [showTableBoxId20, setShowTableBoxId20] = useState(false);
 
-	const handleCheckboxChange = async (id: string) => {
-		try {
-			switch (true) {
-			case id === '1': {
-				setShowTableBoxId1(!showTableBoxId1);
-				setDatenBoxId1((await fetchId(id)).data.data);
-				setError('');
-				break;
+	const handleCheckboxChange = (id: string) => {
+		void (async () => {
+			try {
+				switch (true) {
+				case id === '1': {
+					setShowTableBoxId1(!showTableBoxId1);
+					setDatenBoxId1((await fetchId(id)).data.data);
+					setError('');
+					break;
+				}
+				case id === '20': {
+					setShowTableBoxId20(!showTableBoxId20);
+					setDatenBoxId20((await fetchId(id)).data.data);
+					setError('');
+					break;
+				}
+				}
+			} catch (error) {
+				console.error('Fehler beim Laden der Daten:', error);
+				setError('Fehler beim Laden der Daten');
+				throw new Error();
 			}
-			case id === '20': {
-				setShowTableBoxId20(!showTableBoxId20);
-				setDatenBoxId20((await fetchId(id)).data.data);
-				setError('');
-				break;
-			}
-			}
-		} catch (error) {
-			console.error('Fehler beim Laden der Daten:', error);
-			setError('Fehler beim Laden der Daten');
-			throw new Error();
-		}
+		})();
 	};
 	
 	return (

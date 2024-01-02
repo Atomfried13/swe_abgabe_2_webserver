@@ -22,47 +22,49 @@ export function EingabeFeld({ setError }: EingabeFeldProps) {
 	const [datenId, setDatenId] = useState<QueryIdAusgabe | null>(null);
 	const [searchTerm, setSearchTerm] = useState('');
 
-	const handleSearchClick = async () => {
-		try {
-			setError('');
-			setDatenId(null);
-			setDatenTitel(null);
+	const handleSearchClick = () => {
+		void (async () => {
+			try {
+				setError('');
+				setDatenId(null);
+				setDatenTitel(null);
 
-			switch (true) {
-			case searchTerm === '': {
-				setDatenTitel((await fetchTitel(searchTerm)).data.data);
-				break;
-			}
-
-			case isNaN(Number(searchTerm)): {
-				const { data } = await fetchTitel(searchTerm);
-
-				if (data.errorMessage == '') {
-					setDatenTitel(data.data);
-				} else {
-					setError(data.errorMessage);
+				switch (true) {
+				case searchTerm === '': {
+					setDatenTitel((await fetchTitel(searchTerm)).data.data);
+					break;
 				}
-				break;
-			}
 
-			case !isNaN(Number(searchTerm)): {
-				const { data } = await fetchId(searchTerm);
+				case isNaN(Number(searchTerm)): {
+					const { data } = await fetchTitel(searchTerm);
 
-				if (data.errorMessage == '') {
-					setDatenId(data.data);
-				} else {
-					setError(data.errorMessage);
+					if (data.errorMessage == '') {
+						setDatenTitel(data.data);
+					} else {
+						setError(data.errorMessage);
+					}
+					break;
 				}
-				break;
-			}
 
-			default:
-				setError('Mach kein Scheiße, gib was Gescheites an');
+				case !isNaN(Number(searchTerm)): {
+					const { data } = await fetchId(searchTerm);
+
+					if (data.errorMessage == '') {
+						setDatenId(data.data);
+					} else {
+						setError(data.errorMessage);
+					}
+					break;
+				}
+
+				default:
+					setError('Mach kein Scheiße, gib was Gescheites an');
+				}
+			} catch (error) {
+				setError('Fehler beim Laden der Daten');
+				throw new Error(); //?
 			}
-		} catch (error) {
-			setError('Fehler beim Laden der Daten');
-			throw new Error(); //?
-		}
+		})();
 	};
 
 	return (

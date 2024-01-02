@@ -12,19 +12,21 @@ interface SearchRadioButtonsProps {
 export function SearchRadioButtons({ setError }: SearchRadioButtonsProps) {
 	const [daten, setDaten] = useState<QueryTitelAusgabe | null>(null);
 
-	const handleRadioClick = async (letter: string) => {
-		try {
-			if (letter !== '') {
-				setDaten((await fetchTitel(letter)).data.data);
-			} else {
-				setDaten(null);
+	const handleRadioClick = (letter: string) => {
+		void (async () => {
+			try {
+				if (letter !== '') {
+					setDaten((await fetchTitel(letter)).data.data);
+				} else {
+					setDaten(null);
+				}
+				setError('');
+			} catch (error) {
+				console.error('Fehler beim Laden der Daten:', error);
+				setError('Fehler beim Laden der Daten');
+				throw new Error();
 			}
-			setError('');
-		} catch (error) {
-			console.error('Fehler beim Laden der Daten:', error);
-			setError('Fehler beim Laden der Daten');
-			throw new Error();
-		}
+		})();
 	};
 
 	return (
