@@ -21,6 +21,7 @@ export function ShowTableTitel({ datenTitel }: ShowTableTitelUebertragung) {
 		setSelectedBook(null);
 		setShowModal(false);
 	};
+
 	return (
 		<>
 			<Table striped bordered hover>

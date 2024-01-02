@@ -11,6 +11,7 @@ interface SearchRadioButtonsProps {
 
 export function SearchRadioButtons({ setError }: SearchRadioButtonsProps) {
 	const [daten, setDaten] = useState<QueryTitelAusgabe | null>(null);
+
 	const handleRadioClick = async (letter: string) => {
 		try {
 			if (letter !== '') {
