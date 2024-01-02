@@ -31,6 +31,9 @@ export function Passwort({
 						<FontAwesomeIcon icon={faEye} />
 					)}
 				</Button>
+				<Form.Control.Feedback type="invalid">
+					Bitte gib ein Passwort ein.
+				</Form.Control.Feedback>
 			</InputGroup>
 		</Form.Group>
 	);
