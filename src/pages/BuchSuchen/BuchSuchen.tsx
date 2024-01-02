@@ -21,7 +21,7 @@ export function BuchSuchen() {
 	return (
 		<Container className="buchsuchen-formular">
 			<EingabeFeld setError={setError} />
-			<ErrorAusgabe error={error} setError={setError} />
+			<ErrorAusgabe error={error} />
 			<SearchRadioButtons setError={setError} />
 			<SearchCheckboxId setError={setError} />
 		</Container>

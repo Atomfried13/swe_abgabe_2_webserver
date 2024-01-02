@@ -1,0 +1,57 @@
+@startuml Zustandsdiagramm
+
+hide empty description
+
+state index.html {
+    index.html: jwt
+    index.html: roles
+    index.html: expiration
+
+    [*] --> [*]: Login
+    [*] --> BuchSuchen: Bücher suchen
+
+    state BuchSuchen {
+        [*] --> Eingabefeld: Id,(Teil)titel
+        Eingabefeld --> Waiting : Button "Suchen"
+        state SuchergebnisEingabe <<choice>>
+        Waiting --> SuchergebnisEingabe: Suchergebnis eingetroffen
+
+        state SuchergebnisEingabeFeld {
+            SuchergebnisEingabe --> GefundeneBuecher: keine Fehlermeldung
+        }
+
+        state Alert {
+            SuchergebnisEingabe --> Fehlermeldung: Fehlermeldung
+             SuchergebnisEingabe --> FehlermeldungAus: keine Fehlermeldung
+        }
+
+        [*] -right--> RadioButton: Auswählen
+        RadioButton --> Waiting_R
+        state SuchergebnisRadioButton {
+            Waiting_R --> GefundeneBuecherRadio
+        }
+
+        state Alert {
+            RadioButton --> FehlermeldungAus
+        }
+
+        [*] --> CheckBox: Auswählen
+        CheckBox --> Waiting_CH
+
+        state SuchergebnisCheckbox {
+            Waiting_CH --> GefundeneBuecherCheck
+        }
+
+        state Alert {
+            CheckBox --> FehlermeldungAus
+        }
+
+         GefundeneBuecher -down-> DetailsBuch: Zeile anklicken
+         GefundeneBuecherRadio -down-> DetailsBuch: Zeile anklicken
+         GefundeneBuecherCheck -down-> DetailsBuch: Zeile anklicken
+    }
+}
+
+footer (c) Gruppe 4
+
+@enduml
