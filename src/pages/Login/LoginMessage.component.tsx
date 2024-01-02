@@ -1,4 +1,5 @@
 import { Alert } from 'react-bootstrap';
+import './Login.css';
 
 interface LoginMessageProps {
 	loginSuccess: boolean | undefined;
@@ -7,11 +8,13 @@ interface LoginMessageProps {
 
 export function LoginMessage({ loginSuccess, errMsg }: LoginMessageProps) {
 	return (
-		<div className={loginSuccess ? 'success-message' : 'error-message'}>
+		<div>
 			{loginSuccess ? (
-				<Alert className="text-center">Erfolgreich eingeloggt!</Alert>
+				<Alert className="text-center" variant="success">
+					Erfolgreich eingeloggt!
+				</Alert>
 			) : (
-				<Alert className="text-center">
+				<Alert className="text-center" variant="danger">
 					{errMsg ? errMsg : 'Fehler beim Einloggen'}
 				</Alert>
 			)}
