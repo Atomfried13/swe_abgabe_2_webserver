@@ -12,6 +12,7 @@
 }
   
 .nav-link {
+    padding: 8px 15px;
     border: none;
     border-radius: 4px;
     color: black; 
@@ -20,7 +21,6 @@
 .login-btn {
     background-color: black !important;
     padding: 10px 30px;
-    width: 100px;
     border: none;
 }
 
@@ -30,7 +30,6 @@
 
 @media (max-width: 768px) {
     .login-btn {
-      width: 200px;
       color: black;
       padding: 0 !important; 
       background-color: transparent !important; 
@@ -41,5 +40,5 @@
         background-color: transparent !important;
         color: black;
     }
-  }
+}
  

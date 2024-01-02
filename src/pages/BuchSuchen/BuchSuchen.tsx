@@ -29,95 +29,79 @@ export function BuchSuchen() {
 		null,
 	);
 	const [datenId, setDatenId] = useState<QueryIdAusgabe | null>(null);
-	const [datenBoxId20, setDatenBoxId20] = useState<QueryIdAusgabe | null>(null);
+	const [datenBoxId20, setDatenBoxId20] = useState<QueryIdAusgabe | null>(
+		null,
+	);
 	const [datenBoxId1, setDatenBoxId1] = useState<QueryIdAusgabe | null>(null);
 	const [searchTerm, setSearchTerm] = useState('');
-	const [showTableTitel, setShowTableTitel] = useState(false);
-	const [showTableId, setShowTableId] = useState(false);
 	const [error, setError] = useState('');
 	const [selectedBook, setSelectedBook] = useState<Buch | null>(null);
 	const [showModal, setShowModal] = useState(false);
 	const [selectedLetter, setSelectedLetter] = useState<string | null>(null); //aktiv zeichen im Radiobutton
 	const [showTableBoxId1, setShowTableBoxId1] = useState(false);
 	const [showTableBoxId20, setShowTableBoxId20] = useState(false);
-	// eslint-disable-next-line max-statements
+	
 	const handleSearchClick = async () => {
 		try {
+			setError('');
+			setDatenId(null);
+			setDatenTitel(null);
 			switch (true) {
-			case searchTerm === '':{ // '' unsicher
-				const resultTitel = (await fetchTitel(searchTerm));
-				setDatenTitel(resultTitel.data.data);
-				setError('');
-				setShowTableId(false);
-				setShowTableTitel(true);
+			case searchTerm === '': {
+				// '' unsicher
+				setDatenTitel((await fetchTitel(searchTerm)).data.data);
 				break;
 			}
 
 			case isNaN(Number(searchTerm)): {
-				const resultTitel = await fetchTitel(searchTerm);
-				const resultTitelDaten = resultTitel.data.data;
-				setShowTableId(false);
+				const { data } = await fetchTitel(searchTerm);
 
-				if (resultTitelDaten?.buecher) {
-					setError('');
-					setDatenTitel(resultTitelDaten);
-					setShowTableTitel(true);
+				if (data.errorMessage == '') {
+					setDatenTitel(data.data);
 				} else {
-					setError('Mach kein Scheiße, gib was Gescheites an');
-					setDatenTitel(null);
+					setError(data.errorMessage);
 				}
 				break;
 			}
 
-			case !isNaN(Number(searchTerm)):{
-				const resultId = await fetchId(searchTerm);
-				const resultIdDaten = resultId.data.data;
-				setShowTableTitel(false);
+			case !isNaN(Number(searchTerm)): {
+				const { data } = await fetchId(searchTerm);
 
-				if (resultIdDaten?.buch) {
-					setError('');
-					setDatenId(resultIdDaten);
-					setShowTableId(true);
+				if (data.errorMessage == '') {
+					setDatenId(data.data);
 				} else {
-					setError('Mach kein Scheiße, gib was Gescheites an');
-					setDatenId(null);
+					setError(data.errorMessage);
 				}
 				break;
 			}
 
 			default:
-				setError('Mach kein Scheiße, gib was Gescheites an');
-			}	
+				setError('Mach kein Scheiße, gib was Gescheites an'); //Break????
+			}
 			setSelectedLetter(null);
-		
 		} catch (error) {
 			console.error('Fehler beim Laden der Daten:', error);
 			setError('Fehler beim Laden der Daten');
-			setDatenId(null);
-			setDatenTitel(null);
 			throw new Error();
 		}
 	};
-
-	const handleCheckboxChange = async(id:string) => {
+	// auslagern????????????
+	const handleCheckboxChange = async (id: string) => {
 		try {
 			switch (true) {
-			case id === '1':{
+			case id === '1': {
 				setShowTableBoxId1(!showTableBoxId1);
-				const resultId = await fetchId(id);
-				setDatenBoxId1(resultId.data.data);
+				setDatenBoxId1((await fetchId(id)).data.data);
 				setError('');
 				break;
 			}
 
-			case id === '20':{
+			case id === '20': {
 				setShowTableBoxId20(!showTableBoxId20);
-				const resultId = await fetchId(id);
-				setDatenBoxId20(resultId.data.data);
+				setDatenBoxId20((await fetchId(id)).data.data);
 				setError('');
 				break;
 			}
-
 			}
 		} catch (error) {
 			console.error('Fehler beim Laden der Daten:', error);
@@ -132,20 +116,17 @@ export function BuchSuchen() {
 
 	const handleRadioClick = async (letter: string) => {
 		try {
-			const resultRadio=(await fetchTitel(letter));
-			setDatenTitel(resultRadio.data.data);
+			setDatenId(null);
+			setDatenTitel((await fetchTitel(letter)).data.data);
 			setError('');
-			setShowTableId(false);
-			setShowTableTitel(true);
 			setSelectedLetter(letter);
 		} catch (error) {
 			console.error('Fehler beim Laden der Daten:', error);
 			setError('Fehler beim Laden der Daten');
-			setDatenTitel(null);
+			//setDatenTitel(null);
 			throw new Error();
 		}
 	};
-	
 
 	// try und catch
 	const handleRowClick = (buch: Buch) => {
@@ -215,13 +196,13 @@ export function BuchSuchen() {
 					</Form.Group>
 					<ErrorAusgabe error={error} setError={setError} />
 					<div className="table-container">
-						{showTableTitel && datenTitel && (
+						{datenTitel && (
 							<ShowTableTitel
 								datenTitel={datenTitel}
 								handleRowClick={handleRowClick}
 							/>
 						)}
-						{showTableId && datenId && (
+						{datenId && (
 							<ShowTableId
 								datenId={datenId}
 								handleRowClick={handleRowClick}

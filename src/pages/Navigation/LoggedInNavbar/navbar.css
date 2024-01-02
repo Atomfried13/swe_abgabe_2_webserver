@@ -34,4 +34,18 @@
     background-color: blue;
 }
 
+@media (max-width: 768px) {
+    .logout-btn {
+      color: black;
+      padding: 0 !important; 
+      background-color: transparent !important; 
+      font-weight: bold;
+
+    }
+    .logout-btn:hover {
+        background-color: transparent !important;
+        color: black;
+    }
+}
+
  
