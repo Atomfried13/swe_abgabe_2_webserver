@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Row, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import './BuchSuchen.css';
 import { Buch, BuchListe } from '../../Controller/buch-query';
 import { EingabeFeld } from './EingabeFeld';
@@ -19,12 +19,10 @@ export function BuchSuchen() {
 	//Abstand?
 	return (
 		<Container className="buchsuchen-formular">
-			<Row className="justify-content-center">
-				<EingabeFeld setError={setError} />
-				<ErrorAusgabe error={error} setError={setError} />
-				<SearchRadioButtons setError={setError} />
-				<SearchCheckboxId setError={setError} />
-			</Row>
+			<EingabeFeld setError={setError} />
+			<ErrorAusgabe error={error} setError={setError} />
+			<SearchRadioButtons setError={setError} />
+			<SearchCheckboxId setError={setError} />
 		</Container>
 	);
 }
