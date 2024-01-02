@@ -1,5 +1,3 @@
-// eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable max-lines-per-function */
 import { useState } from 'react';
 import { fetchId, fetchTitel } from '../../Controller/buch-query';
 import { QueryIdAusgabe, QueryTitelAusgabe } from './BuchSuchen';
