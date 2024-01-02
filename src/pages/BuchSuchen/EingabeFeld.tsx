@@ -66,18 +66,14 @@ export function EingabeFeld({ setError }: EingabeFeldProps) {
 	};
 	return (
 		<>
-			<div className="d-flex align-items-center">
-				<Form>
-					<Form.Group
-						className="buch-suchen-form"
-						controlId="formGroupSuchen"
-					>
-						<EingabeFeldComponent setSearchTerm={setSearchTerm} />
-						<SubmitButton
-							handleSearchClick={handleSearchClick} />
-					</Form.Group>
-				</Form>
-			</div>
+			<Form.Group
+				className="buch-suchen-form"
+				controlId="formGroupSuchen"
+			>
+				<EingabeFeldComponent setSearchTerm={setSearchTerm} />
+				<SubmitButton
+					handleSearchClick={handleSearchClick} />
+			</Form.Group>
 			<div className="table-container">
 				{datenTitel && (
 					<ShowTableTitel

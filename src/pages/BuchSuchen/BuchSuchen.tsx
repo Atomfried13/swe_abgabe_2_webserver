@@ -21,9 +21,9 @@ export function BuchSuchen() {
 		<Container className="buchsuchen-formular">
 			<Row className="justify-content-center">
 				<EingabeFeld setError={setError} />
+				<ErrorAusgabe error={error} setError={setError} />
 				<SearchRadioButtons setError={setError} />
 				<SearchCheckboxId setError={setError} />
-				<ErrorAusgabe error={error} setError={setError} />
 			</Row>
 		</Container>
 	);
