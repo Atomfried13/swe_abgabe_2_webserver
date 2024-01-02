@@ -11,6 +11,8 @@ interface LoginResponse {
 	};
 	errors?: {
 		message: string;
+		path?: string[];
+		extensions?: Record<string, unknown>;
 	}[];
 }
 
@@ -36,6 +38,7 @@ export async function Einloggen(username: string, password: string) {
 		);
 		return response;
 	} catch (error) {
+		console.error('Fehler bei der Anfrage:', error);
 		throw new Error('Fehler beim GraphQL-Login');
 	}
 }
