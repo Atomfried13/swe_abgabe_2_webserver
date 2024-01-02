@@ -3,16 +3,17 @@ import { useState, useContext } from 'react';
 import { Einloggen } from '../../Controller/auth.service';
 import { AuthContext } from '../../Controller/AuthContext';
 import { BenutzernameInput } from './BenutzernameInput.component';
-import { Passwort } from './PasswortInput.component';
+import { PasswortInput } from './PasswortInput.component';
 import { AnmeldenButton } from './AnmeldenButton.component';
 import { LoginMessage } from './LoginMessage.component';
 import './Login.css';
 
 // eslint-disable-next-line max-lines-per-function
 export function Login() {
-	const [showPassword, setShowPassword] = useState(false);
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const [usernameError, setUsernameError] = useState(false);
+	const [passwordError, setPasswordError] = useState(false);
 	const [loginSuccess, setLoginSuccess] = useState<boolean | undefined>(
 		undefined,
 	);
@@ -21,33 +22,36 @@ export function Login() {
 	const [errMsg, setErrMsg] = useState('');
 
 	const { setToken } = useContext(AuthContext);
+	const { setRoles } = useContext(AuthContext);
 	const { setExpiresIn } = useContext(AuthContext);
 	const { setTokenIssuedAt } = useContext(AuthContext);
-	const { setRoles } = useContext(AuthContext);
 
 	const handleLogin = () => {
 		void (async () => {
+			if (!username || !password) {
+				setUsernameError(!username);
+				setPasswordError(!password);
+				setLoginSuccess(undefined);
+				return;
+			}
 			setLoading(true);
 
 			try {
 				const response = await Einloggen(username, password);
-				console.log(response);
-				const token = response.data.data?.login?.token;
-				const expiresIn = response.data.data?.login?.expiresIn;
-				const roles = response.data.data?.login?.roles;
-				console.log(roles);
-				if (token) {
+				const login = response.data.data.login ?? null;
+				if (login !== null) {
+					const { token, expiresIn, roles } = login;
 					setToken(token);
-					setLoginSuccess(true);
 					setExpiresIn(expiresIn);
 					setTokenIssuedAt(new Date());
 					setRoles(roles);
+					setLoginSuccess(true);
 					setFormVisible(false);
 				} else {
-					setLoginSuccess(false);
 					if (response.data.errors !== undefined) {
 						setErrMsg(response.data.errors[0].message);
 					}
+					setLoginSuccess(false);
 				}
 			} catch (error) {
 				console.error(error);
@@ -62,35 +66,52 @@ export function Login() {
 		<Container className="login-formular">
 			<Form className={formVisible ? '' : 'hidden'}>
 				<Row>
-					<Col lg={{ span: 4, offset: 4 }}>
-						<h2 className="text-center mb-4">Login</h2>
-					</Col>
-				</Row>
-				<Row>
 					<Col
-						lg={{ span: 6, offset: 3 }}
-						md={{ span: 9, offset: 2 }}
+						lg={{ span: 2, offset: 5 }}
+						md={{ span: 2, offset: 5 }}
+						sm={{ span: 2, offset: 5 }}
+						xs={{ span: 4, offset: 4 }}
+						className="text-center"
 					>
-						<BenutzernameInput setUsername={setUsername} />
+						<h2>Login</h2>
 					</Col>
 				</Row>
 				<br />
 				<Row>
 					<Col
-						lg={{ span: 6, offset: 3 }}
-						md={{ span: 9, offset: 2 }}
+						lg={{ span: 4, offset: 4 }}
+						md={{ span: 6, offset: 3 }}
+						sm={{ span: 8, offset: 2 }}
+						xs={{ span: 8, offset: 2 }}
 					>
-						<Passwort
+						<BenutzernameInput
+							setUsername={setUsername}
+							setUsernameError={setUsernameError}
+							usernameError={usernameError}
+						/>
+					</Col>
+				</Row>
+				<br />
+				<Row>
+					<Col
+						lg={{ span: 4, offset: 4 }}
+						md={{ span: 6, offset: 3 }}
+						sm={{ span: 8, offset: 2 }}
+						xs={{ span: 8, offset: 2 }}
+					>
+						<PasswortInput
 							setPassword={setPassword}
-							showPassword={showPassword}
-							setShowPassword={setShowPassword}
+							setPasswordError={setPasswordError}
+							passwordError={passwordError}
 						/>
 					</Col>
 				</Row>
 				<Row>
 					<Col
-						lg={{ span: 6, offset: 3 }}
-						md={{ span: 9, offset: 2 }}
+						lg={{ span: 4, offset: 4 }}
+						md={{ span: 6, offset: 3 }}
+						sm={{ span: 8, offset: 2 }}
+						xs={{ span: 8, offset: 2 }}
 					>
 						<AnmeldenButton
 							handleLogin={handleLogin}
@@ -100,7 +121,12 @@ export function Login() {
 				</Row>
 			</Form>
 			<Row className="login-message">
-				<Col lg={{ span: 6, offset: 3 }} md={{ span: 9, offset: 2 }}>
+				<Col
+					lg={{ span: 4, offset: 4 }}
+					md={{ span: 6, offset: 3 }}
+					sm={{ span: 8, offset: 2 }}
+					xs={{ span: 8, offset: 2 }}
+				>
 					{loginSuccess !== undefined && (
 						<LoginMessage
 							errMsg={errMsg}
