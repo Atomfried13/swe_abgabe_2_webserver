@@ -22,7 +22,7 @@ interface FormularUebertragung {
 export function Formular(formularUebertragung: FormularUebertragung) {
 	const [isbn, setIsbn] = useState<string>('');
 	const [rabatt, setRabatt] = useState<number>(0);
-	const [rating, setRating] = useState<number>(0);
+	const [rating, setRating] = useState<number>(1);
 	const [art, setArt] = useState<string>('DRUCKAUSGABE');
 	const [preis, setPreis] = useState<number>(0);
 	const [lieferbar, setLieferbar] = useState<boolean>(false);
@@ -48,12 +48,7 @@ export function Formular(formularUebertragung: FormularUebertragung) {
 					titel: titel,
 					untertitel: unterTitel,
 				},
-				abbildungen: [
-					{
-						beschriftung: 'Abb. 1',
-						contentType: 'img/png',
-					},
-				],
+				abbildungen: [],
 			});
 		} else {
 			console.log('Unvollständige oder Falsche Eingabe');

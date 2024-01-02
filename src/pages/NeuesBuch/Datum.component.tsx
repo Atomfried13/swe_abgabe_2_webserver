@@ -7,10 +7,10 @@ interface DatumUebertragung {
 export function Datum(datumUebertragung: DatumUebertragung) {
 	return (
 		<>
-			<Form.Label>Datum</Form.Label>
+			<Form.Label>Datum*</Form.Label>
 			<Form.Control
+				required
 				type="date"
-				placeholder="2021-01-31"
 				onChange={(event) =>
 					datumUebertragung.setDatum(event.target.value)
 				}
