@@ -29,8 +29,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 	const [token, setToken] = useState<string | undefined>(undefined);
 	const [roles, setRoles] = useState<string[] | undefined>(undefined);
 	const [expiresIn, setExpiresIn] = useState<string | undefined>(undefined);
-	// eslint-disable-next-line prettier/prettier
-	const [tokenIssuedAt, setTokenIssuedAt] = useState<Date | undefined>(undefined);
+	const [tokenIssuedAt, setTokenIssuedAt] = useState<Date | undefined>(
+		undefined,
+	);
 
 	return (
 		<AuthContext.Provider

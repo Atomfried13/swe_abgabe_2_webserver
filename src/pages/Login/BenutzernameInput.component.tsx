@@ -16,6 +16,7 @@ export function BenutzernameInput({
 		setUsername(event.target.value);
 		setUsernameError(false);
 	};
+
 	return (
 		<Form.Group className="eingabe-benutzername-form">
 			<Form.Label

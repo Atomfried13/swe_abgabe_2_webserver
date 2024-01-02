@@ -10,16 +10,16 @@ import './Login.css';
 
 // eslint-disable-next-line max-lines-per-function
 export function Login() {
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
-	const [usernameError, setUsernameError] = useState(false);
-	const [passwordError, setPasswordError] = useState(false);
+	const [username, setUsername] = useState<string>('');
+	const [password, setPassword] = useState<string>('');
+	const [usernameError, setUsernameError] = useState<boolean>(false);
+	const [passwordError, setPasswordError] = useState<boolean>(false);
 	const [loginSuccess, setLoginSuccess] = useState<boolean | undefined>(
 		undefined,
 	);
-	const [formVisible, setFormVisible] = useState(true);
-	const [loading, setLoading] = useState(false);
-	const [errMsg, setErrMsg] = useState('');
+	const [formVisible, setFormVisible] = useState<boolean>(true);
+	const [loading, setLoading] = useState<boolean>(false);
+	const [errMsg, setErrMsg] = useState<string>('');
 
 	const { setToken } = useContext(AuthContext);
 	const { setRoles } = useContext(AuthContext);
