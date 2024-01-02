@@ -21,6 +21,7 @@ interface FormularUebertragung {
 // eslint-disable-next-line max-lines-per-function
 export function Formular(formularUebertragung: FormularUebertragung) {
 	const [isbn, setIsbn] = useState<string>('');
+	const [isbnError, setIsbnError] = useState<boolean>(false);
 	const [rabatt, setRabatt] = useState<number>(0);
 	const [rating, setRating] = useState<number>(1);
 	const [art, setArt] = useState<string>('DRUCKAUSGABE');
@@ -33,26 +34,26 @@ export function Formular(formularUebertragung: FormularUebertragung) {
 	const [unterTitel, setUnterTitel] = useState<string>('');
 
 	const handleCreateClick = () => {
-		if (isbn !== '' && titel !== '' && preis > 0) {
-			formularUebertragung.handleCreate({
-				isbn: isbn,
-				rating: rating,
-				art: art,
-				preis: preis,
-				rabatt: rabatt,
-				lieferbar: lieferbar,
-				datum: datum,
-				homepage: homepage,
-				schlagwoerter: schlagwoerter,
-				titel: {
-					titel: titel,
-					untertitel: unterTitel,
-				},
-				abbildungen: [],
-			});
-		} else {
-			console.log('Unvollständige oder Falsche Eingabe');
+		if (!isbn && titel !== '' && preis > 0) {
+			setIsbnError(!isbn);
+			return;
 		}
+		formularUebertragung.handleCreate({
+			isbn: isbn,
+			rating: rating,
+			art: art,
+			preis: preis,
+			rabatt: rabatt,
+			lieferbar: lieferbar,
+			datum: datum,
+			homepage: homepage,
+			schlagwoerter: schlagwoerter,
+			titel: {
+				titel: titel,
+				untertitel: unterTitel,
+			},
+			abbildungen: [],
+		});
 	};
 	return (
 		<Container>
@@ -63,7 +64,7 @@ export function Formular(formularUebertragung: FormularUebertragung) {
 				>
 					<Row>
 						<Col lg={{ span: 6, offset: 3 }}>
-							<Isbn setIsbn={setIsbn} />
+							<Isbn isbnError={isbnError} setIsbn={setIsbn} />
 							<Titel setTitel={setTitel} />
 							<UnterTitel setUnterTitel={setUnterTitel} />
 							<Form.Check

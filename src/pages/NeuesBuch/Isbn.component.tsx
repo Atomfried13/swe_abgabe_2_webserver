@@ -2,6 +2,7 @@ import { Form } from 'react-bootstrap';
 
 interface IsbnUebertragung {
 	setIsbn: React.Dispatch<React.SetStateAction<string>>;
+	isbnError: boolean;
 }
 
 export function Isbn(isbnUebertragung: IsbnUebertragung) {
@@ -15,6 +16,7 @@ export function Isbn(isbnUebertragung: IsbnUebertragung) {
 				onChange={(event) =>
 					isbnUebertragung.setIsbn(event.target.value)
 				}
+				isInvalid={isbnUebertragung.isbnError}
 			/>
 		</>
 	);
