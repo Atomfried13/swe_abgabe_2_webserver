@@ -11,7 +11,7 @@ export function Rabatt(rabattUebertragung: RabattUebertragung) {
 	};
 	return (
 		<>
-			<Form.Label>Rabatt (in Prozent)</Form.Label>
+			<Form.Label>Rabatt (%)</Form.Label>
 			<Form.Control
 				type="number"
 				placeholder="z.B. 10"

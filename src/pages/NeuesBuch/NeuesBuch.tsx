@@ -36,7 +36,7 @@ export function NeuesBuch() {
 					console.log(buch);
 					const result = await mutation(buch, token);
 					console.log(result);
-					setID(2);
+					setID(result);
 					console.log(id);
 					if (id !== null) {
 						setShowID(true);

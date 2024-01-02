@@ -1,10 +1,23 @@
 import { Form } from 'react-bootstrap';
+import { useState } from 'react';
 
 interface PreisUebertragung {
 	setPreis: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export function Preis(preisUebertragung: PreisUebertragung) {
+	const [preisError, setPreisError] = useState<boolean>(false);
+
+	const handleTitelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const value = Number(event.target.value);
+
+		const isValid = value > 0;
+		if (isValid === true) {
+			preisUebertragung.setPreis(value);
+		}
+		setPreisError(!isValid);
+	};
+
 	return (
 		<>
 			<Form.Label>Preis*</Form.Label>
@@ -12,10 +25,12 @@ export function Preis(preisUebertragung: PreisUebertragung) {
 				required
 				type="number"
 				placeholder="z.B. 30"
-				onChange={(event) =>
-					preisUebertragung.setPreis(Number(event.target.value))
-				}
+				onChange={handleTitelChange}
+				isInvalid={preisError}
 			/>
+			<Form.Control.Feedback type="invalid">
+				Bitte geben Sie einen gültigen Preis ein.
+			</Form.Control.Feedback>
 		</>
 	);
 }

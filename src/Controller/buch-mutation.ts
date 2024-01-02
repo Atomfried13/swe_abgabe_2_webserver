@@ -47,8 +47,7 @@ export const mutation = async (
 		}
 		console.log('Antwort: ', response.data);
 		return response.data.data.create.id;
-	} catch (err) {
-		console.log('Fehler, Schreiben hat nicht geklappt:', err);
-		throw new Error('Fehler beim Anlegen des Buches.');
+	} catch (error) {
+		throw new Error('Fehler beim Anlegen des Buches: $error');
 	}
 };
