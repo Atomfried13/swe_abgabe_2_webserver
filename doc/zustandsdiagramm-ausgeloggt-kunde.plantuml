@@ -1,0 +1,34 @@
+@startuml Zustandsdiagramm - Kunde ist ausgeloggt
+
+hide empty description
+
+state index.html {
+    index.html: token
+    index.html: roles
+    index.html: expiresIn
+    index.html: tokenIssuedAt
+
+    [*] -down-> Login: Menüpunkt/Button "Login" anklicken
+    [*] -down-> BuchSuchen: Menüpunkt "Buch Suchen" anklicken
+
+    state Login {
+        [*] --> Loginformular: Anmeldedaten eingeben
+        Loginformular --> Lädt: Button "Anmelden" anklicken
+        state AnmeldungAntwortChoice <<choice>>
+        Lädt --> AnmeldungAntwortChoice: Anmeldeantwort eingetroffen
+
+        state Anmeldeantwort {
+            AnmeldungAntwortChoice --> LoginErfolgreich: Korrekte Daten
+            AnmeldungAntwortChoice --> FehlerhafteAnmeldung: Falsche Anmeldedaten
+        }
+    }
+    LoginErfolgreich -right-> BuchSuchen : Menüpunkt "Buch Suchen" anklicken
+
+    state BuchSuchen {
+
+    }
+
+    Login -right[hidden]-> BuchSuchen
+}
+
+@enduml
