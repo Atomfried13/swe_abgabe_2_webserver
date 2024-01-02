@@ -1,4 +1,4 @@
-import { Form, InputGroup } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { ChangeEvent } from 'react';
 
 interface BenutzernameProps {
@@ -24,17 +24,15 @@ export function BenutzernameInput({
 			>
 				Benutzername
 			</Form.Label>
-			<InputGroup>
-				<Form.Control
-					type="text"
-					id="EingabeBenutzername"
-					onChange={handleUsernameChange}
-					isInvalid={usernameError}
-				/>
-				<Form.Control.Feedback type="invalid">
-					Bitte geben Sie einen Benutzernamen ein.
-				</Form.Control.Feedback>
-			</InputGroup>
+			<Form.Control
+				type="text"
+				id="EingabeBenutzername"
+				onChange={handleUsernameChange}
+				isInvalid={usernameError}
+			/>
+			<Form.Control.Feedback type="invalid">
+				Bitte gib einen Benutzernamen ein.
+			</Form.Control.Feedback>
 		</Form.Group>
 	);
 }

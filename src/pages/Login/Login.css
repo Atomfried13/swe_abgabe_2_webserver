@@ -31,4 +31,5 @@
 
 .showPasswordBtn {
     background-color: black !important;
+    border-radius: 4px !important;
 }

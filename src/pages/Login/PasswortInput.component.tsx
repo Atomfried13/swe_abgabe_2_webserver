@@ -43,7 +43,7 @@ export function PasswortInput({
 					)}
 				</Button>
 				<Form.Control.Feedback type="invalid">
-					Bitte geben Sie ein Passwort ein.
+					Bitte gib ein Passwort ein.
 				</Form.Control.Feedback>
 			</InputGroup>
 		</Form.Group>
