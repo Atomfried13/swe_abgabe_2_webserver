@@ -32,10 +32,10 @@ test('fetchId für eine valide ID', async () => {
 	expect(buch.rating).toBeLessThanOrEqual(5);
 	//expect(buch.rabatt).toBeGreaterThanOrEqual(0);
 	//expect(buch.rabatt as number).toBeLessThanOrEqual(1);
-	
-	//expect(buch.schlagwoerter).toContainEqual(
-		//expect.stringMatching(/^TYPESCRIPT$ || ^JAVASCRIPT$ || 'null'/),
-	//);
+
+	expect(buch.schlagwoerter).toContainEqual(
+		expect.stringMatching(/^(TYPESCRIPT|JAVASCRIPT|null)$/),
+	);
 	expect(buch.titel?.titel).toMatch(/^\w/u);
 });
 
@@ -95,7 +95,7 @@ test('fetchTitel für einen validen Teiltitel', async () => {
 		//expect(buch.rabatt).toBeGreaterThanOrEqual(0);
 		//expect(buch.rabatt).toBeLessThanOrEqual(1);
 		expect(buch.schlagwoerter).toContainEqual(
-			expect.stringMatching(/^TYPESCRIPT$ || ^JAVASCRIPT$ || 'null'/),
+			expect.stringMatching(/^(TYPESCRIPT|JAVASCRIPT|null)$/),
 		);
 
 		expect(buch.titel?.titel).toMatch(/^\w/u);
