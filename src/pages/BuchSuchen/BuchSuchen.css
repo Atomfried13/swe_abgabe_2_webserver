@@ -1,22 +1,24 @@
+.buchsuchen-formular {
+    margin-top: 50px;
+}
+
+
 .buch-suchen-form {
     display: flex;
-    margin-left: 30px;
-    margin-top: 50px;
 }
 
 .suchen-btn {
     background-color: black !important;
     border: none !important;
-    margin-left: 30px;
 }
 
 .suchen-btn:hover {
-    background-color: #00c27b !important;
+    background-color: blue !important;
 }
 
 .table-container {
-    margin: 30px auto;
-    width: 95%; 
+    width: 80%; 
+    padding-top: 20px;
 }
 
 .info-modal .modal-content {
@@ -29,3 +31,22 @@
     max-width: 700px;
     margin: 100px auto; 
 }
+
+.buch-suchen-form input{
+    width: 400px;
+    margin-right: 20px;
+  }
+
+  @media (max-width: 400px) {
+    .buch-suchen-form {
+      flex-direction: column; 
+      margin-left: 10px;
+      margin-right: 30px;
+    }
+  
+    .buch-suchen-form input,
+    .buch-suchen-form button {
+      width: 350px;
+      margin-bottom: 10px; 
+    }
+  }

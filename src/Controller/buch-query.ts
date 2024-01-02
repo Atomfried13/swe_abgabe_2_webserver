@@ -49,7 +49,7 @@ export const fetchId = async (id: string) => {
 				}
 				`,
 		});
-		response.data.errorMessage = ''; //weg mit '';
+		response.data.errorMessage = '';
 		if (response.data.data.buch == null || undefined) {
 			// ändern noch den Vergleich
 			response.data.errorMessage = `Ein Buch mit der ID${id} existiert nicht.`;
