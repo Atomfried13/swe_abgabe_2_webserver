@@ -1,4 +1,4 @@
-import { Form, InputGroup } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { useState } from 'react';
 
 interface TitelUebertragung {
@@ -21,18 +21,16 @@ export function Titel(titelUebertragung: TitelUebertragung) {
 	return (
 		<>
 			<Form.Label>Titel*</Form.Label>
-			<InputGroup>
-				<Form.Control
-					required
-					type="text"
-					placeholder="z.B. Learning React"
-					onChange={handleTitelChange}
-					isInvalid={titelError}
-				/>
-				<Form.Control.Feedback type="invalid">
-					Bitte geben Sie einen Titel ein.
-				</Form.Control.Feedback>
-			</InputGroup>
+			<Form.Control
+				required
+				type="text"
+				placeholder="z.B. Learning React"
+				onChange={handleTitelChange}
+				isInvalid={titelError}
+			/>
+			<Form.Control.Feedback type="invalid">
+				Bitte geben Sie einen Titel ein.
+			</Form.Control.Feedback>
 		</>
 	);
 }

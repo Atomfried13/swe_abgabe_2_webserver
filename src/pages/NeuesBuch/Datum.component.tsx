@@ -1,4 +1,4 @@
-import { Form, InputGroup } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { useState } from 'react';
 
 interface DatumUebertragung {
@@ -21,17 +21,15 @@ export function Datum(datumUebertragung: DatumUebertragung) {
 	return (
 		<>
 			<Form.Label>Datum*</Form.Label>
-			<InputGroup>
-				<Form.Control
-					required
-					type="date"
-					onChange={handleTitelChange}
-					isInvalid={datumError}
-				/>
-				<Form.Control.Feedback type="invalid">
-					Bitte wählen Sie ein Datum aus.
-				</Form.Control.Feedback>
-			</InputGroup>
+			<Form.Control
+				required
+				type="date"
+				onChange={handleTitelChange}
+				isInvalid={datumError}
+			/>
+			<Form.Control.Feedback type="invalid">
+				Bitte wählen Sie ein Datum aus.
+			</Form.Control.Feedback>
 		</>
 	);
 }

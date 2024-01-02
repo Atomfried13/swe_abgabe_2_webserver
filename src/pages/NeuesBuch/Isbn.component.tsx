@@ -1,4 +1,4 @@
-import { Form, InputGroup } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { useState } from 'react';
 
 interface IsbnUebertragung {
@@ -21,18 +21,16 @@ export function Isbn(isbnUebertragung: IsbnUebertragung) {
 	return (
 		<>
 			<Form.Label>ISBN*</Form.Label>
-			<InputGroup>
-				<Form.Control
-					required
-					type="text"
-					placeholder="z.B. 0-0070-0644-6"
-					onChange={handleTitelChange}
-					isInvalid={isbnError}
-				/>
-				<Form.Control.Feedback type="invalid">
-					Bitte geben Sie eine gültige ISBN ein.
-				</Form.Control.Feedback>
-			</InputGroup>
+			<Form.Control
+				required
+				type="text"
+				placeholder="z.B. 0-0070-0644-6"
+				onChange={handleTitelChange}
+				isInvalid={isbnError}
+			/>
+			<Form.Control.Feedback type="invalid">
+				Bitte geben Sie eine gültige ISBN ein.
+			</Form.Control.Feedback>
 		</>
 	);
 }
