@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { Einloggen } from '../src/Controller/auth.service';
+import { Einloggen } from '../src/Controller/auth';
 
 describe('Login', () => {
 	test('Einloggen mit gültigen Daten', async () => {

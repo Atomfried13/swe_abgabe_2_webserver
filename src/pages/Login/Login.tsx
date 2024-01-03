@@ -1,6 +1,6 @@
 import { Form, Container, Row, Col } from 'react-bootstrap';
 import { useState, useContext } from 'react';
-import { Einloggen } from '../../Controller/auth.service';
+import { Einloggen } from '../../Controller/auth';
 import { AuthContext } from '../../Controller/AuthContext';
 import { BenutzernameInput } from './BenutzernameInput.component';
 import { PasswortInput } from './PasswortInput.component';
@@ -54,7 +54,7 @@ export function Login() {
 					setLoginSuccess(false);
 				}
 			} catch (error) {
-				console.error(error);
+				setErrMsg('Fehler beim Einloggen. Versuche es später erneut.');
 				setLoginSuccess(false);
 			} finally {
 				setLoading(false);

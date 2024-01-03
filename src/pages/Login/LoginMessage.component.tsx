@@ -15,7 +15,7 @@ export function LoginMessage({ loginSuccess, errMsg }: LoginMessageProps) {
 				</Alert>
 			) : (
 				<Alert className="text-center" variant="danger">
-					{errMsg ? errMsg : 'Fehler beim Einloggen'}
+					{errMsg}
 				</Alert>
 			)}
 		</div>
