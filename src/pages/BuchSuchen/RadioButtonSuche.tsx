@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { fetchTitel } from '../../Controller/buch-query';
-import { QueryTitelAusgabe } from './BuchSuchen';
+import { QueryTitelDaten } from './BuchSuchen';
 import { TableTitel } from './TableTitel.component';
-import { RadioButtons } from './RadioButton.component';
+import { RadioButtonAuswahl } from './RadioButtonAuswahl.component';
 
-interface SearchRadioButtonsProps {
+interface RadioButtonSucheProps {
 	setError: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export function SearchRadioButtons({ setError }: SearchRadioButtonsProps) {
-	const [daten, setDaten] = useState<QueryTitelAusgabe | null>(null);
+export function RadioButtonSuche({ setError }: RadioButtonSucheProps) {
+	const [daten, setDaten] = useState<QueryTitelDaten | null>(null);
 
 	const handleRadioClick = (letter: string) => {
 		void (async () => {
@@ -32,7 +32,7 @@ export function SearchRadioButtons({ setError }: SearchRadioButtonsProps) {
 	return (
 		<>
 			<Form.Group>
-				<RadioButtons handleRadioClick={handleRadioClick} />
+				<RadioButtonAuswahl handleRadioClick={handleRadioClick} />
 			</Form.Group>
 			<div className="table-container">
 				{daten && <TableTitel datenTitel={daten} />}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { fetchId, fetchTitel } from '../../Controller/buch-query';
-import { QueryIdAusgabe, QueryTitelAusgabe } from './BuchSuchen';
+import { QueryIdDaten, QueryTitelDaten } from './BuchSuchen';
 import { Form } from 'react-bootstrap';
 import { EingabeFeldInput } from './EingabeFeldInput.component';
 import { SubmitButton } from './SubmitButtonQuery.component';
@@ -14,10 +14,8 @@ interface EingabeFeldVerarbeitungProps {
 export function EingabeFeldVerarbeitung({
 	setError,
 }: EingabeFeldVerarbeitungProps) {
-	const [datenTitel, setDatenTitel] = useState<QueryTitelAusgabe | null>(
-		null,
-	);
-	const [datenId, setDatenId] = useState<QueryIdAusgabe | null>(null);
+	const [datenTitel, setDatenTitel] = useState<QueryTitelDaten | null>(null);
+	const [datenId, setDatenId] = useState<QueryIdDaten | null>(null);
 	const [searchTerm, setSearchTerm] = useState('');
 
 	const handleSearchClick = () => {

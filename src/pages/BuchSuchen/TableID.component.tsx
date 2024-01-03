@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Table } from 'react-bootstrap';
-import { QueryIdAusgabe } from './BuchSuchen';
+import { QueryIdDaten } from './BuchSuchen';
 import { Buch } from '../../Controller/buch-query';
 import { ModalUbertragung } from './Modal.component';
 
 interface TableIDProps {
-	datenId: QueryIdAusgabe;
+	datenId: QueryIdDaten;
 }
 
 export function TableID({ datenId }: TableIDProps) {

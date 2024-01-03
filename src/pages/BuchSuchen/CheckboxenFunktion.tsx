@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { fetchId } from '../../Controller/buch-query';
 import { TableID } from './TableID.component';
-import { QueryIdAusgabe } from './BuchSuchen';
+import { QueryIdDaten } from './BuchSuchen';
 import { SearchCheckboxId1, SearchCheckboxId20 } from './Checkbox.component';
 
 interface SearchCheckboxIdProps {
@@ -10,11 +10,9 @@ interface SearchCheckboxIdProps {
 }
 
 export function SearchCheckboxId({ setError }: SearchCheckboxIdProps) {
-	const [datenBoxId1, setDatenBoxId1] = useState<QueryIdAusgabe | null>(null);
+	const [datenBoxId1, setDatenBoxId1] = useState<QueryIdDaten | null>(null);
 	const [showTableBoxId1, setShowTableBoxId1] = useState(false);
-	const [datenBoxId20, setDatenBoxId20] = useState<QueryIdAusgabe | null>(
-		null,
-	);
+	const [datenBoxId20, setDatenBoxId20] = useState<QueryIdDaten | null>(null);
 	const [showTableBoxId20, setShowTableBoxId20] = useState(false);
 
 	const handleCheckboxChange = (id: string) => {

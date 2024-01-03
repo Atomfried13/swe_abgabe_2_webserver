@@ -1,11 +1,11 @@
 import { Table } from 'react-bootstrap';
-import { QueryTitelAusgabe } from './BuchSuchen';
+import { QueryTitelDaten } from './BuchSuchen';
 import { Buch } from '../../Controller/buch-query';
 import { useState } from 'react';
 import { ModalUbertragung } from './Modal.component';
 
 interface TableTitelProps {
-	datenTitel: QueryTitelAusgabe;
+	datenTitel: QueryTitelDaten;
 }
 
 export function TableTitel({ datenTitel }: TableTitelProps) {
