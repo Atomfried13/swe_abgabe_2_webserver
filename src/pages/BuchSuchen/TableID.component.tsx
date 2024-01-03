@@ -10,7 +10,7 @@ interface TableIdProps {
 
 export function TableId({ datenId }: TableIdProps) {
 	const [selectedBook, setSelectedBook] = useState<Buch | null>(null);
-	const [showModal, setShowModal] = useState(false);
+	const [showModal, setShowModal] = useState<boolean>(false);
 
 	const handleRowClick = (buch: Buch) => {
 		setSelectedBook(buch);

@@ -12,10 +12,12 @@ interface CheckBoxVerarbeitungProps {
 export function CheckBoxVerarbeitung({ setError }: CheckBoxVerarbeitungProps) {
 	const [datenCheckBoxId1, setDatenCheckBoxId1] =
 		useState<QueryIdDaten | null>(null);
-	const [showTableCheckBoxId1, setShowTableCheckBoxId1] = useState(false);
+	const [showTableCheckBoxId1, setShowTableCheckBoxId1] =
+		useState<boolean>(false);
 	const [datenCheckBoxId20, setDatenCheckBoxId20] =
 		useState<QueryIdDaten | null>(null);
-	const [showTableCheckBoxId20, setShowTableCheckBoxId20] = useState(false);
+	const [showTableCheckBoxId20, setShowTableCheckBoxId20] =
+		useState<boolean>(false);
 
 	const handleCheckBoxChange = (id: string) => {
 		void (async () => {

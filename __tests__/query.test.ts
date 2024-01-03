@@ -9,8 +9,6 @@ test('fetchId für eine valide ID', async () => {
 	const result = await fetchId(id);
 
 	//then
-	expect(result).toBeDefined();
-
 	const { status, headers, data } = result;
 
 	expect(status).toBe(200);
@@ -27,9 +25,6 @@ test('fetchId für eine valide ID', async () => {
 	expect(buch.preis).toBeGreaterThanOrEqual(0);
 	expect(buch.rating).toBeGreaterThanOrEqual(0);
 	expect(buch.rating).toBeLessThanOrEqual(5);
-	//expect(buch.rabatt).toBeGreaterThanOrEqual(0);
-	//expect(buch.rabatt as number).toBeLessThanOrEqual(1);
-
 	expect(buch.schlagwoerter).toContainEqual(
 		expect.stringMatching(/^(TYPESCRIPT|JAVASCRIPT|null)$/),
 	);
@@ -46,7 +41,6 @@ test('fetchId für eine invalide ID', async () => {
 	//then
 	const { status, headers, data } = result;
 
-	//expect(data.error).toBeUndefined();
 	expect(status).toBe(200);
 	expect(headers['content-type']).toMatch(/json/iu);
 	expect(data.data.buch).toBeNull();
