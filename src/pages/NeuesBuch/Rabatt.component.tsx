@@ -1,11 +1,11 @@
 import { Form } from 'react-bootstrap';
 import { useState } from 'react';
 
-interface RabattUebertragung {
+interface RabattProps {
 	setRabatt: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export function Rabatt(rabattUebertragung: RabattUebertragung) {
+export function Rabatt(rabattProps: RabattProps) {
 	const [rabattError, setRabattError] = useState<boolean>(false);
 
 	const handleRabatt = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,7 +13,7 @@ export function Rabatt(rabattUebertragung: RabattUebertragung) {
 
 		const isValid = value > 0;
 		if (isValid === true) {
-			rabattUebertragung.setRabatt(value);
+			rabattProps.setRabatt(value);
 		}
 		setRabattError(!isValid);
 	};

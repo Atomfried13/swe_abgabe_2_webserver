@@ -38,7 +38,6 @@ export async function Einloggen(username: string, password: string) {
 		);
 		return response;
 	} catch (error) {
-		//console.error('Fehler bei der Anfrage:', error);
 		throw new Error();
 	}
 }

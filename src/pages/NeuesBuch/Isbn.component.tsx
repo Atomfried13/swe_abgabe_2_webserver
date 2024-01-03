@@ -1,11 +1,11 @@
 import { Form } from 'react-bootstrap';
 import { useState } from 'react';
 
-interface IsbnUebertragung {
+interface IsbnProps {
 	setIsbn: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export function Isbn(isbnUebertragung: IsbnUebertragung) {
+export function Isbn(isbnProps: IsbnProps) {
 	const [isbnError, setIsbnError] = useState<boolean>(false);
 
 	const handleTitelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,7 +13,7 @@ export function Isbn(isbnUebertragung: IsbnUebertragung) {
 
 		const isValid = value.trim().length > 0;
 		if (isValid === true) {
-			isbnUebertragung.setIsbn(value);
+			isbnProps.setIsbn(value);
 		}
 		setIsbnError(!isValid);
 	};

@@ -14,13 +14,13 @@ import { SubmitButton } from './SubmitButton.component';
 import { useState } from 'react';
 import { BuchDTO } from '../../Model/buchDTO.entitie';
 
-interface FormularUebertragung {
+interface FormularProps {
 	handleCreate: (buch: BuchDTO) => void;
 	setErrorMessage: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 // eslint-disable-next-line max-lines-per-function
-export function Formular(formularUebertragung: FormularUebertragung) {
+export function Formular(formularProps: FormularProps) {
 	const [isbn, setIsbn] = useState<string>('');
 	const [datum, setDatum] = useState<string>('');
 	const [titel, setTitel] = useState<string>('');
@@ -35,13 +35,13 @@ export function Formular(formularUebertragung: FormularUebertragung) {
 
 	const handleCreateClick = () => {
 		if (!isbn || !titel || preis == 0 || !datum) {
-			formularUebertragung.setErrorMessage(
+			formularProps.setErrorMessage(
 				'Bitte alle notwendigen (*) Felder ausfüllen.',
 			);
 			return;
 		}
 
-		formularUebertragung.handleCreate({
+		formularProps.handleCreate({
 			isbn: isbn,
 			rating: rating,
 			art: art,

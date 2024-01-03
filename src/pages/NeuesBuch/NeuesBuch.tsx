@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import './NeuesBuch.css';
 import { mutation } from '../../Controller/buch-mutation';
 import { AuthContext } from '../../Controller/AuthContext';
-import { isTokenExpired } from './TokenValidierung';
+import { isTokenExpired } from '../../Controller/TokenValidierung';
 import { Formular } from './Formular.component';
 import { BuchDTO } from '../../Model/buchDTO.entitie';
 import { Alert } from 'react-bootstrap';

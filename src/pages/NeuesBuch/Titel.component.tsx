@@ -1,11 +1,11 @@
 import { Form } from 'react-bootstrap';
 import { useState } from 'react';
 
-interface TitelUebertragung {
+interface TitelProps {
 	setTitel: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export function Titel(titelUebertragung: TitelUebertragung) {
+export function Titel(titelProps: TitelProps) {
 	const [titelError, setTitelError] = useState<boolean>(false);
 
 	const handleTitelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,7 +13,7 @@ export function Titel(titelUebertragung: TitelUebertragung) {
 
 		const isValid = value.trim().length > 0;
 		if (isValid === true) {
-			titelUebertragung.setTitel(value);
+			titelProps.setTitel(value);
 		}
 		setTitelError(!isValid);
 	};

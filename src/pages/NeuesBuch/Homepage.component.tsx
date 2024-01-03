@@ -1,10 +1,10 @@
 import { Form } from 'react-bootstrap';
 
-interface HomepageUebertragung {
+interface HomepageProps {
 	setHomepage: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export function Homepage(homepageUebertragung: HomepageUebertragung) {
+export function Homepage(homepageProps: HomepageProps) {
 	return (
 		<>
 			<Form.Label>Homepage</Form.Label>
@@ -12,7 +12,7 @@ export function Homepage(homepageUebertragung: HomepageUebertragung) {
 				type="text"
 				placeholder="z.B. https://h-ka.de"
 				onChange={(event) =>
-					homepageUebertragung.setHomepage(event.target.value)
+					homepageProps.setHomepage(event.target.value)
 				}
 			/>
 		</>

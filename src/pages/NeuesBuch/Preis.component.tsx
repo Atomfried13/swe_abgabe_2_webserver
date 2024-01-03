@@ -1,11 +1,11 @@
 import { Form } from 'react-bootstrap';
 import { useState } from 'react';
 
-interface PreisUebertragung {
+interface PreisProps {
 	setPreis: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export function Preis(preisUebertragung: PreisUebertragung) {
+export function Preis(preisProps: PreisProps) {
 	const [preisError, setPreisError] = useState<boolean>(false);
 
 	const handleTitelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,7 +13,7 @@ export function Preis(preisUebertragung: PreisUebertragung) {
 
 		const isValid = value > 0;
 		if (isValid === true) {
-			preisUebertragung.setPreis(value);
+			preisProps.setPreis(value);
 		}
 		setPreisError(!isValid);
 	};

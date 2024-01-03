@@ -1,10 +1,10 @@
 import { Form } from 'react-bootstrap';
 
-interface UnterTitelUebertragung {
+interface UnterTitelProps {
 	setUnterTitel: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export function UnterTitel(unterTitelUebertragung: UnterTitelUebertragung) {
+export function UnterTitel(unterTitelProps: UnterTitelProps) {
 	return (
 		<>
 			<Form.Label>Untertitel</Form.Label>
@@ -12,7 +12,7 @@ export function UnterTitel(unterTitelUebertragung: UnterTitelUebertragung) {
 				type="text"
 				placeholder="Das Verlorene Schloss"
 				onChange={(event) =>
-					unterTitelUebertragung.setUnterTitel(event.target.value)
+					unterTitelProps.setUnterTitel(event.target.value)
 				}
 			/>
 		</>

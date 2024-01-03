@@ -1,16 +1,16 @@
 import { Form } from 'react-bootstrap';
 
-interface RatingUebertragung {
+interface RatingProps {
 	setRating: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export function Rating(ratingUebertragung: RatingUebertragung) {
+export function Rating(ratingProps: RatingProps) {
 	return (
 		<>
 			<Form.Label>Sterne Rating</Form.Label>
 			<Form.Select
 				onChange={(event) =>
-					ratingUebertragung.setRating(Number(event.target.value))
+					ratingProps.setRating(Number(event.target.value))
 				}
 			>
 				<option value="1">1</option>
