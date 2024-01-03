@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Container } from 'react-bootstrap';
-import './BuchSuchen.css';
 import { Buch, BuchListe } from '../../Controller/buch-query';
-import { EingabeFeld } from './EingabeFeld';
-import { ErrorAusgabe } from './ErrorAugabe.component';
+import { EingabeFeldVerarbeitung } from './EingabeFeldVerarbeitung.component';
+import { ErrorAnzeige } from './ErrorAugabe.component';
 import { SearchRadioButtons } from './RadioButtons';
 import { SearchCheckboxId } from './CheckboxenFunktion';
+import './BuchSuchen.css';
 
 export interface QueryIdAusgabe {
 	buch: Buch;
@@ -16,12 +16,12 @@ export interface QueryTitelAusgabe {
 }
 
 export function BuchSuchen() {
-	const [error, setError] = useState('');
+	const [error, setError] = useState<string>('');
 
 	return (
 		<Container className="buchsuchen-formular">
-			<EingabeFeld setError={setError} />
-			<ErrorAusgabe error={error} />
+			<EingabeFeldVerarbeitung setError={setError} />
+			<ErrorAnzeige error={error} />
 			<SearchRadioButtons setError={setError} />
 			<SearchCheckboxId setError={setError} />
 		</Container>

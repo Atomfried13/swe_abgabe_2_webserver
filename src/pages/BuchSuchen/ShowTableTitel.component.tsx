@@ -4,11 +4,11 @@ import { Buch } from '../../Controller/buch-query';
 import { useState } from 'react';
 import { ModalUbertragung } from './Modal.component';
 
-interface ShowTableTitelUebertragung {
+interface TableTitelProps {
 	datenTitel: QueryTitelAusgabe;
 }
 
-export function ShowTableTitel({ datenTitel }: ShowTableTitelUebertragung) {
+export function TableTitel({ datenTitel }: TableTitelProps) {
 	const [selectedBook, setSelectedBook] = useState<Buch | null>(null);
 	const [showModal, setShowModal] = useState(false);
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { fetchTitel } from '../../Controller/buch-query';
 import { QueryTitelAusgabe } from './BuchSuchen';
-import { ShowTableTitel } from './ShowTableTitel.component';
+import { TableTitel } from './ShowTableTitel.component';
 import { RadioButtons } from './RadioButton.component';
 
 interface SearchRadioButtonsProps {
@@ -35,7 +35,7 @@ export function SearchRadioButtons({ setError }: SearchRadioButtonsProps) {
 				<RadioButtons handleRadioClick={handleRadioClick} />
 			</Form.Group>
 			<div className="table-container">
-				{daten && <ShowTableTitel datenTitel={daten} />}
+				{daten && <TableTitel datenTitel={daten} />}
 			</div>
 		</>
 	);

@@ -1,16 +1,16 @@
 import { Alert } from 'react-bootstrap';
 
-interface ErrorUebertragung {
+interface ErrorAusgabeProps {
 	error: string;
 }
 
-export function ErrorAusgabe(errorUebertragung: ErrorUebertragung) {
+export function ErrorAnzeige(props: ErrorAusgabeProps) {
 	return (
 		<>
-			{errorUebertragung.error && (
+			{props.error && (
 				<Alert variant="danger" dismissible>
 					<Alert.Heading>Fehler!</Alert.Heading>
-					<p>{errorUebertragung.error}</p>
+					<p>{props.error}</p>
 				</Alert>
 			)}
 		</>

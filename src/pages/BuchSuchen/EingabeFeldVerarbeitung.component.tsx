@@ -2,16 +2,18 @@ import { useState } from 'react';
 import { fetchId, fetchTitel } from '../../Controller/buch-query';
 import { QueryIdAusgabe, QueryTitelAusgabe } from './BuchSuchen';
 import { Form } from 'react-bootstrap';
-import { EingabeFeldComponent } from './EingabeFeld.component';
+import { EingabeFeldInput } from './EingabeFeldInput.component';
 import { SubmitButton } from './SubmitButtonQuery.component';
-import { ShowTableTitel } from './ShowTableTitel.component';
+import { TableTitel } from './ShowTableTitel.component';
 import { ShowTableId } from './ShowTableID.component';
 
-interface EingabeFeldProps {
+interface EingabeFeldVerarbeitungProps {
 	setError: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export function EingabeFeld({ setError }: EingabeFeldProps) {
+export function EingabeFeldVerarbeitung({
+	setError,
+}: EingabeFeldVerarbeitungProps) {
 	const [datenTitel, setDatenTitel] = useState<QueryTitelAusgabe | null>(
 		null,
 	);
@@ -69,11 +71,11 @@ export function EingabeFeld({ setError }: EingabeFeldProps) {
 				className="buch-suchen-form"
 				controlId="formGroupSuchen"
 			>
-				<EingabeFeldComponent setSearchTerm={setSearchTerm} />
+				<EingabeFeldInput setSearchTerm={setSearchTerm} />
 				<SubmitButton handleSearchClick={handleSearchClick} />
 			</Form.Group>
 			<div className="table-container">
-				{datenTitel && <ShowTableTitel datenTitel={datenTitel} />}
+				{datenTitel && <TableTitel datenTitel={datenTitel} />}
 				{datenId && <ShowTableId datenId={datenId} />}
 			</div>
 		</>
