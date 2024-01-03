@@ -9,12 +9,12 @@ test('fetchId für eine valide ID', async () => {
 	const result = await fetchId(id);
 
 	//then
-	const { status, headers, data } = result;
+	const { status, headers, data, errorMessage } = result;
 
 	expect(status).toBe(200);
 	expect(headers['content-type']).toMatch(/json/iu);
 	expect(data.data.buch).not.toBeNull();
-	expect(data.errorMessage).toMatch('');
+	expect(errorMessage).toMatch('');
 
 	//expect(buch.isbn).toMatch(/^(\d{3}-\d{1,5}-\d{2,7}-\d{1,7}-\d)$/u);
 
@@ -39,12 +39,12 @@ test('fetchId für eine invalide ID', async () => {
 	const result = await fetchId(id);
 
 	//then
-	const { status, headers, data } = result;
+	const { status, headers, data, errorMessage } = result;
 
 	expect(status).toBe(200);
 	expect(headers['content-type']).toMatch(/json/iu);
+	expect(errorMessage).toBe(`Ein Buch mit der ID${id} existiert nicht.`);
 	expect(data.data.buch).toBeNull();
-	expect(data.errorMessage).toBe(`Ein Buch mit der ID${id} existiert nicht.`);
 });
 
 test('fetchTitel für einen validen Teiltitel', async () => {
@@ -55,11 +55,11 @@ test('fetchTitel für einen validen Teiltitel', async () => {
 	const result = await fetchTitel(teilTitel);
 
 	//then
-	const { status, headers, data } = result;
+	const { status, headers, data, errorMessage } = result;
 
 	expect(status).toBe(200);
 	expect(headers['content-type']).toMatch(/json/iu);
-	expect(data.errorMessage).toMatch('');
+	expect(errorMessage).toMatch('');
 
 	const { buecher } = data.data;
 
@@ -91,12 +91,12 @@ test('fetchTitel für einen invaliden Teiltitel', async () => {
 	const result = await fetchTitel(teilTitel);
 
 	//then
-	const { status, headers, data } = result;
+	const { status, headers, data, errorMessage } = result;
 
 	expect(status).toBe(200);
 	expect(headers['content-type']).toMatch(/json/iu);
 	expect(data.data.buecher).toBeNull();
-	expect(data.errorMessage).toBe(
+	expect(errorMessage).toBe(
 		`Ein Buch mit dem Titel oder dem Teiltitel "${teilTitel}" existiert nicht.`,
 	);
 });

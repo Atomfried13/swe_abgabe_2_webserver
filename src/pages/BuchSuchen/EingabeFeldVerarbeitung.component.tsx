@@ -32,23 +32,23 @@ export function EingabeFeldVerarbeitung({
 					}
 
 					case isNaN(Number(searchTerm)): {
-						const { data } = await fetchTitel(searchTerm);
+						const responseTitel = await fetchTitel(searchTerm);
 
-						if (data.errorMessage == '') {
-							setDatenTitel(data.data);
+						if (responseTitel.errorMessage == '') {
+							setDatenTitel(responseTitel.data.data);
 						} else {
-							setError(data.errorMessage);
+							setError(responseTitel.errorMessage);
 						}
 						break;
 					}
 
 					case !isNaN(Number(searchTerm)): {
-						const { data } = await fetchId(searchTerm);
+						const respondeId = await fetchId(searchTerm);
 
-						if (data.errorMessage == '') {
-							setDatenId(data.data);
+						if (respondeId.errorMessage == '') {
+							setDatenId(respondeId.data.data);
 						} else {
-							setError(data.errorMessage);
+							setError(respondeId.errorMessage);
 						}
 						break;
 					}

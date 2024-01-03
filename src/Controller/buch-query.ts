@@ -25,9 +25,9 @@ export const fetchId = async (id: string) => {
 	let response: AxiosResponse<{
 		status: number;
 		headers: string;
-		errorMessage: string; // mit dem ? überlegen!!!
 		data: { buch: Buch };
 	}>;
+
 	try {
 		response = await axiosInstance.post('baseURL/query', {
 			variables: { id },
@@ -49,13 +49,18 @@ export const fetchId = async (id: string) => {
 				}
 				`,
 		});
-		response.data.errorMessage = '';
+
+		let errorMessage = '';
+
 		if (response.data.data.buch == null) {
-			response.data.errorMessage = `Ein Buch mit der ID${id} existiert nicht.`;
+			errorMessage = `Ein Buch mit der ID${id} existiert nicht.`;
 		}
-		return response;
+
+		const { status, headers, data } = response;
+		const result = { status, headers, data, errorMessage };
+
+		return result;
 	} catch (error) {
-		//console.error('Fehler beim Laden des Querys:', error);
 		throw new Error();
 	}
 };
@@ -64,7 +69,6 @@ export const fetchTitel = async (titel: string) => {
 	let response: AxiosResponse<{
 		status: number;
 		headers: string;
-		errorMessage: string;
 		data: { buecher: BuchListe };
 	}>;
 	try {
@@ -88,14 +92,18 @@ export const fetchTitel = async (titel: string) => {
 				}
 			`,
 		});
-		response.data.errorMessage = '';
+
+		let errorMessage = '';
+
 		if (response.data.data.buecher == null) {
-			response.data.errorMessage = `Ein Buch mit dem Titel oder dem Teiltitel "${titel}" existiert nicht.`;
+			errorMessage = `Ein Buch mit dem Titel oder dem Teiltitel "${titel}" existiert nicht.`;
 		}
+
+		const { status, headers, data } = response;
+		const result = { status, headers, data, errorMessage };
+
+		return result;
 	} catch (error) {
-		console.error('Fehler beim Laden des Querys:', error);
 		throw new Error();
 	}
-	console.log('Ergebnis der API:', response);
-	return response;
 };

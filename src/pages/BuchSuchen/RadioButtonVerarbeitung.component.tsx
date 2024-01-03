@@ -24,9 +24,7 @@ export function RadioButtonVerarbeitung({
 				}
 				setError('');
 			} catch (error) {
-				//console.error('Fehler beim Laden der Daten:', error);
 				setError('Fehler beim Laden der Daten');
-				//throw new Error();
 			}
 		})();
 	};
