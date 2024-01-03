@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { Buch, BuchListe } from '../../Controller/buch-query';
 import { EingabeFeldVerarbeitung } from './EingabeFeldVerarbeitung.component';
-import { ErrorAnzeige } from './ErrorAugabe.component';
+import { ErrorAnzeige } from './ErrorAnzeige.component';
 import { RadioButtonVerarbeitung } from './RadioButtonVerarbeitung.component';
-import { SearchCheckboxId } from './CheckboxenFunktion';
+import { CheckBoxVerarbeitung } from './CheckBoxVerarbeitung.component';
 import './BuchSuchen.css';
 
 export interface QueryIdDaten {
@@ -23,7 +23,7 @@ export function BuchSuchen() {
 			<EingabeFeldVerarbeitung setError={setError} />
 			<ErrorAnzeige error={error} />
 			<RadioButtonVerarbeitung setError={setError} />
-			<SearchCheckboxId setError={setError} />
+			<CheckBoxVerarbeitung setError={setError} />
 		</Container>
 	);
 }
