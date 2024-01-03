@@ -4,11 +4,11 @@ import { QueryIdDaten } from './BuchSuchen';
 import { Buch } from '../../Controller/buch-query';
 import { ModalAnzeige } from './ModalAnzeige.component';
 
-interface TableIdProps {
+interface IdTableProps {
 	datenId: QueryIdDaten;
 }
 
-export function TableId({ datenId }: TableIdProps) {
+export function IdTable({ datenId }: IdTableProps) {
 	const [selectedBook, setSelectedBook] = useState<Buch | null>(null);
 	const [showModal, setShowModal] = useState<boolean>(false);
 

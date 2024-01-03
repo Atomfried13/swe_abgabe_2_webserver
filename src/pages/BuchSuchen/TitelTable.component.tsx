@@ -4,11 +4,11 @@ import { Buch } from '../../Controller/buch-query';
 import { useState } from 'react';
 import { ModalAnzeige } from './ModalAnzeige.component';
 
-interface TableTitelProps {
+interface TitelTableProps {
 	datenTitel: QueryTitelDaten;
 }
 
-export function TableTitel({ datenTitel }: TableTitelProps) {
+export function TitelTable({ datenTitel }: TitelTableProps) {
 	const [selectedBook, setSelectedBook] = useState<Buch | null>(null);
 	const [showModal, setShowModal] = useState<boolean>(false);
 

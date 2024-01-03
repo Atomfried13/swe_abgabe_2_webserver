@@ -4,8 +4,8 @@ import { QueryIdDaten, QueryTitelDaten } from './BuchSuchen';
 import { Form } from 'react-bootstrap';
 import { EingabeFeldInput } from './EingabeFeldInput.component';
 import { SubmitButton } from './SubmitButtonQuery.component';
-import { TableTitel } from './TableTitel.component';
-import { TableId } from './TableId.component';
+import { TitelTable } from './TitelTable.component';
+import { IdTable } from './IdTable.component';
 
 interface EingabeFeldVerarbeitungProps {
 	setError: React.Dispatch<React.SetStateAction<string>>;
@@ -58,7 +58,6 @@ export function EingabeFeldVerarbeitung({
 				}
 			} catch (error) {
 				setError('Fehler beim Laden der Daten');
-				//throw new Error(); //Ü
 			}
 		})();
 	};
@@ -73,8 +72,8 @@ export function EingabeFeldVerarbeitung({
 				<SubmitButton handleSearchClick={handleSearchClick} />
 			</Form.Group>
 			<div className="table-container">
-				{datenTitel && <TableTitel datenTitel={datenTitel} />}
-				{datenId && <TableId datenId={datenId} />}
+				{datenTitel && <TitelTable datenTitel={datenTitel} />}
+				{datenId && <IdTable datenId={datenId} />}
 			</div>
 		</>
 	);
