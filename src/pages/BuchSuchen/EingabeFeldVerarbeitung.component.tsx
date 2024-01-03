@@ -16,7 +16,7 @@ export function EingabeFeldVerarbeitung({
 }: EingabeFeldVerarbeitungProps) {
 	const [datenTitel, setDatenTitel] = useState<QueryTitelDaten | null>(null);
 	const [datenId, setDatenId] = useState<QueryIdDaten | null>(null);
-	const [searchTerm, setSearchTerm] = useState('');
+	const [searchTerm, setSearchTerm] = useState<string>('');
 
 	const handleSearchClick = () => {
 		void (async () => {
@@ -58,7 +58,7 @@ export function EingabeFeldVerarbeitung({
 				}
 			} catch (error) {
 				setError('Fehler beim Laden der Daten');
-				throw new Error(); //?
+				//throw new Error(); //Ü
 			}
 		})();
 	};
