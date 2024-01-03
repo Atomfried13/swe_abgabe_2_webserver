@@ -1,0 +1,32 @@
+@startuml Zustandsdiagramm
+
+hide empty description
+
+state index.html {
+    index.html: jwt
+    index.html: roles
+    index.html: expiration
+
+    [*] --> [*]: Logout
+    [*] --> NeuesBuch: Bücher anlegen
+    [*] --> BuchSuchen: Bücher suchen
+    
+    state BuchSuchen
+
+    state NeuesBuch{
+        state Dateneingeben
+        state Waiting
+        state Antwort
+        state Fehlermeldung
+
+        Dateneingeben --> Waiting: Daten eingeben
+        Dateneingeben --> Fehlermeldung: Falsche Dateneingabe
+
+        Waiting --> Antwort: Datensatz wurde angelegt
+        Waiting -right-> Fehlermeldung: Fehler beim Datenanlegen 
+    }
+}
+
+footer (c) Gruppe 4
+
+@enduml
