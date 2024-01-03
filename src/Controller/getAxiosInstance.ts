@@ -3,7 +3,6 @@ import axios, { AxiosInstance } from 'axios';
 let axiosInstanceOhneHeader: AxiosInstance;
 
 if (import.meta.env.SSR === true) {
-	// Server-side code
 	const https = (await import('https')).default;
 	const agent = new https.Agent({
 		rejectUnauthorized: false,
@@ -14,9 +13,9 @@ if (import.meta.env.SSR === true) {
 		httpsAgent: agent,
 	});
 } else {
-	// Client-side code
 	axiosInstanceOhneHeader = axios.create({
 		baseURL: 'https://localhost:3000/graphql',
+		httpsAgent: { rejectUnauthorized: false },
 	});
 }
 

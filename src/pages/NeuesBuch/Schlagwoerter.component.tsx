@@ -1,27 +1,23 @@
 import { Form } from 'react-bootstrap';
 
-interface SchlagwoerterUebertragung {
+interface SchlagwoerterProps {
 	schlagwoerter: string[];
 	setSchlagwoerter: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-export function Schlagwoerter(
-	schlagwoerterUebertragung: SchlagwoerterUebertragung,
-) {
+export function Schlagwoerter(schlagwoerterProps: SchlagwoerterProps) {
 	const handleSetSchlagwoerter = (schlagwort: string, checked: boolean) => {
 		if (checked === true) {
-			if (!schlagwoerterUebertragung.schlagwoerter.includes(schlagwort)) {
-				const schlagwoerterneu =
-					schlagwoerterUebertragung.schlagwoerter;
+			if (!schlagwoerterProps.schlagwoerter.includes(schlagwort)) {
+				const schlagwoerterneu = schlagwoerterProps.schlagwoerter;
 				schlagwoerterneu.push(schlagwort);
-				schlagwoerterUebertragung.setSchlagwoerter(schlagwoerterneu);
+				schlagwoerterProps.setSchlagwoerter(schlagwoerterneu);
 			}
 		} else {
-			const schlagwoerterneu =
-				schlagwoerterUebertragung.schlagwoerter.filter((woert) =>
-					woert !== schlagwort ? woert : '',
-				);
-			schlagwoerterUebertragung.setSchlagwoerter(schlagwoerterneu);
+			const schlagwoerterneu = schlagwoerterProps.schlagwoerter.filter(
+				(woert) => (woert !== schlagwort ? woert : ''),
+			);
+			schlagwoerterProps.setSchlagwoerter(schlagwoerterneu);
 		}
 	};
 

@@ -1,11 +1,11 @@
 import { Form } from 'react-bootstrap';
 import { useState } from 'react';
 
-interface DatumUebertragung {
+interface DatumProps {
 	setDatum: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export function Datum(datumUebertragung: DatumUebertragung) {
+export function Datum(datumProps: DatumProps) {
 	const [datumError, setDatumError] = useState<boolean>(false);
 
 	const handleTitelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,7 +13,7 @@ export function Datum(datumUebertragung: DatumUebertragung) {
 
 		const isValid = value.trim().length > 0;
 		if (isValid === true) {
-			datumUebertragung.setDatum(value);
+			datumProps.setDatum(value);
 		}
 		setDatumError(!isValid);
 	};

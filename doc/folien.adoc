@@ -1,0 +1,48 @@
+:revealjsdir: ../../../node_modules/reveal.js
+:revealjs_slideNumber: true
+:sectnums:
+
+= Single Page Application mit React und Vite
+
+Gruppe 4: Melvin Grzalik, Niklas Justus, Konstantin Kraus
+
+== Gliederung
+
+* React mit Vite
+* Figma und Bootstrap
+* Ordnerstruktur mit Routing
+* Buchsuchen
+* Login
+* NeuesBuch
+
+== React mit Vite
+
+* Niklas
+
+=== React
+
+* irgendwas zu React
+
+=== Vite
+
+* irgendwas zu Vite
+
+== Figma und Bootstrap
+
+* Melvin
+
+== Ordnerstruktur mit Routing
+
+* Konstantin
+
+== Buchsuchen
+
+* Niklas
+
+== Login
+
+* Melvin
+
+== NeuesBuch
+
+* Konstantin
