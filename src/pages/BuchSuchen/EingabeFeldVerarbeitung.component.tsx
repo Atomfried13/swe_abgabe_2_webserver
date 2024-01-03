@@ -54,7 +54,9 @@ export function EingabeFeldVerarbeitung({
 					}
 
 					default:
-						setError('Mach kein Scheiße, gib was Gescheites an');
+						setError(
+							'Bei deiner Eingabe handelt es sich nicht um einen gültigen Teiltitel oder einer gültigen ID.',
+						);
 				}
 			} catch (error) {
 				setError('Fehler beim Laden der Daten');
