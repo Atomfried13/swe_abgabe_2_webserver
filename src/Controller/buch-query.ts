@@ -17,7 +17,6 @@ export interface Buch {
 }
 
 export interface BuchListe {
-	forEach(arg0: (element: Buch) => void): unknown;
 	map(mapFunction: (buch: Buch, index: number) => ReactNode): ReactNode;
 	buecher: Buch[];
 }
