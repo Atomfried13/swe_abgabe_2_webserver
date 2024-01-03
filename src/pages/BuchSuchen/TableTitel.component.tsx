@@ -2,7 +2,7 @@ import { Table } from 'react-bootstrap';
 import { QueryTitelDaten } from './BuchSuchen';
 import { Buch } from '../../Controller/buch-query';
 import { useState } from 'react';
-import { ModalUbertragung } from './Modal.component';
+import { ModalAnzeige } from './ModalAnzeige.component';
 
 interface TableTitelProps {
 	datenTitel: QueryTitelDaten;
@@ -51,7 +51,7 @@ export function TableTitel({ datenTitel }: TableTitelProps) {
 				</tbody>
 			</Table>
 			{selectedBook && (
-				<ModalUbertragung
+				<ModalAnzeige
 					selectedBook={selectedBook}
 					showModal={showModal}
 					handleCloseModal={handleCloseModal}

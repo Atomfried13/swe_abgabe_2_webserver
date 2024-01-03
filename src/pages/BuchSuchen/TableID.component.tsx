@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { QueryIdDaten } from './BuchSuchen';
 import { Buch } from '../../Controller/buch-query';
-import { ModalUbertragung } from './Modal.component';
+import { ModalAnzeige } from './ModalAnzeige.component';
 
 interface TableIDProps {
 	datenId: QueryIdDaten;
@@ -50,7 +50,7 @@ export function TableID({ datenId }: TableIDProps) {
 				</tbody>
 			</Table>
 			{selectedBook && (
-				<ModalUbertragung
+				<ModalAnzeige
 					selectedBook={selectedBook}
 					showModal={showModal}
 					handleCloseModal={handleCloseModal}
