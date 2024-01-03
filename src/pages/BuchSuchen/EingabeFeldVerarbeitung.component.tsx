@@ -4,8 +4,8 @@ import { QueryIdAusgabe, QueryTitelAusgabe } from './BuchSuchen';
 import { Form } from 'react-bootstrap';
 import { EingabeFeldInput } from './EingabeFeldInput.component';
 import { SubmitButton } from './SubmitButtonQuery.component';
-import { TableTitel } from './ShowTableTitel.component';
-import { ShowTableId } from './ShowTableID.component';
+import { TableTitel } from './TableTitel.component';
+import { TableID } from './TableID.component';
 
 interface EingabeFeldVerarbeitungProps {
 	setError: React.Dispatch<React.SetStateAction<string>>;
@@ -76,7 +76,7 @@ export function EingabeFeldVerarbeitung({
 			</Form.Group>
 			<div className="table-container">
 				{datenTitel && <TableTitel datenTitel={datenTitel} />}
-				{datenId && <ShowTableId datenId={datenId} />}
+				{datenId && <TableID datenId={datenId} />}
 			</div>
 		</>
 	);

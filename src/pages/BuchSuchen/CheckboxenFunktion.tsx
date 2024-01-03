@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { fetchId } from '../../Controller/buch-query';
-import { ShowTableId } from './ShowTableID.component';
+import { TableID } from './TableID.component';
 import { QueryIdAusgabe } from './BuchSuchen';
 import { SearchCheckboxId1, SearchCheckboxId20 } from './Checkbox.component';
 
@@ -55,10 +55,10 @@ export function SearchCheckboxId({ setError }: SearchCheckboxIdProps) {
 			</Form.Group>
 			<div className="table-container">
 				{showTableBoxId1 && datenBoxId1 && (
-					<ShowTableId datenId={datenBoxId1} />
+					<TableID datenId={datenBoxId1} />
 				)}
 				{showTableBoxId20 && datenBoxId20 && (
-					<ShowTableId datenId={datenBoxId20} />
+					<TableID datenId={datenBoxId20} />
 				)}
 			</div>
 		</>

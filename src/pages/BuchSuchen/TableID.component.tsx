@@ -4,11 +4,11 @@ import { QueryIdAusgabe } from './BuchSuchen';
 import { Buch } from '../../Controller/buch-query';
 import { ModalUbertragung } from './Modal.component';
 
-interface ShowTableIdUebertragung {
+interface TableIDProps {
 	datenId: QueryIdAusgabe;
 }
 
-export function ShowTableId({ datenId }: ShowTableIdUebertragung) {
+export function TableID({ datenId }: TableIDProps) {
 	const [selectedBook, setSelectedBook] = useState<Buch | null>(null);
 	const [showModal, setShowModal] = useState(false);
 

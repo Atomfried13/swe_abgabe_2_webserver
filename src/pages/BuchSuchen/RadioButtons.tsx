@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { fetchTitel } from '../../Controller/buch-query';
 import { QueryTitelAusgabe } from './BuchSuchen';
-import { TableTitel } from './ShowTableTitel.component';
+import { TableTitel } from './TableTitel.component';
 import { RadioButtons } from './RadioButton.component';
 
 interface SearchRadioButtonsProps {
