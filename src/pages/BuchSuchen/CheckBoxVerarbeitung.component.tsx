@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { fetchId } from '../../Controller/buch-query';
-import { TableID } from './TableID.component';
+import { TableId } from './TableId.component';
 import { QueryIdDaten } from './BuchSuchen';
 import { CheckBoxId1, CheckBoxId20 } from './CheckBoxAuswahl.component';
 
@@ -10,10 +10,10 @@ interface CheckBoxVerarbeitungProps {
 }
 
 export function CheckBoxVerarbeitung({ setError }: CheckBoxVerarbeitungProps) {
-	const [datenCheckBoxID1, setDatenCheckBoxID1] =
+	const [datenCheckBoxId1, setDatenCheckBoxId1] =
 		useState<QueryIdDaten | null>(null);
-	const [showTableCheckBoxID1, setShowTableCheckBoxID1] = useState(false);
-	const [datenCheckBoxID20, setDatenCheckBoxID20] =
+	const [showTableCheckBoxId1, setShowTableCheckBoxId1] = useState(false);
+	const [datenCheckBoxId20, setDatenCheckBoxId20] =
 		useState<QueryIdDaten | null>(null);
 	const [showTableCheckBoxId20, setShowTableCheckBoxId20] = useState(false);
 
@@ -22,15 +22,15 @@ export function CheckBoxVerarbeitung({ setError }: CheckBoxVerarbeitungProps) {
 			try {
 				switch (true) {
 					case id === '1': {
-						setShowTableCheckBoxID1(!showTableCheckBoxID1);
-						setDatenCheckBoxID1((await fetchId(id)).data.data);
+						setShowTableCheckBoxId1(!showTableCheckBoxId1);
+						setDatenCheckBoxId1((await fetchId(id)).data.data);
 						setError('');
 						break;
 					}
 
 					case id === '20': {
 						setShowTableCheckBoxId20(!showTableCheckBoxId20);
-						setDatenCheckBoxID20((await fetchId(id)).data.data);
+						setDatenCheckBoxId20((await fetchId(id)).data.data);
 						setError('');
 						break;
 					}
@@ -50,11 +50,11 @@ export function CheckBoxVerarbeitung({ setError }: CheckBoxVerarbeitungProps) {
 				<CheckBoxId20 handleCheckBoxChange={handleCheckBoxChange} />
 			</Form.Group>
 			<div className="table-container">
-				{showTableCheckBoxID1 && datenCheckBoxID1 && (
-					<TableID datenId={datenCheckBoxID1} />
+				{showTableCheckBoxId1 && datenCheckBoxId1 && (
+					<TableId datenId={datenCheckBoxId1} />
 				)}
-				{showTableCheckBoxId20 && datenCheckBoxID20 && (
-					<TableID datenId={datenCheckBoxID20} />
+				{showTableCheckBoxId20 && datenCheckBoxId20 && (
+					<TableId datenId={datenCheckBoxId20} />
 				)}
 			</div>
 		</>

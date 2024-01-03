@@ -9,7 +9,7 @@ export function EingabeFeldInput(props: EingabeFeldProps) {
 		<>
 			<Form.Control
 				type="suchkriterien"
-				placeholder="Suche anhand der ID oder des Titels..."
+				placeholder="Suche anhand der ID, des Titels oder des Teiltitels"
 				onChange={(event) => props.setSearchTerm(event.target.value)}
 			/>
 		</>

@@ -21,6 +21,7 @@ export interface BuchListe {
 	map(mapFunction: (buch: Buch, index: number) => ReactNode): ReactNode;
 	buecher: Buch[];
 }
+
 export const fetchId = async (id: string) => {
 	let response: AxiosResponse<{
 		status: number;
@@ -50,8 +51,7 @@ export const fetchId = async (id: string) => {
 				`,
 		});
 		response.data.errorMessage = '';
-		if (response.data.data.buch == undefined || null) {
-			// ändern noch den Vergleich
+		if (response.data.data.buch == null) {
 			response.data.errorMessage = `Ein Buch mit der ID${id} existiert nicht.`;
 		}
 		return response;
@@ -90,7 +90,7 @@ export const fetchTitel = async (titel: string) => {
 			`,
 		});
 		response.data.errorMessage = '';
-		if (response.data.data.buecher == null || undefined) {
+		if (response.data.data.buecher == null) {
 			response.data.errorMessage = `Ein Buch mit dem Titel oder dem Teiltitel "${titel}" existiert nicht.`;
 		}
 	} catch (error) {

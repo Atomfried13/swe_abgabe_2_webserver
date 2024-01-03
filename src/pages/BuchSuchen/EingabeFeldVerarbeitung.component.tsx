@@ -5,7 +5,7 @@ import { Form } from 'react-bootstrap';
 import { EingabeFeldInput } from './EingabeFeldInput.component';
 import { SubmitButton } from './SubmitButtonQuery.component';
 import { TableTitel } from './TableTitel.component';
-import { TableID } from './TableID.component';
+import { TableId } from './TableId.component';
 
 interface EingabeFeldVerarbeitungProps {
 	setError: React.Dispatch<React.SetStateAction<string>>;
@@ -74,7 +74,7 @@ export function EingabeFeldVerarbeitung({
 			</Form.Group>
 			<div className="table-container">
 				{datenTitel && <TableTitel datenTitel={datenTitel} />}
-				{datenId && <TableID datenId={datenId} />}
+				{datenId && <TableId datenId={datenId} />}
 			</div>
 		</>
 	);
