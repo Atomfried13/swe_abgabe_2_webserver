@@ -3,9 +3,10 @@
 hide empty description
 
 state index.html {
-    index.html: jwt
+    index.html: token
     index.html: roles
-    index.html: expiration
+    index.html: expiresIn
+    index.html: tokenIssuedAt
 
     [*] --> [*]: Logout
     [*] --> NeuesBuch: Bücher anlegen
