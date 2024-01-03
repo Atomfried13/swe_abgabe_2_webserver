@@ -1,10 +1,10 @@
-interface SearchCheckboxesProps {
-	handleCheckboxChange: (id: string) => void;
+interface CheckBoxAuswahlProps {
+	handleCheckBoxChange: (id: string) => void;
 }
 
-export function SearchCheckboxId1({
-	handleCheckboxChange,
-}: SearchCheckboxesProps) {
+export function CheckBoxId1({
+	handleCheckBoxChange: handleCheckboxChange,
+}: CheckBoxAuswahlProps) {
 	return (
 		<>
 			<input
@@ -18,9 +18,9 @@ export function SearchCheckboxId1({
 	);
 }
 
-export function SearchCheckboxId20({
-	handleCheckboxChange,
-}: SearchCheckboxesProps) {
+export function CheckBoxId20({
+	handleCheckBoxChange: handleCheckboxChange,
+}: CheckBoxAuswahlProps) {
 	return (
 		<>
 			<input

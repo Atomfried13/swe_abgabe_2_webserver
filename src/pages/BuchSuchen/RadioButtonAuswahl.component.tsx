@@ -1,8 +1,10 @@
-interface RadioButtonsProps {
+interface RadioButtonAuswahlProps {
 	handleRadioClick: (letter: string) => void;
 }
 
-export function RadioButtons({ handleRadioClick }: RadioButtonsProps) {
+export function RadioButtonAuswahl({
+	handleRadioClick,
+}: RadioButtonAuswahlProps) {
 	return (
 		<>
 			<input

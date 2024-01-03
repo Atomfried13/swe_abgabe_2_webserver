@@ -1,30 +1,29 @@
 import { useState } from 'react';
-import { Row, Container } from 'react-bootstrap';
-import './BuchSuchen.css';
+import { Container } from 'react-bootstrap';
 import { Buch, BuchListe } from '../../Controller/buch-query';
-import { EingabeFeld } from './EingabeFeld';
-import { ErrorAusgabe } from './ErrorAugabe.component';
-import { SearchRadioButtons } from './RadioButtons';
-import { SearchCheckboxId } from './CheckboxenFunktion';
+import { EingabeFeldVerarbeitung } from './EingabeFeldVerarbeitung.component';
+import { ErrorAnzeige } from './ErrorAnzeige.component';
+import { RadioButtonVerarbeitung } from './RadioButtonVerarbeitung.component';
+import { CheckBoxVerarbeitung } from './CheckBoxVerarbeitung.component';
+import './BuchSuchen.css';
 
-export interface QueryIdAusgabe {
+export interface QueryIdDaten {
 	buch: Buch;
 }
-export interface QueryTitelAusgabe {
+
+export interface QueryTitelDaten {
 	buecher: BuchListe;
 }
 
 export function BuchSuchen() {
-	const [error, setError] = useState('');
-	//Abstand?
+	const [error, setError] = useState<string>('');
+
 	return (
 		<Container className="buchsuchen-formular">
-			<Row className="justify-content-center">
-				<EingabeFeld setError={setError} />
-				<ErrorAusgabe error={error} setError={setError} />
-				<SearchRadioButtons setError={setError} />
-				<SearchCheckboxId setError={setError} />
-			</Row>
+			<EingabeFeldVerarbeitung setError={setError} />
+			<ErrorAnzeige error={error} />
+			<RadioButtonVerarbeitung setError={setError} />
+			<CheckBoxVerarbeitung setError={setError} />
 		</Container>
 	);
 }

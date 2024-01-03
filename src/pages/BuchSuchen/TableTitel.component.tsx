@@ -1,14 +1,14 @@
-import { useState } from 'react';
 import { Table } from 'react-bootstrap';
-import { QueryIdAusgabe } from './BuchSuchen';
+import { QueryTitelDaten } from './BuchSuchen';
 import { Buch } from '../../Controller/buch-query';
-import { ModalUbertragung } from './Modal.component';
+import { useState } from 'react';
+import { ModalAnzeige } from './ModalAnzeige.component';
 
-interface ShowTableIdUebertragung {
-	datenId: QueryIdAusgabe;
+interface TableTitelProps {
+	datenTitel: QueryTitelDaten;
 }
 
-export function ShowTableId({ datenId }: ShowTableIdUebertragung) {
+export function TableTitel({ datenTitel }: TableTitelProps) {
 	const [selectedBook, setSelectedBook] = useState<Buch | null>(null);
 	const [showModal, setShowModal] = useState(false);
 
@@ -23,10 +23,11 @@ export function ShowTableId({ datenId }: ShowTableIdUebertragung) {
 	};
 
 	return (
-		<>
+		<div style={{ overflowX: 'auto' }}>
 			<Table striped bordered hover>
 				<thead>
 					<tr>
+						<th>Nr.</th>
 						<th>ID</th>
 						<th>Titel</th>
 						<th>Preis</th>
@@ -36,26 +37,26 @@ export function ShowTableId({ datenId }: ShowTableIdUebertragung) {
 					</tr>
 				</thead>
 				<tbody>
-					<tr
-						key={datenId.buch.id}
-						onClick={() => handleRowClick(datenId.buch)}
-					>
-						<td>{datenId.buch.id}</td>
-						<td>{datenId.buch.titel?.titel}</td>
-						<td>{datenId.buch.preis}</td>
-						<td>{datenId.buch.art}</td>
-						<td>{datenId.buch.rating}</td>
-						<td>{datenId.buch.rabatt}</td>
-					</tr>
+					{datenTitel?.buecher.map((buch, index) => (
+						<tr key={index} onClick={() => handleRowClick(buch)}>
+							<td>{index + 1}</td>
+							<td>{buch.id}</td>
+							<td>{buch.titel?.titel}</td>
+							<td>{buch.preis}</td>
+							<td>{buch.art}</td>
+							<td>{buch.rating}</td>
+							<td>{buch.rabatt}</td>
+						</tr>
+					))}
 				</tbody>
 			</Table>
 			{selectedBook && (
-				<ModalUbertragung
+				<ModalAnzeige
 					selectedBook={selectedBook}
 					showModal={showModal}
 					handleCloseModal={handleCloseModal}
 				/>
 			)}
-		</>
+		</div>
 	);
 }

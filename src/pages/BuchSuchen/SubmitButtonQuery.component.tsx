@@ -1,18 +1,13 @@
 import { Button } from 'react-bootstrap';
 
-interface SubmitButtonHandleSearchClick {
+interface SubmitButtonProps {
 	handleSearchClick: () => void;
 }
 
-export function SubmitButton(
-	submitButtonHandleSearchClick: SubmitButtonHandleSearchClick,
-) {
+export function SubmitButton(props: SubmitButtonProps) {
 	return (
 		<>
-			<Button
-				className="suchen-btn"
-				onClick={submitButtonHandleSearchClick.handleSearchClick}
-			>
+			<Button className="suchen-btn" onClick={props.handleSearchClick}>
 				Suchen
 			</Button>
 		</>
