@@ -22,6 +22,7 @@ export function NeuesBuch() {
 		void (async () => {
 			if (token !== undefined) {
 				let isExpired;
+
 				if (tokenIssuedAt !== undefined) {
 					isExpired = isTokenExpired(expiresIn, tokenIssuedAt);
 				}
@@ -31,6 +32,7 @@ export function NeuesBuch() {
 					);
 					return;
 				}
+
 				try {
 					if (buch === undefined) {
 						setErrorMessage('Kein Buch vorhanden.');
@@ -43,6 +45,7 @@ export function NeuesBuch() {
 						setErrorMessage(response.data.errors[0].message);
 						return;
 					}
+
 					setID(response.data.data.create.id);
 				} catch (error) {
 					setErrorMessage(

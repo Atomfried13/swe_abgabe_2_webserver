@@ -1,16 +1,16 @@
 import { Col, Container, Form, Row } from 'react-bootstrap';
-import { Homepage } from './Homepage.component';
-import { Schlagwoerter } from './Schlagwoerter.component';
-import { Lieferbar } from './Lieferbar.component';
-import { Rating } from './Rating.component';
-import { Datum } from './Datum.component';
-import { Rabatt } from './Rabatt.component';
-import { Preis } from './Preis.component';
-import { Isbn } from './Isbn.component';
-import { Art } from './Art.component';
-import { Titel } from './Titel.component';
-import { UnterTitel } from './UnterTitel.component';
-import { SubmitButton } from './SubmitButton.component';
+import { Homepage } from './FormularComponents/Homepage.component';
+import { Schlagwoerter } from './FormularComponents/Schlagwoerter.component';
+import { Lieferbar } from './FormularComponents/Lieferbar.component';
+import { Rating } from './FormularComponents/Rating.component';
+import { Datum } from './FormularComponents/Datum.component';
+import { Rabatt } from './FormularComponents/Rabatt.component';
+import { Preis } from './FormularComponents/Preis.component';
+import { Isbn } from './FormularComponents/Isbn.component';
+import { Art } from './FormularComponents/Art.component';
+import { Titel } from './FormularComponents/Titel.component';
+import { UnterTitel } from './FormularComponents/UnterTitel.component';
+import { SubmitButton } from './FormularComponents/SubmitButton.component';
 import { useState } from 'react';
 import { BuchDTO } from '../../Model/buchDTO.entitie';
 
@@ -58,6 +58,7 @@ export function Formular(formularProps: FormularProps) {
 			abbildungen: [],
 		});
 	};
+
 	return (
 		<Container>
 			<Form>

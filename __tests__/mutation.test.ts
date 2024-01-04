@@ -1,6 +1,3 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { beforeAll, expect, test, describe } from 'vitest';
 import { mutation } from '../src/Controller/buch-mutation';
 import { Einloggen } from '../src/Controller/auth';
@@ -15,6 +12,7 @@ describe('Mutation Tests', () => {
 	});
 
 	test('mutation für ein validen Datensatz', async () => {
+		//given
 		const buchart = 'KINDLE';
 
 		const buch = {
@@ -34,8 +32,10 @@ describe('Mutation Tests', () => {
 			abbildungen: [],
 		};
 
+		//when
 		const result = await mutation(buch, token);
 
+		//then
 		expect(result).toBeDefined();
 
 		const { status, headers, data } = result;
@@ -48,6 +48,7 @@ describe('Mutation Tests', () => {
 	});
 
 	test('Mutation mit falscher ISBN', async () => {
+		//given
 		const buchart = 'KINDLE';
 
 		const buch = {
@@ -67,8 +68,10 @@ describe('Mutation Tests', () => {
 			abbildungen: [],
 		};
 
+		//when
 		const result = await mutation(buch, token);
 
+		//then
 		expect(result).toBeDefined();
 
 		const { status, headers, data } = result;
@@ -78,6 +81,7 @@ describe('Mutation Tests', () => {
 		expect(headers['content-type']).toMatch(
 			/^application\/json(; charset=utf-8)?/u,
 		);
+		// eslint-disable-next-line @typescript-eslint/unbound-method
 		expect(errors).toBeDefined;
 		expect(errors[0].message).include('isbn');
 	});
