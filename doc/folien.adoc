@@ -10,10 +10,11 @@ Gruppe 4: Melvin Grzalik, Niklas Justus, Konstantin Kraus
 
 * React mit Vite
 * Figma und Bootstrap
-* Ordnerstruktur mit Routing
+* Ordnerstruktur
+* Routing
 * Buchsuchen
 * Login
-* NeuesBuch
+* Bücher anlegen
 
 == React mit Vite
 
@@ -31,9 +32,27 @@ Gruppe 4: Melvin Grzalik, Niklas Justus, Konstantin Kraus
 
 * Melvin
 
-== Ordnerstruktur mit Routing
+== Ordnerstruktur
 
-* Konstantin
+* Model
+  - Buch für das Lesen
+  - DTOs für das Neuanlegen
+* View
+  - Home
+  - Navigation
+  - Buchsuchen
+  - Login
+  - NeuesBuch
+  - Unauthorized
+* Controller
+  - Leseanfragen
+  - Login
+  - Schreibanfrage
+
+== Routing
+* Routing
+  - Routen
+  - Links zu den Routen
 
 == Buchsuchen
 
@@ -43,6 +62,9 @@ Gruppe 4: Melvin Grzalik, Niklas Justus, Konstantin Kraus
 
 * Melvin
 
-== NeuesBuch
+== Bücher anlegen
 
-* Konstantin
+* Bücher anlegen
+  - NeuesBuch
+  - Formular.component
+  - weitere Componenten
