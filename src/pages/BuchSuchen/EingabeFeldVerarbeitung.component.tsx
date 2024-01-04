@@ -4,8 +4,8 @@ import { QueryIdDaten, QueryTitelDaten } from './BuchSuchen';
 import { Form } from 'react-bootstrap';
 import { EingabeFeldInput } from './EingabeFeldInput.component';
 import { SubmitButton } from './SubmitButtonQuery.component';
-import { TableTitel } from './TableTitel.component';
-import { TableId } from './TableId.component';
+import { TitelTable } from './TitelTable.component';
+import { IdTable } from './IdTable.component';
 
 interface EingabeFeldVerarbeitungProps {
 	setError: React.Dispatch<React.SetStateAction<string>>;
@@ -32,33 +32,34 @@ export function EingabeFeldVerarbeitung({
 					}
 
 					case isNaN(Number(searchTerm)): {
-						const { data } = await fetchTitel(searchTerm);
+						const responseTitel = await fetchTitel(searchTerm);
 
-						if (data.errorMessage == '') {
-							setDatenTitel(data.data);
+						if (responseTitel.errorMessage == '') {
+							setDatenTitel(responseTitel.data.data);
 						} else {
-							setError(data.errorMessage);
+							setError(responseTitel.errorMessage);
 						}
 						break;
 					}
 
 					case !isNaN(Number(searchTerm)): {
-						const { data } = await fetchId(searchTerm);
+						const respondeId = await fetchId(searchTerm);
 
-						if (data.errorMessage == '') {
-							setDatenId(data.data);
+						if (respondeId.errorMessage == '') {
+							setDatenId(respondeId.data.data);
 						} else {
-							setError(data.errorMessage);
+							setError(respondeId.errorMessage);
 						}
 						break;
 					}
 
 					default:
-						setError('Mach kein Scheiße, gib was Gescheites an');
+						setError(
+							'Bei deiner Eingabe handelt es sich nicht um einen gültigen Teiltitel oder einer gültigen ID.',
+						);
 				}
 			} catch (error) {
 				setError('Fehler beim Laden der Daten');
-				//throw new Error(); //Ü
 			}
 		})();
 	};
@@ -73,8 +74,8 @@ export function EingabeFeldVerarbeitung({
 				<SubmitButton handleSearchClick={handleSearchClick} />
 			</Form.Group>
 			<div className="table-container">
-				{datenTitel && <TableTitel datenTitel={datenTitel} />}
-				{datenId && <TableId datenId={datenId} />}
+				{datenTitel && <TitelTable datenTitel={datenTitel} />}
+				{datenId && <IdTable datenId={datenId} />}
 			</div>
 		</>
 	);

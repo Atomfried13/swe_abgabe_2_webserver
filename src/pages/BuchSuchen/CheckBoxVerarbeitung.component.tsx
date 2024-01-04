@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { fetchId } from '../../Controller/buch-query';
-import { TableId } from './TableId.component';
+import { IdTable } from './IdTable.component';
 import { QueryIdDaten } from './BuchSuchen';
 import { CheckBoxId1, CheckBoxId20 } from './CheckBoxAuswahl.component';
 
@@ -12,10 +12,12 @@ interface CheckBoxVerarbeitungProps {
 export function CheckBoxVerarbeitung({ setError }: CheckBoxVerarbeitungProps) {
 	const [datenCheckBoxId1, setDatenCheckBoxId1] =
 		useState<QueryIdDaten | null>(null);
-	const [showTableCheckBoxId1, setShowTableCheckBoxId1] = useState(false);
+	const [showTableCheckBoxId1, setShowTableCheckBoxId1] =
+		useState<boolean>(false);
 	const [datenCheckBoxId20, setDatenCheckBoxId20] =
 		useState<QueryIdDaten | null>(null);
-	const [showTableCheckBoxId20, setShowTableCheckBoxId20] = useState(false);
+	const [showTableCheckBoxId20, setShowTableCheckBoxId20] =
+		useState<boolean>(false);
 
 	const handleCheckBoxChange = (id: string) => {
 		void (async () => {
@@ -36,9 +38,7 @@ export function CheckBoxVerarbeitung({ setError }: CheckBoxVerarbeitungProps) {
 					}
 				}
 			} catch (error) {
-				//console.error('Fehler beim Laden der Daten:', error);
 				setError('Fehler beim Laden der Daten');
-				//throw new Error();
 			}
 		})();
 	};
@@ -51,10 +51,10 @@ export function CheckBoxVerarbeitung({ setError }: CheckBoxVerarbeitungProps) {
 			</Form.Group>
 			<div className="table-container">
 				{showTableCheckBoxId1 && datenCheckBoxId1 && (
-					<TableId datenId={datenCheckBoxId1} />
+					<IdTable datenId={datenCheckBoxId1} />
 				)}
 				{showTableCheckBoxId20 && datenCheckBoxId20 && (
-					<TableId datenId={datenCheckBoxId20} />
+					<IdTable datenId={datenCheckBoxId20} />
 				)}
 			</div>
 		</>

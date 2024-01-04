@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { beforeAll, expect, test, describe } from 'vitest';
 import { mutation } from '../src/Controller/buch-mutation';
-import { Einloggen } from '../src/Controller/auth.service';
+import { Einloggen } from '../src/Controller/auth';
 
 // eslint-disable-next-line max-lines-per-function
 describe('Mutation Tests', () => {

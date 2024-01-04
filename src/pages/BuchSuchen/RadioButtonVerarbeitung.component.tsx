@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { fetchTitel } from '../../Controller/buch-query';
 import { QueryTitelDaten } from './BuchSuchen';
-import { TableTitel } from './TableTitel.component';
+import { TitelTable } from './TitelTable.component';
 import { RadioButtonAuswahl } from './RadioButtonAuswahl.component';
 
 interface RadioButtonVerarbeitungProps {
@@ -24,9 +24,7 @@ export function RadioButtonVerarbeitung({
 				}
 				setError('');
 			} catch (error) {
-				//console.error('Fehler beim Laden der Daten:', error);
 				setError('Fehler beim Laden der Daten');
-				//throw new Error();
 			}
 		})();
 	};
@@ -37,7 +35,7 @@ export function RadioButtonVerarbeitung({
 				<RadioButtonAuswahl handleRadioClick={handleRadioClick} />
 			</Form.Group>
 			<div className="table-container">
-				{daten && <TableTitel datenTitel={daten} />}
+				{daten && <TitelTable datenTitel={daten} />}
 			</div>
 		</>
 	);

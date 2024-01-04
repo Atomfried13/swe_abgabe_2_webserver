@@ -41,8 +41,8 @@ state index.html {
             SuchergebnisEingabe --> GefundeneBuecher: kein Error
         }
 
-        [*] -right--> RadioButton: Auswählen
-        RadioButton --> Waiting_RadioButton
+        [*] -left-> RadioButton: Auswählen
+        RadioButton --> Waiting_RadioButton: Anfrage senden
          state SuchergebnisRadioButton <<choice>>
          Waiting_RadioButton --> SuchergebnisRadioButton: Suchergebnis eingetroffen
 
@@ -51,7 +51,7 @@ state index.html {
         }
 
         [*] --> CheckBox: Auswählen
-        CheckBox --> Waiting_CheckBox
+        CheckBox --> Waiting_CheckBox: Anfrage senden
         state SuchergebnisCheckBox <<choice>>
          Waiting_CheckBox --> SuchergebnisCheckBox: Suchergebnis eingetroffen
 
@@ -70,5 +70,7 @@ state index.html {
          GefundeneBuecherCheck -down-> DetailsBuch: Zeile anklicken
     }
 }
+
+footer (c) Gruppe 4
 
 @enduml

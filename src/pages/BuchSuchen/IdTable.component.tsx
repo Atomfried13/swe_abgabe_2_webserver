@@ -1,16 +1,16 @@
-import { Table } from 'react-bootstrap';
-import { QueryTitelDaten } from './BuchSuchen';
-import { Buch } from '../../Controller/buch-query';
 import { useState } from 'react';
+import { Table } from 'react-bootstrap';
+import { QueryIdDaten } from './BuchSuchen';
+import { Buch } from '../../Controller/buch-query';
 import { ModalAnzeige } from './ModalAnzeige.component';
 
-interface TableTitelProps {
-	datenTitel: QueryTitelDaten;
+interface IdTableProps {
+	datenId: QueryIdDaten;
 }
 
-export function TableTitel({ datenTitel }: TableTitelProps) {
+export function IdTable({ datenId }: IdTableProps) {
 	const [selectedBook, setSelectedBook] = useState<Buch | null>(null);
-	const [showModal, setShowModal] = useState(false);
+	const [showModal, setShowModal] = useState<boolean>(false);
 
 	const handleRowClick = (buch: Buch) => {
 		setSelectedBook(buch);
@@ -27,7 +27,6 @@ export function TableTitel({ datenTitel }: TableTitelProps) {
 			<Table striped bordered hover>
 				<thead>
 					<tr>
-						<th>Nr.</th>
 						<th>ID</th>
 						<th>Titel</th>
 						<th>Preis</th>
@@ -37,17 +36,17 @@ export function TableTitel({ datenTitel }: TableTitelProps) {
 					</tr>
 				</thead>
 				<tbody>
-					{datenTitel?.buecher.map((buch, index) => (
-						<tr key={index} onClick={() => handleRowClick(buch)}>
-							<td>{index + 1}</td>
-							<td>{buch.id}</td>
-							<td>{buch.titel?.titel}</td>
-							<td>{buch.preis}</td>
-							<td>{buch.art}</td>
-							<td>{buch.rating}</td>
-							<td>{buch.rabatt}</td>
-						</tr>
-					))}
+					<tr
+						key={datenId.buch.id}
+						onClick={() => handleRowClick(datenId.buch)}
+					>
+						<td>{datenId.buch.id}</td>
+						<td>{datenId.buch.titel?.titel}</td>
+						<td>{datenId.buch.preis}</td>
+						<td>{datenId.buch.art}</td>
+						<td>{datenId.buch.rating}</td>
+						<td>{datenId.buch.rabatt}</td>
+					</tr>
 				</tbody>
 			</Table>
 			{selectedBook && (

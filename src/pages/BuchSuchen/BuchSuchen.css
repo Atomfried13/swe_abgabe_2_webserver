@@ -2,7 +2,6 @@
     margin-top: 50px;
 }
 
-
 .buch-suchen-form {
     display: flex;
 }
@@ -37,7 +36,7 @@
     margin-right: 20px;
   }
 
-  @media (max-width: 400px) {
+@media (max-width: 400px) {
     .buch-suchen-form {
       flex-direction: column; 
       margin-left: 10px;
