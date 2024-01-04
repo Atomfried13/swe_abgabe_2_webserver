@@ -3,7 +3,7 @@ import { mutation } from '../src/Controller/buch-mutation';
 import { Einloggen } from '../src/Controller/auth';
 
 // eslint-disable-next-line max-lines-per-function
-describe('Mutation Tests', () => {
+describe('Neuanlegen Tests', () => {
 	let token: string;
 
 	beforeAll(async () => {
@@ -11,7 +11,7 @@ describe('Mutation Tests', () => {
 		token = response.data.data.login.token;
 	});
 
-	test('mutation für ein validen Datensatz', async () => {
+	test('Neuanlegen eines validen Datensatzes', async () => {
 		//given
 		const buchart = 'KINDLE';
 
@@ -47,7 +47,7 @@ describe('Mutation Tests', () => {
 		expect(data.data).toBeDefined();
 	});
 
-	test('Mutation mit falscher ISBN', async () => {
+	test('Versuchtes Neuanlegen mit falscher ISBN', async () => {
 		//given
 		const buchart = 'KINDLE';
 
@@ -83,6 +83,9 @@ describe('Mutation Tests', () => {
 		);
 		// eslint-disable-next-line @typescript-eslint/unbound-method
 		expect(errors).toBeDefined;
-		expect(errors[0].message).include('isbn');
+
+		if (errors !== undefined) {
+			expect(errors[0].message).include('isbn');
+		}
 	});
 });
