@@ -34,10 +34,9 @@ export const mutation = async (buch: BuchDTO, token: string) => {
 				},
 				{ headers: authorization },
 			);
+
 		return response;
 	} catch (error) {
-		throw new Error(
-			'Ein unerwarteter Fehler ist aufgetreten, bitte versuche es später erneut.',
-		);
+		throw new Error();
 	}
 };

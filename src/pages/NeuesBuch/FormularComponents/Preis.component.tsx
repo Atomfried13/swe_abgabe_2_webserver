@@ -8,13 +8,14 @@ interface PreisProps {
 export function Preis(preisProps: PreisProps) {
 	const [preisError, setPreisError] = useState<boolean>(false);
 
-	const handleTitelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const handlePreisChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = Number(event.target.value);
-
 		const isValid = value > 0;
+
 		if (isValid === true) {
 			preisProps.setPreis(value);
 		}
+
 		setPreisError(!isValid);
 	};
 
@@ -25,7 +26,7 @@ export function Preis(preisProps: PreisProps) {
 				required
 				type="number"
 				placeholder="z.B. 30"
-				onChange={handleTitelChange}
+				onChange={handlePreisChange}
 				isInvalid={preisError}
 			/>
 			<Form.Control.Feedback type="invalid">
