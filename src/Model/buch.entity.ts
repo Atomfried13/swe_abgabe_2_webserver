@@ -18,6 +18,7 @@ export interface BuchListe {
 	map(mapFunction: (buch: Buch, index: number) => ReactNode): ReactNode;
 	buecher: Buch[];
 }
+
 export interface QueryIdDaten {
 	buch: Buch;
 }

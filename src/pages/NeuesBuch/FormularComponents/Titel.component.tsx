@@ -10,11 +10,12 @@ export function Titel(titelProps: TitelProps) {
 
 	const handleTitelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value;
-
 		const isValid = value.trim().length > 0;
+
 		if (isValid === true) {
 			titelProps.setTitel(value);
 		}
+
 		setTitelError(!isValid);
 	};
 

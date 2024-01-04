@@ -10,11 +10,12 @@ export function Rabatt(rabattProps: RabattProps) {
 
 	const handleRabatt = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = Number(event.target.value) * 0.01;
-
 		const isValid = value > 0;
+
 		if (isValid === true) {
 			rabattProps.setRabatt(value);
 		}
+
 		setRabattError(!isValid);
 	};
 
