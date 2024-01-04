@@ -88,7 +88,9 @@ Gruppe 4: Melvin Grzalik, Niklas Justus, Konstantin Kraus
 
 == Login
 
-* Melvin
+* JWT Access, JWT Expiration, JWT Issued At und Roles
+* Passwort Toggle für die Sichtbarkeit des Passworts
+* Fehlermeldung bei falschen Anmeldedaten oder wenn Appserver nicht erreichbar
 
 == Bücher anlegen
 
