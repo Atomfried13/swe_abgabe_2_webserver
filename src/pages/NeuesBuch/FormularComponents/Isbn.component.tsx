@@ -8,13 +8,14 @@ interface IsbnProps {
 export function Isbn(isbnProps: IsbnProps) {
 	const [isbnError, setIsbnError] = useState<boolean>(false);
 
-	const handleTitelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const handleIsbnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value;
-
 		const isValid = value.trim().length > 0;
+
 		if (isValid === true) {
 			isbnProps.setIsbn(value);
 		}
+
 		setIsbnError(!isValid);
 	};
 
@@ -25,7 +26,7 @@ export function Isbn(isbnProps: IsbnProps) {
 				required
 				type="text"
 				placeholder="z.B. 978-0-321-19368-1"
-				onChange={handleTitelChange}
+				onChange={handleIsbnChange}
 				isInvalid={isbnError}
 			/>
 			<Form.Control.Feedback type="invalid">

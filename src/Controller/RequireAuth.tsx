@@ -10,8 +10,8 @@ interface RequireAuthProps {
 export function RequireAuth({ element, allowedRoles }: RequireAuthProps) {
 	const { roles } = useContext(AuthContext);
 	const { token } = useContext(AuthContext);
-
 	let isAdminOrFachabteilung: string | undefined = undefined;
+
 	if (roles !== undefined) {
 		isAdminOrFachabteilung = roles.find(
 			(role) => allowedRoles?.includes(role),

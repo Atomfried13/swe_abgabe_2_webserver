@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { Einloggen } from '../src/Controller/auth';
+import { einloggen } from '../src/Controller/auth';
 
 describe('Login', () => {
 	test('Einloggen mit gültigen Daten', async () => {
@@ -8,7 +8,7 @@ describe('Login', () => {
 		const password = 'p';
 
 		// When
-		const response = await Einloggen(username, password);
+		const response = await einloggen(username, password);
 
 		// Then
 		expect(response).toBeDefined();
@@ -39,7 +39,7 @@ describe('Login', () => {
 		const password = 'a';
 
 		// When
-		const response = await Einloggen(username, password);
+		const response = await einloggen(username, password);
 
 		// Then
 		const { status, headers, data } = response;

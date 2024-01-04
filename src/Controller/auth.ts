@@ -16,28 +16,28 @@ interface LoginResponse {
 	}[];
 }
 
-export async function Einloggen(username: string, password: string) {
+export const einloggen = async (username: string, password: string) => {
 	try {
 		const response: AxiosResponse<LoginResponse> = await axiosInstance.post(
 			'baseURL/',
 			{
-				variables: { username, password },
 				query: `
-						mutation {
-							login(
-								username: "${username}",
-								password: "${password}"
-							) {
-								token,
-								roles,
-								expiresIn
-							}
+					mutation {
+						login(
+							username: "${username}",
+							password: "${password}"
+						) {
+							token,
+							roles,
+							expiresIn
 						}
-					`,
+					}
+				`,
 			},
 		);
+
 		return response;
 	} catch (error) {
 		throw new Error();
 	}
-}
+};
