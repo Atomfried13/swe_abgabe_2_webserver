@@ -24,7 +24,7 @@ export function Isbn(isbnProps: IsbnProps) {
 			<Form.Control
 				required
 				type="text"
-				placeholder="z.B. 0-0070-0644-6"
+				placeholder="z.B. 978-0-321-19368-1"
 				onChange={handleTitelChange}
 				isInvalid={isbnError}
 			/>
