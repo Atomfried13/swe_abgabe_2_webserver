@@ -1,4 +1,4 @@
-:revealjsdir: ../../../node_modules/reveal.js
+:revealjsdir: ../node_modules/reveal.js
 :revealjs_slideNumber: true
 :sectnums:
 
