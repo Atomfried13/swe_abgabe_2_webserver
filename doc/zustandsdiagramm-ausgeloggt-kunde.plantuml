@@ -32,7 +32,7 @@ state index.html {
 
 
     state BuchSuchen {
-        [*] --> Eingabefeld: Id, Titel oder Teiltitel
+        [*] --> Eingabefeld: Id, Titel oder Teiltitel eingeben
         Eingabefeld --> Waiting_Eigabe : Button "Suchen"
         state SuchergebnisEingabe <<choice>>
         Waiting_Eigabe --> SuchergebnisEingabe: Suchergebnis eingetroffen

@@ -14,16 +14,18 @@ interface EingabeFeldVerarbeitungProps {
 export function EingabeFeldVerarbeitung({
 	setError,
 }: EingabeFeldVerarbeitungProps) {
-	const [datenTitel, setDatenTitel] = useState<QueryTitelDaten | null>(null);
-	const [datenId, setDatenId] = useState<QueryIdDaten | null>(null);
+	const [datenTitel, setDatenTitel] = useState<QueryTitelDaten | undefined>(
+		undefined,
+	);
+	const [datenId, setDatenId] = useState<QueryIdDaten | undefined>(undefined);
 	const [searchTerm, setSearchTerm] = useState<string>('');
 
 	const handleSearchClick = () => {
 		void (async () => {
 			try {
 				setError('');
-				setDatenId(null);
-				setDatenTitel(null);
+				setDatenId(undefined);
+				setDatenTitel(undefined);
 
 				switch (true) {
 					case searchTerm === '': {

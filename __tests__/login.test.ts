@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import { Einloggen } from '../src/Controller/auth';
 
-describe('Login', () => {
+describe('Login Tests', () => {
 	test('Einloggen mit gültigen Daten', async () => {
 		// Given
 		const username = 'admin';

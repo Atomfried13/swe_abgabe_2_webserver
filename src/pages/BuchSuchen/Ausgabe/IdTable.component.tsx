@@ -8,7 +8,9 @@ interface IdTableProps {
 }
 
 export function IdTable({ datenId }: IdTableProps) {
-	const [selectedBook, setSelectedBook] = useState<Buch | null>(null);
+	const [selectedBook, setSelectedBook] = useState<Buch | undefined>(
+		undefined,
+	);
 	const [showModal, setShowModal] = useState<boolean>(false);
 
 	const handleRowClick = (buch: Buch) => {
@@ -17,7 +19,7 @@ export function IdTable({ datenId }: IdTableProps) {
 	};
 
 	const handleCloseModal = () => {
-		setSelectedBook(null);
+		setSelectedBook(undefined);
 		setShowModal(false);
 	};
 

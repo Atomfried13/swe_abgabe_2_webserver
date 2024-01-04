@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import { fetchId, fetchTitel } from '../src/Controller/buch-query';
 
-describe('Login', () => {
+describe('Queries Tests', () => {
 	test('fetchId für eine valide ID', async () => {
 		// Given
 		const id = '1';

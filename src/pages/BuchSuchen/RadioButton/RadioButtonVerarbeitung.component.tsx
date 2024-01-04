@@ -12,7 +12,7 @@ interface RadioButtonVerarbeitungProps {
 export function RadioButtonVerarbeitung({
 	setError,
 }: RadioButtonVerarbeitungProps) {
-	const [daten, setDaten] = useState<QueryTitelDaten | null>(null);
+	const [daten, setDaten] = useState<QueryTitelDaten | undefined>(undefined);
 
 	const handleRadioClick = (letter: string) => {
 		void (async () => {
@@ -20,7 +20,7 @@ export function RadioButtonVerarbeitung({
 				if (letter !== '') {
 					setDaten((await fetchTitel(letter)).data.data);
 				} else {
-					setDaten(null);
+					setDaten(undefined);
 				}
 				setError('');
 			} catch (error) {
