@@ -36,10 +36,10 @@ export function EingabeFeldVerarbeitung({
 					case isNaN(Number(searchTerm)): {
 						const responseTitel = await fetchTitel(searchTerm);
 
-						if (responseTitel.errorMessage == '') {
+						if (responseTitel.data.errors == undefined) {
 							setDatenTitel(responseTitel.data.data);
 						} else {
-							setError(responseTitel.errorMessage);
+							setError(responseTitel.data.errors[0].message);
 						}
 						break;
 					}
@@ -47,10 +47,10 @@ export function EingabeFeldVerarbeitung({
 					case !isNaN(Number(searchTerm)): {
 						const respondeId = await fetchId(searchTerm);
 
-						if (respondeId.errorMessage == '') {
+						if (respondeId.data.errors == undefined) {
 							setDatenId(respondeId.data.data);
 						} else {
-							setError(respondeId.errorMessage);
+							setError(respondeId.data.errors[0].message);
 						}
 						break;
 					}
