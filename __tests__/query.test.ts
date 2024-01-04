@@ -1,102 +1,74 @@
-import { expect, test } from 'vitest';
+import { describe, expect, test } from 'vitest';
 import { fetchId, fetchTitel } from '../src/Controller/buch-query';
 
-test('fetchId für eine valide ID', async () => {
-	// Given
-	const id = '1';
+describe('Login', () => {
+	test('fetchId für eine valide ID', async () => {
+		// Given
+		const id = '1';
 
-	// When
-	const result = await fetchId(id);
+		// When
+		const result = await fetchId(id);
 
-	//then
-	const { status, headers, data, errorMessage } = result;
+		//then
+		const { status, headers, data, errorMessage } = result;
 
-	expect(status).toBe(200);
-	expect(headers['content-type']).toMatch(/json/iu);
-	expect(data.data.buch).not.toBeNull();
-	expect(errorMessage).toMatch('');
+		expect(status).toBe(200);
+		expect(headers['content-type']).toMatch(/json/iu);
+		expect(data.data.buch).not.toBeNull();
+		expect(errorMessage).toMatch('');
+	});
 
-	//expect(buch.isbn).toMatch(/^(\d{3}-\d{1,5}-\d{2,7}-\d{1,7}-\d)$/u);
+	test('fetchId für eine invalide ID', async () => {
+		// Given
+		const id = '99999';
 
-	//if (buch.art !== undefined) {
-	//expect(buch.art).toMatch(/^DRUCKAUSGABE$|^KINDLE$/u);
-	//}
+		// When
+		const result = await fetchId(id);
 
-	//expect(buch.preis).toBeGreaterThanOrEqual(0);
-	//expect(buch.rating).toBeGreaterThanOrEqual(0);
-	//expect(buch.rating).toBeLessThanOrEqual(5);
-	//expect(buch.schlagwoerter).toContainEqual(
-	//expect.stringMatching(/^(TYPESCRIPT|JAVASCRIPT|null)$/),
-	//);
-	//expect(buch.titel?.titel).toMatch(/^\w/u);
-});
+		//then
+		const { status, headers, data, errorMessage } = result;
 
-test('fetchId für eine invalide ID', async () => {
-	// Given
-	const id = '99999';
+		expect(status).toBe(200);
+		expect(headers['content-type']).toMatch(/json/iu);
+		expect(errorMessage).toBe(`Ein Buch mit der ID${id} existiert nicht.`);
+		expect(data.data.buch).toBeNull();
+	});
 
-	// When
-	const result = await fetchId(id);
+	test('fetchTitel für einen validen Teiltitel', async () => {
+		// Given
+		const teilTitel = 'e';
 
-	//then
-	const { status, headers, data, errorMessage } = result;
+		// When
+		const result = await fetchTitel(teilTitel);
 
-	expect(status).toBe(200);
-	expect(headers['content-type']).toMatch(/json/iu);
-	expect(errorMessage).toBe(`Ein Buch mit der ID${id} existiert nicht.`);
-	expect(data.data.buch).toBeNull();
-});
+		//then
+		const { status, headers, data, errorMessage } = result;
 
-test('fetchTitel für einen validen Teiltitel', async () => {
-	// Given
-	const teilTitel = 'e';
+		expect(status).toBe(200);
+		expect(headers['content-type']).toMatch(/json/iu);
+		expect(errorMessage).toMatch('');
 
-	// When
-	const result = await fetchTitel(teilTitel);
+		const { buecher } = data.data;
 
-	//then
-	const { status, headers, data, errorMessage } = result;
+		expect(buecher).not.toHaveLength(0);
+		expect(buecher).not.toBeNull();
+	});
 
-	expect(status).toBe(200);
-	expect(headers['content-type']).toMatch(/json/iu);
-	expect(errorMessage).toMatch('');
+	test('fetchTitel für einen invaliden Teiltitel', async () => {
+		// Given
+		const teilTitel = 'qqq';
 
-	const { buecher } = data.data;
+		// When
+		const result = await fetchTitel(teilTitel);
 
-	expect(buecher).not.toHaveLength(0);
-	expect(buecher).not.toBeNull();
+		//then
+		const { status, headers, data, errorMessage } = result;
 
-	//buecher.forEach((buch: Buch) => {
-	//expect(buch).toBeDefined();
-	//expect(buch.isbn).toMatch(/^(\d{3}-\d{1,5}-\d{2,7}-\d{1,7}-\d)$/u);
-	//if (buch.art !== undefined) {
-	//expect(buch.art).toMatch(/^DRUCKAUSGABE$|^KINDLE$/u);
-	//}
-	//expect(buch.preis).toBeGreaterThanOrEqual(0);
-	//expect(buch.rating).toBeGreaterThanOrEqual(0);
-	//expect(buch.rating).toBeLessThanOrEqual(5);
-	//expect(buch.lieferbar).toMatch(false);
-	//expect(buch.schlagwoerter).toContainEqual(
-	//expect.stringMatching(/^(TYPESCRIPT|JAVASCRIPT|null)$/),
-	//);
-	//expect(buch.titel?.titel).toMatch(/^\w/u);
-	//});
-});
-
-test('fetchTitel für einen invaliden Teiltitel', async () => {
-	// Given
-	const teilTitel = 'qqq';
-
-	// When
-	const result = await fetchTitel(teilTitel);
-
-	//then
-	const { status, headers, data, errorMessage } = result;
-
-	expect(status).toBe(200);
-	expect(headers['content-type']).toMatch(/json/iu);
-	expect(data.data.buecher).toBeNull();
-	expect(errorMessage).toBe(
-		`Ein Buch mit dem Titel oder dem Teiltitel "${teilTitel}" existiert nicht.`,
-	);
+		expect(status).toBe(200);
+		expect(headers['content-type']).toMatch(/json/iu);
+		expect(data.data.buecher).toBeNull();
+		expect(errorMessage).toBe(
+			`Ein Buch mit dem Titel oder dem Teiltitel "${teilTitel}" existiert nicht.`,
+		);
+	});
 });
