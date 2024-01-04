@@ -38,6 +38,7 @@ export function Formular(formularProps: FormularProps) {
 			formularProps.setErrorMessage(
 				'Bitte alle notwendigen (*) Felder ausfüllen.',
 			);
+
 			return;
 		}
 

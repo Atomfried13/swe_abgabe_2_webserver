@@ -11,12 +11,14 @@ export function Schlagwoerter(schlagwoerterProps: SchlagwoerterProps) {
 			if (!schlagwoerterProps.schlagwoerter.includes(schlagwort)) {
 				const schlagwoerterneu = schlagwoerterProps.schlagwoerter;
 				schlagwoerterneu.push(schlagwort);
+
 				schlagwoerterProps.setSchlagwoerter(schlagwoerterneu);
 			}
 		} else {
 			const schlagwoerterneu = schlagwoerterProps.schlagwoerter.filter(
 				(woert) => (woert !== schlagwort ? woert : ''),
 			);
+
 			schlagwoerterProps.setSchlagwoerter(schlagwoerterneu);
 		}
 	};

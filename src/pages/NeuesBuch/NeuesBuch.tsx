@@ -8,10 +8,10 @@ import { BuchDTO } from '../../Model/buchDTO.entitie';
 import { Alert } from 'react-bootstrap';
 
 export function NeuesBuch() {
-	const [id, setID] = useState<number | undefined>(undefined);
 	const { token } = useContext(AuthContext);
 	const { expiresIn } = useContext(AuthContext);
 	const { tokenIssuedAt } = useContext(AuthContext);
+	const [id, setID] = useState<number | undefined>(undefined);
 	const [errorMessage, setErrorMessage] = useState<string | undefined>(
 		undefined,
 	);
@@ -19,6 +19,7 @@ export function NeuesBuch() {
 	const handleCreate = (buch: BuchDTO) => {
 		setErrorMessage(undefined);
 		setID(undefined);
+
 		void (async () => {
 			if (token !== undefined) {
 				let isExpired;
