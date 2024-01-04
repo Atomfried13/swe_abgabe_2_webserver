@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Form } from 'react-bootstrap';
-import { fetchId } from '../../Controller/buch-query';
-import { IdTable } from './IdTable.component';
-import { QueryIdDaten } from './BuchSuchen';
+import { fetchId } from '../../../Controller/buch-query';
+import { IdTable } from '../Ausgabe/IdTable.component';
+import { QueryIdDaten } from '../../../Model/buch.entity';
 import { CheckBoxId1, CheckBoxId20 } from './CheckBoxAuswahl.component';
 
 interface CheckBoxVerarbeitungProps {

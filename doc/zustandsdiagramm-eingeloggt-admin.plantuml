@@ -15,13 +15,12 @@ state index.html {
     state BuchSuchen
 
     state NeuesBuch{
-        state Dateneingeben
         state Waiting
         state Antwort
         state Fehlermeldung
 
-        Dateneingeben --> Waiting: Daten eingeben
-        Dateneingeben --> Fehlermeldung: Falsche Dateneingabe
+        [*] --> Waiting: Daten eingeben
+        [*] --> Fehlermeldung: Falsche Dateneingabe
 
         Waiting --> Antwort: Datensatz wurde angelegt
         Waiting -right-> Fehlermeldung: Fehler bei dem Datenanlegen 

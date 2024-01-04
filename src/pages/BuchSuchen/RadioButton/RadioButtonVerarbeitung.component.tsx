@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Form } from 'react-bootstrap';
-import { fetchTitel } from '../../Controller/buch-query';
-import { QueryTitelDaten } from './BuchSuchen';
-import { TitelTable } from './TitelTable.component';
+import { fetchTitel } from '../../../Controller/buch-query';
+import { QueryTitelDaten } from '../../../Model/buch.entity';
+import { TitelTable } from '../Ausgabe/TitelTable.component';
 import { RadioButtonAuswahl } from './RadioButtonAuswahl.component';
 
 interface RadioButtonVerarbeitungProps {

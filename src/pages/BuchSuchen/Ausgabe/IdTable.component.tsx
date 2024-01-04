@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Table } from 'react-bootstrap';
-import { QueryIdDaten } from './BuchSuchen';
-import { Buch } from '../../Controller/buch-query';
+import { QueryIdDaten, Buch } from '../../../Model/buch.entity';
 import { ModalAnzeige } from './ModalAnzeige.component';
 
 interface IdTableProps {

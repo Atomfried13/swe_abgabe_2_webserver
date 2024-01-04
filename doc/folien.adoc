@@ -58,17 +58,24 @@ Gruppe 4: Melvin Grzalik, Niklas Justus, Konstantin Kraus
 
 == Ordnerstruktur
 
-* Model
+  - MVC Pattern
+
+=== Model
+
   - Buch für das Lesen
   - DTOs für das Neuanlegen
-* View
+
+=== View
+
   - Home
   - Navigation
   - Buchsuchen
   - Login
   - NeuesBuch
   - Unauthorized
-* Controller
+
+=== Controller
+
   - Leseanfragen
   - Login
   - Schreibanfrage

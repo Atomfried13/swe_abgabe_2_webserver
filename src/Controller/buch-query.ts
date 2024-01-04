@@ -1,25 +1,6 @@
 import { axiosInstance } from './getAxiosInstance';
 import { AxiosResponse } from 'axios';
-import { ReactNode } from 'react';
-
-export interface Buch {
-	id: string;
-	isbn: string;
-	art: string;
-	preis: number;
-	rating: number;
-	rabatt: number;
-	schlagwoerter: string[];
-	lieferbar: boolean;
-	titel: {
-		titel: string;
-	};
-}
-
-export interface BuchListe {
-	map(mapFunction: (buch: Buch, index: number) => ReactNode): ReactNode;
-	buecher: Buch[];
-}
+import { Buch, BuchListe } from '../Model/buch.entity';
 
 export const fetchId = async (id: string) => {
 	let response: AxiosResponse<{
