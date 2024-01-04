@@ -1,6 +1,5 @@
 import { Table } from 'react-bootstrap';
-import { QueryTitelDaten } from './BuchSuchen';
-import { Buch } from '../../Controller/buch-query';
+import { QueryTitelDaten, Buch } from '../../../Model/buch.entity';
 import { useState } from 'react';
 import { ModalAnzeige } from './ModalAnzeige.component';
 

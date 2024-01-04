@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { fetchId, fetchTitel } from '../../Controller/buch-query';
-import { QueryIdDaten, QueryTitelDaten } from './BuchSuchen';
+import { fetchId, fetchTitel } from '../../../Controller/buch-query';
+import { QueryIdDaten, QueryTitelDaten } from '../../../Model/buch.entity';
 import { Form } from 'react-bootstrap';
 import { EingabeFeldInput } from './EingabeFeldInput.component';
 import { SubmitButton } from './SubmitButtonQuery.component';
-import { TitelTable } from './TitelTable.component';
-import { IdTable } from './IdTable.component';
+import { TitelTable } from '../Ausgabe/TitelTable.component';
+import { IdTable } from '../Ausgabe/IdTable.component';
 
 interface EingabeFeldVerarbeitungProps {
 	setError: React.Dispatch<React.SetStateAction<string>>;

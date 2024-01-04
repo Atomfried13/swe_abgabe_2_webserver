@@ -1,5 +1,5 @@
 import { Modal } from 'react-bootstrap';
-import { Buch } from '../../Controller/buch-query';
+import { Buch } from '../../../Model/buch.entity';
 
 interface ModalAnzeigeProps {
 	selectedBook: Buch;
