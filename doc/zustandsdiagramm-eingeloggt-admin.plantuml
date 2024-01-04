@@ -23,7 +23,7 @@ state index.html {
         [*] --> Fehlermeldung: Falsche Dateneingabe
 
         Waiting --> Antwort: Datensatz wurde angelegt
-        Waiting -right-> Fehlermeldung: Fehler beim Datenanlegen 
+        Waiting -right-> Fehlermeldung: Fehler bei dem Datenanlegen 
     }
 }
 

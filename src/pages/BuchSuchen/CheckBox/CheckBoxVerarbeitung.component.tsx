@@ -38,7 +38,7 @@ export function CheckBoxVerarbeitung({ setError }: CheckBoxVerarbeitungProps) {
 					}
 				}
 			} catch (error) {
-				setError('Fehler beim Laden der Daten');
+				setError('Fehler bei dem Laden der Daten');
 			}
 		})();
 	};

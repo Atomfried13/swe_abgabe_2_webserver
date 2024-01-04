@@ -18,19 +18,43 @@ Gruppe 4: Melvin Grzalik, Niklas Justus, Konstantin Kraus
 
 == React mit Vite
 
-* Niklas
-
 === React
 
-* irgendwas zu React
+* Bibliothek für die Entwicklung von Webanwendungen
+
+* Hooks
 
 === Vite
 
-* irgendwas zu Vite
+* npm Projekt Setup mit Vite
+  - npm create-vite@latest dein-projektname
+  - npm install
+  - npm run dev
+* Hot Module Replacement
+
+
 
 == Figma und Bootstrap
+* Entwerfen von Mockups für die Entwickler mit Figma
+* interaktive Prototypen erstellen mit Figma
+* Figma for VS Code und Dev Mode
+* Umsetzung der Mockups bzw. UI-Komponenten mit React Bootstrap
 
-* Melvin
+=== Features von Figma
+
+* Plugins z.B. Table Creator, Font Awesome Icons
+* kollaboratives Arbeiten im Team in Echtzeit
+* Dynamische Designs mit Auto-Layout, Constraints (Responsive Web Design)
+* Prototyping mit Flows
+* Version History
+* (Offline-Nutzung mit späterer Synchronisierung)
+
+=== React Bootstrap
+* neuimplementiertes Frontend Framework für React basierend auf dem CSS-Framework Bootstrap
+* wiederverwendbare React-Komponenten wie Buttons, Formulare, Navbars oder Modals
+* Grid-System mit Container-, Row- und Col-Komponenten
+* 12 gleich große Spalten wie bei Bootstrap
+* Breakpoints für responsives Layout
 
 == Ordnerstruktur
 
@@ -63,11 +87,17 @@ Gruppe 4: Melvin Grzalik, Niklas Justus, Konstantin Kraus
 
 == Buchsuchen
 
-* Niklas
+* Bücher suchen
+  - Fehlermeldung
+  - Eingabefeld
+  - Radiobuttons
+  - Checkboxen
 
 == Login
 
-* Melvin
+* JWT Access, JWT Expiration, JWT Issued At und Roles
+* Passwort Toggle für die Sichtbarkeit des Passworts
+* Fehlermeldung bei falschen Anmeldedaten oder wenn Appserver nicht erreichbar
 
 == Bücher anlegen
 
