@@ -1,13 +1,13 @@
 import { beforeAll, expect, test, describe } from 'vitest';
 import { mutation } from '../src/Controller/buch-mutation';
-import { Einloggen } from '../src/Controller/auth';
+import { einloggen } from '../src/Controller/auth';
 
 // eslint-disable-next-line max-lines-per-function
 describe('Neuanlegen Tests', () => {
 	let token: string;
 
 	beforeAll(async () => {
-		const response = await Einloggen('admin', 'p');
+		const response = await einloggen('admin', 'p');
 		token = response.data.data.login.token;
 	});
 

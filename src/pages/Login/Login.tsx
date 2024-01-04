@@ -1,6 +1,6 @@
 import { Form, Container, Row, Col } from 'react-bootstrap';
 import { useState, useContext } from 'react';
-import { Einloggen } from '../../Controller/auth';
+import { einloggen } from '../../Controller/auth';
 import { AuthContext } from '../../Controller/AuthContext';
 import { BenutzernameInput } from './BenutzernameInput.component';
 import { PasswortInput } from './PasswortInput.component';
@@ -14,13 +14,12 @@ export function Login() {
 	const [password, setPassword] = useState<string>('');
 	const [usernameError, setUsernameError] = useState<boolean>(false);
 	const [passwordError, setPasswordError] = useState<boolean>(false);
+	const [loading, setLoading] = useState<boolean>(false);
+	const [errMsg, setErrMsg] = useState<string>('');
+	const [formVisible, setFormVisible] = useState<boolean>(true);
 	const [loginSuccess, setLoginSuccess] = useState<boolean | undefined>(
 		undefined,
 	);
-	const [formVisible, setFormVisible] = useState<boolean>(true);
-	const [loading, setLoading] = useState<boolean>(false);
-	const [errMsg, setErrMsg] = useState<string>('');
-
 	const { setToken } = useContext(AuthContext);
 	const { setRoles } = useContext(AuthContext);
 	const { setExpiresIn } = useContext(AuthContext);
@@ -34,10 +33,11 @@ export function Login() {
 				setLoginSuccess(undefined);
 				return;
 			}
+
 			setLoading(true);
 
 			try {
-				const response = await Einloggen(username, password);
+				const response = await einloggen(username, password);
 				const login = response.data.data.login ?? null;
 				if (login !== null) {
 					const { token, expiresIn, roles } = login;
