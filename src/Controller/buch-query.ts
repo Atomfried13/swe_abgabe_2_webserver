@@ -71,6 +71,7 @@ export const fetchTitel = async (titel: string) => {
 		headers: string;
 		data: { buecher: BuchListe };
 	}>;
+
 	try {
 		response = await axiosInstance.post('baseURL/query', {
 			variables: { titel },

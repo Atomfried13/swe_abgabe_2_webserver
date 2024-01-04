@@ -54,7 +54,9 @@ export function Login() {
 					setLoginSuccess(false);
 				}
 			} catch (error) {
-				setErrMsg('Fehler beim Einloggen. Versuche es später erneut.');
+				setErrMsg(
+					'Fehler bei dem Einloggen. Versuche es später erneut.',
+				);
 				setLoginSuccess(false);
 			} finally {
 				setLoading(false);

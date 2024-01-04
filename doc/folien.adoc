@@ -18,15 +18,21 @@ Gruppe 4: Melvin Grzalik, Niklas Justus, Konstantin Kraus
 
 == React mit Vite
 
-* Niklas
-
 === React
 
-* irgendwas zu React
+* Bibliothek für die Entwicklung von Webanwendungen
+
+* Hooks
 
 === Vite
 
-* irgendwas zu Vite
+* npm Projekt Setup mit Vite
+  - npm create-vite@latest dein-projektname
+  - npm install
+  - npm run dev
+* Hot Module Replacement
+
+
 
 == Figma und Bootstrap
 
@@ -56,7 +62,11 @@ Gruppe 4: Melvin Grzalik, Niklas Justus, Konstantin Kraus
 
 == Buchsuchen
 
-* Niklas
+* Bücher suchen
+  - Fehlermeldung
+  - Eingabefeld
+  - Radiobuttons
+  - Checkboxen
 
 == Login
 
